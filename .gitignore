@@ -8,3 +8,4 @@ build/
 miniprogram_npm/
 project.private.config.json
 *.log
+services/api/data/db.json
