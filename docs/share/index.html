@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>超市零售系统原型入口</title>
+  <style>
+    :root {
+      --brand: #13b66b;
+      --brand-dark: #07854d;
+      --accent: #ff5a1f;
+      --ink: #18212f;
+      --muted: #697386;
+      --line: #e7ebf0;
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 22px 48px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.2;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eefaf4;
+      color: var(--brand-dark);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 14px 38px rgba(20, 28, 39, .07);
+    }
+
+    .card-head {
+      padding: 18px 18px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #fff1e8;
+      color: #b85015;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .preview {
+      height: 360px;
+      background: #f7f8fa;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 1280px;
+      height: 860px;
+      border: 0;
+      transform: scale(.42);
+      transform-origin: top left;
+      pointer-events: none;
+      background: #fff;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 132px;
+      gap: 16px;
+      padding: 16px 18px 18px;
+      align-items: center;
+    }
+
+    .links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    a, button {
+      font: inherit;
+    }
+
+    .primary, .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .ghost {
+      background: #eef2f6;
+      color: var(--ink);
+    }
+
+    .qr {
+      width: 116px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .qr img {
+      display: block;
+      width: 116px;
+      height: 116px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      margin-bottom: 6px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+      background: #101827;
+      color: #fff;
+      border-radius: 12px;
+    }
+
+    .full h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .full p {
+      margin: 0;
+      color: #aeb8c8;
+      line-height: 1.6;
+    }
+
+    .full .qr img {
+      border-color: rgba(255,255,255,.2);
+    }
+
+    .full-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      background: #18212f;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 900px) {
+      header { display: block; }
+      .badge { margin-top: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      .actions { grid-template-columns: 1fr; }
+      .qr { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; }
+      .full { grid-template-columns: 1fr; }
+      .full-actions { justify-content: flex-start; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>超市零售系统原型入口</h1>
+        <p class="sub">个人分享版：扫码或点击查看各项目原型。</p>
+      </div>
+      <span class="badge">C端 · 员工端 · 管理端 · 运营端</span>
+    </header>
+
+    <section class="grid" id="cards"></section>
+
+    <section class="full">
+      <div>
+        <h2>完整原型总览</h2>
+        <p>打开后可在左侧切换全部模块，适合完整演示。</p>
+      </div>
+      <div class="full-actions">
+        <a class="primary" data-link="all" target="_blank" rel="noreferrer">打开完整原型</a>
+        <button class="ghost" data-copy="all">复制链接</button>
+        <div class="qr"><img data-qr="all" alt="完整原型二维码">扫码查看</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">链接已复制</div>
+
+  <script>
+    const projects = [
+      {
+        key: 'app',
+        title: 'C端用户小程序',
+        tag: '用户购物',
+        desc: '商品浏览、优惠活动、购物车、模拟下单、订单进度。',
+        path: '../prototype/index.html?mode=app'
+      },
+      {
+        key: 'staff',
+        title: '员工端小程序',
+        tag: '履约配送',
+        desc: '接单、拣货核验、扫码出入库、员工自配送。',
+        path: '../prototype/index.html?mode=staff'
+      },
+      {
+        key: 'manage',
+        title: '网页管理端',
+        tag: '账号权限',
+        desc: '账号添加删除、角色配置、菜单权限、操作日志。',
+        path: '../prototype/index.html?mode=manage'
+      },
+      {
+        key: 'operate',
+        title: '网页运营端',
+        tag: '运营配置',
+        desc: '经营数据、商品库存、营销活动、订单和门店配置。',
+        path: '../prototype/index.html?mode=operate'
+      }
+    ];
+
+    function absoluteUrl(path) {
+      return new URL(path, location.href).href;
+    }
+
+    function qrUrl(text) {
+      return 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=10&data=' + encodeURIComponent(text);
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(showToast).catch(() => {
+        const area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast();
+      });
+    }
+
+    const cards = document.getElementById('cards');
+    cards.innerHTML = projects.map(project => `
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h2>${project.title}</h2>
+            <p>${project.desc}</p>
+          </div>
+          <span class="tag">${project.tag}</span>
+        </div>
+        <div class="preview">
+          <iframe src="${project.path}" title="${project.title}预览"></iframe>
+        </div>
+        <div class="actions">
+          <div class="links">
+            <a class="primary" data-link="${project.key}" target="_blank" rel="noreferrer">打开原型</a>
+            <button class="ghost" data-copy="${project.key}">复制链接</button>
+          </div>
+          <div class="qr"><img data-qr="${project.key}" alt="${project.title}二维码">扫码查看</div>
+        </div>
+      </article>
+    `).join('');
+
+    const links = Object.fromEntries(projects.map(project => [project.key, absoluteUrl(project.path)]));
+    links.all = absoluteUrl('../prototype/index.html');
+
+    document.querySelectorAll('[data-link]').forEach(link => {
+      link.href = links[link.dataset.link];
+    });
+
+    document.querySelectorAll('[data-qr]').forEach(img => {
+      img.src = qrUrl(links[img.dataset.qr]);
+    });
+
+    document.querySelectorAll('[data-copy]').forEach(button => {
+      button.addEventListener('click', () => copyText(links[button.dataset.copy]));
+    });
+  </script>
+</body>
+</html>
