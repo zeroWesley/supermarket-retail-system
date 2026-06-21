@@ -1,4 +1,4 @@
-const STORAGE_KEY = "zero-admin-web-v2";
+const STORAGE_KEY = "zero-admin-web-v3";
 
 const operatePages = ["dashboard", "products", "inventory", "promotions", "orders", "stores"];
 const managePages = ["accounts", "permissions", "logs"];
@@ -143,6 +143,16 @@ function workspaceText(workspaces = []) {
   return workspaces.map((item) => item === "manage" ? "管理端" : "运营端").join("、");
 }
 
+function operatePermissionText(account) {
+  const permissions = account.permissions || [];
+  const operatePermissions = permissions.filter((page) => operatePages.includes(page));
+  return operatePermissions.map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权";
+}
+
+function isAdminAccount(account = currentUser) {
+  return account?.role === "系统管理员";
+}
+
 function log(action, target) {
   state.logs.unshift({
     time: new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" }),
@@ -208,6 +218,10 @@ function logout() {
 }
 
 function setRole(role) {
+  if (role === "manage" && !isAdminAccount()) {
+    showToast("只有管理员可进入管理端");
+    return;
+  }
   currentRole = role;
   document.querySelectorAll(".role-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.role === role));
   document.querySelector(".nav-operate").classList.toggle("hidden", role !== "operate");
@@ -224,6 +238,10 @@ function setRole(role) {
 }
 
 function enterWorkspace(role) {
+  if (role === "manage" && !isAdminAccount()) {
+    showToast("只有管理员可进入管理端");
+    return;
+  }
   entryScreen.classList.add("hidden");
   setRole(role);
 }
@@ -394,7 +412,7 @@ function renderAccounts() {
     <section class="panel">
       <div class="panel-head"><h2>账号管理</h2><button class="primary" data-open="account">新增账号</button></div>
       <table>
-        <thead><tr><th>账号</th><th>登录名</th><th>手机号</th><th>角色</th><th>后台入口</th><th>已授予菜单</th><th>状态</th><th>操作</th></tr></thead>
+        <thead><tr><th>账号</th><th>登录名</th><th>手机号</th><th>角色</th><th>后台入口</th><th>运营端菜单权限</th><th>状态</th><th>操作</th></tr></thead>
         <tbody>
           ${state.accounts.map((item) => `
             <tr>
@@ -403,10 +421,10 @@ function renderAccounts() {
               <td>${item.phone}</td>
               <td>${item.role}</td>
               <td>${workspaceText(item.workspaces)}</td>
-              <td>${(item.permissions || []).map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权"}</td>
+              <td>${isAdminAccount(item) ? "全部后台权限" : operatePermissionText(item)}</td>
               <td>${tag(item.status)}</td>
               <td class="table-actions">
-                <button class="link-btn" data-edit-permission="${item.id}">授予权限</button>
+                ${isAdminAccount(item) ? '<span class="muted">管理员默认全权限</span>' : `<button class="link-btn" data-edit-permission="${item.id}">授予权限</button>`}
                 <button class="link-btn" data-toggle-account="${item.id}">${item.status === "启用" ? "停用" : "启用"}</button>
                 <button class="link-btn" data-delete-account="${item.id}">删除</button>
               </td>
@@ -421,17 +439,17 @@ function renderAccounts() {
 function renderPermissions() {
   return `
     <section class="panel">
-      <div class="panel-head"><h2>账号菜单权限</h2><span class="store-pill">按账号单独授予，不再只依赖角色</span></div>
+      <div class="panel-head"><h2>运营端菜单权限</h2><span class="store-pill">管理端仅管理员可进入，管理员默认全权限</span></div>
       <table>
-        <thead><tr><th>账号</th><th>角色</th><th>可进入后台</th><th>菜单权限</th><th>操作</th></tr></thead>
+        <thead><tr><th>账号</th><th>角色</th><th>后台入口</th><th>运营端菜单权限</th><th>操作</th></tr></thead>
         <tbody>
           ${state.accounts.map((item) => `
             <tr>
               <td>${item.name}<br><span class="muted">${item.username || "-"}</span></td>
               <td>${item.role}</td>
               <td>${workspaceText(item.workspaces)}</td>
-              <td>${(item.permissions || []).map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权"}</td>
-              <td><button class="link-btn" data-edit-permission="${item.id}">编辑权限</button></td>
+              <td>${isAdminAccount(item) ? "全部后台权限" : operatePermissionText(item)}</td>
+              <td>${isAdminAccount(item) ? '<span class="muted">无需单独授权</span>' : `<button class="link-btn" data-edit-permission="${item.id}">编辑权限</button>`}</td>
             </tr>
           `).join("")}
         </tbody>
@@ -439,7 +457,7 @@ function renderPermissions() {
     </section>
     <section class="panel">
       <div class="panel-head"><h2>权限示例</h2></div>
-      <p class="muted">普通运营账号默认只授予“商品管理”，所以登录后只能看到商品管理菜单，不会看到经营数据、活动配置或订单数据。</p>
+      <p class="muted">普通运营账号默认只授予“商品管理”，所以登录后只能看到商品管理菜单，不会看到经营数据、活动配置或订单数据。管理端固定只允许系统管理员进入。</p>
     </section>
   `;
 }
@@ -565,6 +583,10 @@ function openStockForm(id) {
 
 function openPermissionForm(id) {
   const account = state.accounts.find((item) => item.id === id);
+  if (isAdminAccount(account)) {
+    showToast("管理员默认拥有全部权限");
+    return;
+  }
   modalTitle.textContent = `授予权限：${account.name}`;
   modalForm.innerHTML = permissionForm(account);
   modalForm.dataset.type = "permission";
@@ -643,29 +665,18 @@ function checkbox(name, value, label, checked) {
 }
 
 function permissionForm(account) {
-  const workspaces = account.workspaces || [];
   const permissions = account.permissions || [];
   return `
     <input type="hidden" name="id" value="${account.id}">
     <div class="form-grid">
       <div class="form-field full">
-        <label>可进入后台</label>
-        <div class="check-grid">
-          ${checkbox("workspaces", "manage", "管理端", workspaces.includes("manage"))}
-          ${checkbox("workspaces", "operate", "运营端", workspaces.includes("operate"))}
-        </div>
-      </div>
-      <div class="form-field full">
-        <label>管理端菜单权限</label>
-        <div class="check-grid">
-          ${managePages.map((page) => checkbox("permissions", page, menuLabels[page], permissions.includes(page))).join("")}
-        </div>
-      </div>
-      <div class="form-field full">
         <label>运营端菜单权限</label>
         <div class="check-grid">
           ${operatePages.map((page) => checkbox("permissions", page, menuLabels[page], permissions.includes(page))).join("")}
         </div>
+      </div>
+      <div class="form-field full">
+        <p class="muted">该账号将只能进入运营端；管理端固定仅系统管理员可进入。</p>
       </div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存权限</button></div>
@@ -707,6 +718,7 @@ function handleSubmit(event) {
     log("新增门店", store.name);
   }
   if (type === "account") {
+    const isAdmin = data.role === "系统管理员";
     const account = {
       id: `account-${Date.now()}`,
       username: data.username,
@@ -716,17 +728,17 @@ function handleSubmit(event) {
       role: data.role,
       store: data.store,
       status: "启用",
-      workspaces: ["operate"],
-      permissions: ["products"]
+      workspaces: isAdmin ? ["manage", "operate"] : ["operate"],
+      permissions: isAdmin ? [...managePages, ...operatePages] : ["products"]
     };
     state.accounts.unshift(account);
     log("新增账号", account.name);
   }
   if (type === "permission") {
     const account = state.accounts.find((item) => item.id === data.id);
-    if (account) {
-      account.workspaces = formData.getAll("workspaces");
-      account.permissions = formData.getAll("permissions");
+    if (account && !isAdminAccount(account)) {
+      account.workspaces = ["operate"];
+      account.permissions = formData.getAll("permissions").filter((page) => operatePages.includes(page));
       log("菜单权限调整", account.name);
       if (currentUser?.id === account.id) {
         currentUser = account;
