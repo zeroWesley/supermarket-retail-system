@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zero便利超市后台</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <strong>Zero便利超市</strong>
+          <span>管理运营后台</span>
+        </div>
+      </div>
+
+      <div class="role-switch">
+        <button class="role-btn active" data-role="operate">运营端</button>
+        <button class="role-btn" data-role="manage">管理端</button>
+      </div>
+
+      <nav class="nav-group nav-operate">
+        <button class="nav-btn active" data-page="dashboard">经营概览</button>
+        <button class="nav-btn" data-page="products">商品管理</button>
+        <button class="nav-btn" data-page="inventory">库存管理</button>
+        <button class="nav-btn" data-page="promotions">营销活动</button>
+        <button class="nav-btn" data-page="orders">订单管理</button>
+        <button class="nav-btn" data-page="stores">门店配置</button>
+      </nav>
+
+      <nav class="nav-group nav-manage hidden">
+        <button class="nav-btn" data-page="accounts">账号管理</button>
+        <button class="nav-btn" data-page="permissions">角色权限</button>
+        <button class="nav-btn" data-page="logs">操作日志</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">经营概览</h1>
+          <p id="pageDesc">查看门店经营、订单履约、库存预警和活动效果。</p>
+        </div>
+        <div class="top-actions">
+          <span class="store-pill">城南店</span>
+          <button class="secondary" id="resetDataBtn">重置演示数据</button>
+        </div>
+      </header>
+
+      <section id="content"></section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h2 id="modalTitle">新增</h2>
+        <button class="icon-btn" id="closeModalBtn">×</button>
+      </div>
+      <form id="modalForm" class="modal-body"></form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已保存</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
