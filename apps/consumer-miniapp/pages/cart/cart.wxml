@@ -1,0 +1,39 @@
+<view class="page">
+  <view class="notice">满79减10，当前还差 ¥{{gapAmount}}</view>
+  <view wx:for="{{items}}" wx:key="productId" class="cart-row">
+    <view class="cover">{{item.product.icon}}</view>
+    <view>
+      <view class="name">{{item.product.name}}</view>
+      <view class="muted">¥{{item.product.price}} × {{item.quantity}}</view>
+      <view class="cart-bottom">
+        <view class="price">¥{{item.subtotal}}</view>
+        <view class="qty">
+          <text bindtap="minus" data-id="{{item.productId}}">−</text>
+          <text>{{item.quantity}}</text>
+          <text bindtap="plus" data-id="{{item.productId}}">+</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="block-title">配送信息</view>
+    <view class="muted">绿洲小区 3 栋 1602 · 李先生 138****8888</view>
+    <view class="muted">期望 18:00-19:00 送达 · 员工自配送</view>
+  </view>
+
+  <view class="card info-card">
+    <view class="line"><text>优惠券</text><text>{{discountText}}</text></view>
+    <view class="line"><text>配送费</text><text>¥3.00，满99免配送费</text></view>
+    <view class="line"><text>订单备注</text><text>啤酒要冰的，水果挑硬一点</text></view>
+    <view class="line"><text>支付方式</text><text>模拟微信支付</text></view>
+  </view>
+
+  <view class="checkout">
+    <view>
+      <view class="total">合计 ¥{{payAmount}}</view>
+      <view class="muted">含配送费 ¥3.00，模拟支付</view>
+    </view>
+    <view class="primary-btn" bindtap="submitOrder">提交订单</view>
+  </view>
+</view>

@@ -1,0 +1,66 @@
+.filter-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+  padding: 20rpx 24rpx;
+  background: #ffffff;
+  text-align: center;
+  color: #697386;
+  font-size: 26rpx;
+}
+
+.filter-row view {
+  padding: 14rpx 0;
+  border-radius: 999rpx;
+}
+
+.filter-row .active {
+  background: #eefaf4;
+  color: #07854d;
+  font-weight: 900;
+}
+
+.order-card {
+  margin: 20rpx 24rpx;
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+}
+
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.order-no {
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.timeline {
+  margin: 22rpx 0;
+}
+
+.time-item {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-bottom: 12rpx;
+  color: #697386;
+  font-size: 24rpx;
+}
+
+.dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #13b66b;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18rpx;
+}

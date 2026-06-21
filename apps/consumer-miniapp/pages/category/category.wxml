@@ -1,0 +1,28 @@
+<view class="page">
+  <view class="search-wrap">
+    <view class="search">搜索商品名称/条码</view>
+  </view>
+  <view class="layout">
+    <view class="side">
+      <view wx:for="{{categories}}" wx:key="id" class="cat {{activeId === item.id ? 'active' : ''}}" bindtap="selectCategory" data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </view>
+    <view class="list">
+      <view wx:for="{{products}}" wx:key="id" class="product-row" bindtap="goProduct" data-id="{{item.id}}">
+        <view class="cover">{{item.icon}}</view>
+        <view class="body">
+          <view class="name">{{item.name}}</view>
+          <view class="muted">{{item.desc}}</view>
+          <view class="row-bottom">
+            <view>
+              <view class="price">¥{{item.price}}</view>
+              <view class="muted">库存 {{item.stock}}</view>
+            </view>
+            <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

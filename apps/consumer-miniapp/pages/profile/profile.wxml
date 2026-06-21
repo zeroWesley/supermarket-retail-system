@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="profile-hero">
+    <view class="avatar">Z</view>
+    <view>
+      <view class="name">李先生</view>
+      <view class="desc">Zero便利超市普通会员 · 城南店常购用户</view>
+    </view>
+  </view>
+
+  <view class="stats card">
+    <view>
+      <view class="num">2</view>
+      <view class="muted">待收货</view>
+    </view>
+    <view>
+      <view class="num">1</view>
+      <view class="muted">售后</view>
+    </view>
+    <view>
+      <view class="num">3</view>
+      <view class="muted">优惠券</view>
+    </view>
+    <view>
+      <view class="num">5</view>
+      <view class="muted">地址</view>
+    </view>
+  </view>
+
+  <view class="menu card">
+    <view class="menu-row">
+      <text>地址管理</text>
+      <text class="muted">绿洲小区、万达公寓、公司地址</text>
+    </view>
+    <view class="menu-row">
+      <text>售后入口</text>
+      <text class="muted">缺货退款、商品破损、配送异常</text>
+    </view>
+    <view class="menu-row">
+      <text>常购清单</text>
+      <text class="muted">啤酒、鲜牛奶、红富士苹果</text>
+    </view>
+    <view class="menu-row">
+      <text>个人信息</text>
+      <text class="muted">昵称、手机号、授权状态</text>
+    </view>
+  </view>
+</view>

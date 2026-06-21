@@ -1,0 +1,38 @@
+<view class="page" wx:if="{{product}}">
+  <view class="cover">{{product.icon}}</view>
+  <view class="detail">
+    <view class="price-row">
+      <text class="price">¥{{product.price}}</text>
+      <text wx:if="{{product.oldPrice}}" class="old-price">¥{{product.oldPrice}}</text>
+    </view>
+    <view class="title">{{product.name}}</view>
+    <view class="muted">{{product.desc}}</view>
+    <view class="promise-row">
+      <view>满79减10</view>
+      <view>{{store.eta}}</view>
+      <view>缺货可退</view>
+    </view>
+    <view class="card info">
+      <view class="line">
+        <text>活动</text>
+        <text>{{product.tag}}</text>
+      </view>
+      <view class="line">
+        <text>库存</text>
+        <text>{{store.name}} 库存 {{product.stock}}</text>
+      </view>
+      <view class="line">
+        <text>配送</text>
+        <text>门店员工自配送</text>
+      </view>
+      <view class="line">
+        <text>提示</text>
+        <text>酒类商品请确认购买人已成年</text>
+      </view>
+    </view>
+  </view>
+  <view class="bottom-bar">
+    <view class="ghost-btn" bindtap="addCart">加入购物车</view>
+    <view class="primary-btn" bindtap="buyNow">立即购买</view>
+  </view>
+</view>
