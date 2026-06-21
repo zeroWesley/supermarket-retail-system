@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="notice">订单 #20260621001 · 逐项核验，完成后扣减库存</view>
+  <view wx:for="{{items}}" wx:key="id" class="card">
+    <view class="row">
+      <view class="strong">{{item.name}}</view>
+      <view class="tag {{item.status === '库存预警' ? 'tag-danger' : item.status === '待核验' ? 'tag-warn' : ''}}">{{item.status}}</view>
+    </view>
+    <view class="muted">应拣 {{item.required}} · 货架库存 {{item.stock}}</view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="checkItem" data-id="{{item.id}}">扫码确认</view>
+      <view class="ghost-btn">异常上报</view>
+    </view>
+  </view>
+  <view class="bottom">
+    <view class="primary-btn" bindtap="finishPicking">完成拣货</view>
+  </view>
+</view>

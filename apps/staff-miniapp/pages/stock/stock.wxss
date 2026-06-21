@@ -1,0 +1,37 @@
+.scan-box {
+  display: grid;
+  place-items: center;
+  height: 340rpx;
+  margin: 24rpx;
+  border: 4rpx dashed #9bd8ba;
+  border-radius: 28rpx;
+  background: #eefaf4;
+  color: #07854d;
+  text-align: center;
+}
+
+.scan-title {
+  font-size: 40rpx;
+  font-weight: 900;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #e7ebf0;
+  font-size: 28rpx;
+}
+
+.line:last-child {
+  border-bottom: 0;
+}
+
+.line text:last-child {
+  color: #697386;
+}
+
+.card-actions {
+  margin: 20rpx 24rpx;
+}

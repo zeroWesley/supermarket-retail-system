@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="scan-box" bindtap="scanCode">
+    <view class="scan-title">扫码区域</view>
+    <view class="muted">点击模拟识别商品条码</view>
+  </view>
+  <view class="card">
+    <view class="line"><text>商品</text><text>{{stockItem.name}}</text></view>
+    <view class="line"><text>操作类型</text><text>{{stockItem.type}}</text></view>
+    <view class="line"><text>数量</text><text>{{stockItem.quantity}}</text></view>
+    <view class="line"><text>同步结果</text><text>写入库存记录</text></view>
+  </view>
+  <view class="action-row card-actions">
+    <view class="primary-btn" bindtap="confirmStock">确认入库</view>
+    <view class="ghost-btn" bindtap="toggleType">改为出库</view>
+  </view>
+</view>

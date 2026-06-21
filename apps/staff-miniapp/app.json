@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/workbench/workbench",
+    "pages/orders/orders",
+    "pages/picking/picking",
+    "pages/stock/stock",
+    "pages/delivery/delivery"
+  ],
+  "window": {
+    "navigationBarTitleText": "Zero员工端",
+    "navigationBarBackgroundColor": "#13b66b",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f6f8fb"
+  },
+  "tabBar": {
+    "color": "#697386",
+    "selectedColor": "#13b66b",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/workbench/workbench",
+        "text": "工作台"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/stock/stock",
+        "text": "扫码"
+      },
+      {
+        "pagePath": "pages/delivery/delivery",
+        "text": "配送"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

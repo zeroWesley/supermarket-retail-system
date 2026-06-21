@@ -1,0 +1,15 @@
+<view class="page">
+  <view class="search">按距离和承诺送达时间排序</view>
+  <view wx:for="{{deliveries}}" wx:key="id" class="card">
+    <view class="row">
+      <view class="strong">{{item.user}} · {{item.distance}}</view>
+      <view class="tag {{item.status === '待出发' ? 'tag-warn' : ''}}">{{item.status}}</view>
+    </view>
+    <view class="muted">{{item.address}} · {{item.phone}}</view>
+    <view class="muted">预计 {{item.eta}}</view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="finishDelivery" data-id="{{item.id}}">{{item.status === '配送中' ? '确认送达' : '开始配送'}}</view>
+      <view class="ghost-btn">联系用户</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,30 @@
+.notice {
+  margin: 20rpx 24rpx;
+  padding: 18rpx 24rpx;
+  border-radius: 16rpx;
+  background: #fff1e8;
+  color: #a84812;
+  font-size: 26rpx;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 14rpx;
+}
+
+.strong {
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 18rpx 24rpx 28rpx;
+  background: #ffffff;
+  border-top: 1rpx solid #e7ebf0;
+}

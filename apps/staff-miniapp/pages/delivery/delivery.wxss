@@ -1,0 +1,22 @@
+.search {
+  height: 72rpx;
+  line-height: 72rpx;
+  margin: 20rpx 24rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #7d8794;
+  font-size: 26rpx;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 14rpx;
+}
+
+.strong {
+  font-size: 30rpx;
+  font-weight: 900;
+}

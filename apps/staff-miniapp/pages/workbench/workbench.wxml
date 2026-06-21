@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="hero">
+    <view class="title">{{staff.store}}</view>
+    <view class="desc">{{staff.name}}，今日任务已同步</view>
+  </view>
+
+  <view class="metric-grid">
+    <view class="metric">
+      <view class="num">{{stats.pendingOrders}}</view>
+      <view class="muted">待接单</view>
+    </view>
+    <view class="metric">
+      <view class="num">{{stats.picking}}</view>
+      <view class="muted">待拣货</view>
+    </view>
+    <view class="metric">
+      <view class="num">{{stats.delivering}}</view>
+      <view class="muted">配送中</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row">
+      <view class="strong">紧急订单 #20260621003</view>
+      <view class="tag tag-danger">缺货异常</view>
+    </view>
+    <view class="muted">鲜牛奶库存不足，需要确认替换或退款模拟。</view>
+  </view>
+
+  <view class="card">
+    <view class="row">
+      <view class="strong">配送提醒</view>
+      <view class="tag">18:30前送达</view>
+    </view>
+    <view class="muted">绿洲小区 3 栋 1602 · 距离 1.2km</view>
+  </view>
+
+  <view class="action-row card-actions">
+    <view class="primary-btn" bindtap="goOrders">开始接单</view>
+    <view class="ghost-btn" bindtap="goStock">扫码入库</view>
+  </view>
+</view>

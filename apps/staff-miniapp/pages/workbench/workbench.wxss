@@ -1,0 +1,53 @@
+.hero {
+  padding: 38rpx 28rpx;
+  color: #ffffff;
+  background: linear-gradient(135deg, #13b66b, #07854d);
+}
+
+.title {
+  font-size: 38rpx;
+  font-weight: 900;
+}
+
+.desc {
+  margin-top: 10rpx;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 26rpx;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18rpx;
+  margin: 24rpx;
+}
+
+.metric {
+  padding: 28rpx 10rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.num {
+  color: #07854d;
+  font-size: 44rpx;
+  font-weight: 900;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 14rpx;
+}
+
+.strong {
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.card-actions {
+  margin: 20rpx 24rpx;
+}
