@@ -125,25 +125,27 @@
     }
 
     .actions {
-      display: grid;
-      grid-template-columns: 1fr 132px;
-      gap: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
       padding: 16px 18px 18px;
       align-items: center;
     }
 
-    .links {
+    .meta-list {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     a, button {
       font: inherit;
     }
 
-    .primary, .ghost {
+    .primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -159,28 +161,6 @@
     .primary {
       background: var(--brand);
       color: #fff;
-    }
-
-    .ghost {
-      background: #eef2f6;
-      color: var(--ink);
-    }
-
-    .qr {
-      width: 116px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .qr img {
-      display: block;
-      width: 116px;
-      height: 116px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      margin-bottom: 6px;
     }
 
     .full {
@@ -217,28 +197,11 @@
       justify-content: flex-end;
     }
 
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 22px;
-      transform: translateX(-50%);
-      background: #18212f;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 8px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease;
-    }
-
-    .toast.show { opacity: 1; }
-
     @media (max-width: 900px) {
       header { display: block; }
       .badge { margin-top: 14px; }
       .grid { grid-template-columns: 1fr; }
-      .actions { grid-template-columns: 1fr; }
-      .qr { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; }
+      .actions { align-items: flex-start; flex-direction: column; }
       .full { grid-template-columns: 1fr; }
       .full-actions { justify-content: flex-start; flex-wrap: wrap; }
     }
@@ -249,7 +212,7 @@
     <header>
       <div>
         <h1>超市零售系统原型入口</h1>
-        <p class="sub">个人分享版：扫码或点击查看各项目原型。</p>
+        <p class="sub">MVP 演示版：选择模块进入下一级原型或后台应用。</p>
       </div>
       <span class="badge">C端 · 员工端 · 管理端 · 运营端</span>
     </header>
@@ -262,14 +225,10 @@
         <p>打开后可在左侧切换全部模块，适合完整演示。</p>
       </div>
       <div class="full-actions">
-        <a class="primary" data-link="all" target="_blank" rel="noreferrer">打开完整原型</a>
-        <button class="ghost" data-copy="all">复制链接</button>
-        <div class="qr"><img data-qr="all" alt="完整原型二维码">扫码查看</div>
+        <a class="primary" href="../prototype/index.html" target="_blank" rel="noreferrer">进入完整原型</a>
       </div>
     </section>
   </main>
-
-  <div class="toast" id="toast">链接已复制</div>
 
   <script>
     const projects = [
@@ -278,63 +237,47 @@
         title: 'C端用户小程序',
         tag: '用户购物',
         desc: '商品浏览、优惠活动、购物车、模拟下单、订单进度。',
-        path: '../prototype/index.html?mode=app'
+        path: '../prototype/index.html?mode=app',
+        action: '进入C端原型',
+        meta: 'AppID：wx96dae1169f62c178'
       },
       {
         key: 'staff',
         title: '员工端小程序',
         tag: '履约配送',
         desc: '接单、拣货核验、扫码出入库、员工自配送。',
-        path: '../prototype/index.html?mode=staff'
+        path: '../prototype/index.html?mode=staff',
+        action: '进入员工端原型',
+        meta: 'AppID：wx1d0c7b230e8730dc'
       },
       {
         key: 'manage',
         title: '网页管理端',
         tag: '账号权限',
         desc: '账号添加删除、角色配置、菜单权限、操作日志。',
-        path: '../prototype/index.html?mode=manage'
+        path: '../prototype/index.html?mode=manage',
+        action: '进入管理端原型',
+        meta: '原型展示'
       },
       {
         key: 'operate',
         title: '网页运营端',
         tag: '运营配置',
         desc: '经营数据、商品库存、营销活动、订单和门店配置。',
-        path: '../prototype/index.html?mode=operate'
+        path: '../prototype/index.html?mode=operate',
+        action: '进入运营端原型',
+        meta: '原型展示'
       },
       {
         key: 'adminweb',
         title: '网页后台应用',
         tag: '可操作演示',
         desc: '管理端与运营端合并后台，支持活动配置、商品库存、订单和账号权限演示。',
-        path: '../admin-web/index.html'
+        path: '../admin-web/index.html',
+        action: '进入后台应用',
+        meta: '管理员：admin / admin123；运营：operator / ops123'
       }
     ];
-
-    function absoluteUrl(path) {
-      return new URL(path, location.href).href;
-    }
-
-    function qrUrl(text) {
-      return 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=10&data=' + encodeURIComponent(text);
-    }
-
-    function showToast() {
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 1400);
-    }
-
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(showToast).catch(() => {
-        const area = document.createElement('textarea');
-        area.value = text;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand('copy');
-        area.remove();
-        showToast();
-      });
-    }
 
     const cards = document.getElementById('cards');
     cards.innerHTML = projects.map(project => `
@@ -350,29 +293,13 @@
           <iframe src="${project.path}" title="${project.title}预览"></iframe>
         </div>
         <div class="actions">
-          <div class="links">
-            <a class="primary" data-link="${project.key}" target="_blank" rel="noreferrer">打开原型</a>
-            <button class="ghost" data-copy="${project.key}">复制链接</button>
+          <div class="meta-list">
+            <span>${project.meta}</span>
           </div>
-          <div class="qr"><img data-qr="${project.key}" alt="${project.title}二维码">扫码查看</div>
+          <a class="primary" href="${project.path}" target="_blank" rel="noreferrer">${project.action}</a>
         </div>
       </article>
     `).join('');
-
-    const links = Object.fromEntries(projects.map(project => [project.key, absoluteUrl(project.path)]));
-    links.all = absoluteUrl('../prototype/index.html');
-
-    document.querySelectorAll('[data-link]').forEach(link => {
-      link.href = links[link.dataset.link];
-    });
-
-    document.querySelectorAll('[data-qr]').forEach(img => {
-      img.src = qrUrl(links[img.dataset.qr]);
-    });
-
-    document.querySelectorAll('[data-copy]').forEach(button => {
-      button.addEventListener('click', () => copyText(links[button.dataset.copy]));
-    });
   </script>
 </body>
 </html>
