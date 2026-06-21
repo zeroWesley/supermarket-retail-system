@@ -6,6 +6,12 @@ Page({
     stats: app.globalData.stats
   },
 
+  onShow() {
+    app.loadRemoteOrders().then(() => {
+      this.setData({ stats: app.globalData.stats });
+    });
+  },
+
   goOrders() {
     wx.switchTab({ url: "/pages/orders/orders" });
   },

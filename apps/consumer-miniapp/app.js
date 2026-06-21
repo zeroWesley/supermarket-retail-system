@@ -1,3 +1,5 @@
+const { request } = require("./utils/api");
+
 App({
   globalData: {
     store: {
@@ -98,5 +100,26 @@ App({
         timeline: ["模拟支付成功", "等待员工接单"]
       }
     ]
+  },
+
+  loadRemoteData() {
+    return request("/api/bootstrap")
+      .then((data) => {
+        this.globalData.categories = data.categories || this.globalData.categories;
+        this.globalData.products = data.products || this.globalData.products;
+        this.globalData.orders = data.orders || this.globalData.orders;
+        return data;
+      })
+      .catch(() => null);
+  },
+
+  createOrder(payload) {
+    return request("/api/public/orders", {
+      method: "POST",
+      data: payload
+    }).then((order) => {
+      this.globalData.orders.unshift(order);
+      return order;
+    });
   }
 });

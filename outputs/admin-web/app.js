@@ -1,4 +1,5 @@
 const STORAGE_KEY = "zero-admin-web-v3";
+const API_BASE = localStorage.getItem("ZERO_API_BASE") || "http://127.0.0.1:8787";
 
 const operatePages = ["dashboard", "products", "inventory", "promotions", "orders", "stores"];
 const managePages = ["accounts", "permissions", "logs"];
@@ -74,6 +75,7 @@ let state = loadState();
 let currentRole = "operate";
 let currentPage = "dashboard";
 let currentUser = null;
+let apiOnline = false;
 
 const content = document.getElementById("content");
 const pageTitle = document.getElementById("pageTitle");
@@ -121,6 +123,48 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+async function apiRequest(path, options = {}) {
+  const response = await fetch(`${API_BASE}${path}`, {
+    headers: { "Content-Type": "application/json" },
+    ...options,
+    body: options.body ? JSON.stringify(options.body) : undefined
+  });
+  if (!response.ok) throw new Error(`API ${response.status}`);
+  return response.json();
+}
+
+async function loadRemoteState() {
+  try {
+    const data = await apiRequest("/api/bootstrap");
+    state = { ...state, ...data };
+    apiOnline = true;
+    saveState();
+    render();
+    showToast("已连接本地 API");
+  } catch {
+    apiOnline = false;
+  }
+}
+
+async function syncResource(resource, item, method = "POST") {
+  if (!apiOnline) return;
+  const path = method === "POST" ? `/api/${resource}` : `/api/${resource}/${item.id}`;
+  try {
+    await apiRequest(path, { method, body: { ...item, actor: currentUser?.name } });
+  } catch {
+    showToast("API 同步失败，已保留本地演示数据");
+  }
+}
+
+async function deleteResource(resource, id) {
+  if (!apiOnline) return;
+  try {
+    await apiRequest(`/api/${resource}/${id}`, { method: "DELETE", body: { actor: currentUser?.name } });
+  } catch {
+    showToast("API 删除同步失败");
+  }
 }
 
 function showToast(text = "已保存") {
@@ -187,10 +231,18 @@ function updateUserLabels() {
   document.getElementById("entryUserLabel").textContent = text;
 }
 
-function handleLogin(event) {
+async function handleLogin(event) {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(event.currentTarget).entries());
-  const account = state.accounts.find((item) => item.username === data.username && item.password === data.password && item.status === "启用");
+  let account = null;
+  if (apiOnline) {
+    try {
+      account = await apiRequest("/api/login", { method: "POST", body: data });
+    } catch {
+      account = null;
+    }
+  }
+  if (!account) account = state.accounts.find((item) => item.username === data.username && item.password === data.password && item.status === "启用");
   if (!account) {
     showToast("账号或密码错误");
     return;
@@ -688,7 +740,7 @@ function closeModal() {
   modalForm.innerHTML = "";
 }
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault();
   const formData = new FormData(modalForm);
   const data = Object.fromEntries(formData.entries());
@@ -697,11 +749,13 @@ function handleSubmit(event) {
     const product = { id: `product-${Date.now()}`, name: data.name, category: data.category, price: Number(data.price), stock: Number(data.stock), threshold: Number(data.threshold), status: "已上架", tag: data.tag || "新品" };
     state.products.unshift(product);
     log("新增商品", product.name);
+    await syncResource("products", product);
   }
   if (type === "promotion") {
     const promo = { id: `promo-${Date.now()}`, name: data.name, type: data.type, target: data.target, start: data.start, end: data.end || "长期", status: "待启用", metric: "未开始" };
     state.promotions.unshift(promo);
     log("新建活动", promo.name);
+    await syncResource("promotions", promo);
   }
   if (type === "stock") {
     const product = state.products.find((item) => item.id === data.id);
@@ -710,12 +764,14 @@ function handleSubmit(event) {
       product.threshold = Number(data.threshold);
       product.tag = data.reason || "人工修正";
       log("库存修正", product.name);
+      await syncResource("products", product, "PATCH");
     }
   }
   if (type === "store") {
     const store = { id: `store-${Date.now()}`, name: data.name, address: data.address, staff: Number(data.staff), radius: data.radius, status: "营业中" };
     state.stores.unshift(store);
     log("新增门店", store.name);
+    await syncResource("stores", store);
   }
   if (type === "account") {
     const isAdmin = data.role === "系统管理员";
@@ -733,6 +789,7 @@ function handleSubmit(event) {
     };
     state.accounts.unshift(account);
     log("新增账号", account.name);
+    await syncResource("accounts", account);
   }
   if (type === "permission") {
     const account = state.accounts.find((item) => item.id === data.id);
@@ -744,6 +801,7 @@ function handleSubmit(event) {
         currentUser = account;
         applyMenuPermissions();
       }
+      await syncResource("accounts", account, "PATCH");
     }
   }
   saveState();
@@ -752,10 +810,11 @@ function handleSubmit(event) {
   showToast();
 }
 
-function toggleProduct(id) {
+async function toggleProduct(id) {
   const product = state.products.find((item) => item.id === id);
   product.status = product.status === "已上架" ? "已下架" : "已上架";
   log("商品上下架", product.name);
+  await syncResource("products", product, "PATCH");
   saveState();
   render();
 }
@@ -767,61 +826,68 @@ function filterProducts() {
   bindPageActions();
 }
 
-function togglePromo(id) {
+async function togglePromo(id) {
   const promo = state.promotions.find((item) => item.id === id);
   promo.status = promo.status === "进行中" ? "已停用" : "进行中";
   log("活动启停", promo.name);
+  await syncResource("promotions", promo, "PATCH");
   saveState();
   render();
 }
 
-function deletePromo(id) {
+async function deletePromo(id) {
   const promo = state.promotions.find((item) => item.id === id);
   state.promotions = state.promotions.filter((item) => item.id !== id);
   log("删除活动", promo.name);
+  await deleteResource("promotions", id);
   saveState();
   render();
 }
 
-function nextOrder(id) {
+async function nextOrder(id) {
   const order = state.orders.find((item) => item.id === id);
   const flow = ["待拣货", "已拣货", "配送中", "已完成"];
   const index = flow.indexOf(order.status);
   order.status = flow[index + 1] || "已完成";
   log("订单状态流转", `#${order.id} ${order.status}`);
+  await syncResource("orders", order, "PATCH");
   saveState();
   render();
 }
 
-function abnormalOrder(id) {
+async function abnormalOrder(id) {
   const order = state.orders.find((item) => item.id === id);
   order.status = "缺货异常";
   order.abnormal = "运营端标记异常";
   log("异常订单处理", `#${order.id}`);
+  await syncResource("orders", order, "PATCH");
   saveState();
   render();
 }
 
-function toggleStore(id) {
+async function toggleStore(id) {
   const store = state.stores.find((item) => item.id === id);
   store.status = store.status === "营业中" ? "暂停营业" : "营业中";
   log("门店营业状态", store.name);
+  await syncResource("stores", store, "PATCH");
   saveState();
   render();
 }
 
-function toggleAccount(id) {
+async function toggleAccount(id) {
   const account = state.accounts.find((item) => item.id === id);
   account.status = account.status === "启用" ? "停用" : "启用";
   log("账号状态调整", account.name);
+  await syncResource("accounts", account, "PATCH");
   saveState();
   render();
 }
 
-function deleteAccount(id) {
+async function deleteAccount(id) {
   const account = state.accounts.find((item) => item.id === id);
   state.accounts = state.accounts.filter((item) => item.id !== id);
   log("删除账号", account.name);
+  await deleteResource("accounts", id);
   saveState();
   render();
 }
@@ -847,8 +913,10 @@ document.getElementById("modalForm").addEventListener("submit", handleSubmit);
 document.getElementById("resetDataBtn").addEventListener("click", () => {
   state = structuredClone(seedData);
   saveState();
+  if (apiOnline) apiRequest("/api/reset", { method: "POST" }).catch(() => {});
   render();
   showToast("演示数据已重置");
 });
 
 render();
+loadRemoteState();

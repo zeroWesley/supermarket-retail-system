@@ -9,6 +9,10 @@ Page({
 
   onLoad() {
     this.refreshProducts("hot");
+    app.loadRemoteData().then(() => {
+      this.setData({ categories: app.globalData.categories });
+      this.refreshProducts(this.data.activeId);
+    });
   },
 
   selectCategory(event) {

@@ -14,6 +14,8 @@ apps/
   consumer-miniapp/   C端用户微信小程序，AppID: wx96dae1169f62c178
   staff-miniapp/      员工端微信小程序，AppID: wx1d0c7b230e8730dc
   admin-web/          网页管理端 + 运营端，静态演示应用
+services/
+  api/                本地联调用 Node.js API
 outputs/
   prototype/          四端交互原型
   prototype_v1/       已保留的 V1 原型
@@ -31,8 +33,25 @@ work/
 - 已完成员工端工作台、订单处理、拣货核验、扫码出入库、配送任务页面。
 - 已完成网页后台静态演示应用，包含运营端和管理端。
 - 已整理 GitHub Pages 静态发布目录 `docs/`。
+- 已新增本地 API 服务，用于后台、小程序之间联调商品、订单、活动、账号等数据。
 - 当前使用本地模拟数据，支付为模拟流程。
 - MVP 演示版已成型，后续重点是接入后端 API、数据库和真实小程序体验版发布。
+
+## 本地联调 API
+
+启动：
+
+```bash
+node services/api/server.js
+```
+
+默认地址：
+
+```text
+http://127.0.0.1:8787
+```
+
+后台应用和两个小程序会优先连接该 API；如果 API 未启动，前端仍保留本地演示数据。
 
 ## 查看方式
 

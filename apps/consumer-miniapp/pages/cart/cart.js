@@ -52,11 +52,19 @@ Page({
   },
 
   submitOrder() {
-    wx.showModal({
-      title: "模拟支付成功",
-      content: "订单已提交，等待门店员工接单拣货。",
-      showCancel: false,
-      success: () => wx.switchTab({ url: "/pages/orders/orders" })
+    const itemNames = this.data.items.map((item) => item.product.name).join("、");
+    app.createOrder({
+      amount: Number(this.data.payAmount),
+      items: `${itemNames}等 ${this.data.items.length} 件`,
+      remark: "啤酒要冰的，水果挑硬一点",
+      store: "城南店"
+    }).catch(() => null).finally(() => {
+      wx.showModal({
+        title: "模拟支付成功",
+        content: "订单已提交，等待门店员工接单拣货。",
+        showCancel: false,
+        success: () => wx.switchTab({ url: "/pages/orders/orders" })
+      });
     });
   }
 });

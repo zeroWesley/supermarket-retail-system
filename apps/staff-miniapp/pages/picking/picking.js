@@ -13,10 +13,12 @@ Page({
   },
 
   finishPicking() {
-    wx.showModal({
-      title: "拣货完成",
-      content: "库存将在员工确认后模拟扣减。",
-      showCancel: false
+    app.updateOrderStatus("20260621001", "已拣货").finally(() => {
+      wx.showModal({
+        title: "拣货完成",
+        content: "库存将在员工确认后模拟扣减。",
+        showCancel: false
+      });
     });
   }
 });

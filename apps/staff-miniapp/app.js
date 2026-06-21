@@ -1,3 +1,5 @@
+const { request } = require("./utils/api");
+
 App({
   globalData: {
     staff: {
@@ -56,5 +58,41 @@ App({
         status: "待出发"
       }
     ]
+  },
+
+  loadRemoteOrders() {
+    return request("/api/staff/orders")
+      .then((orders) => {
+        this.globalData.orders = orders;
+        this.globalData.deliveries = orders
+          .filter((item) => ["已接单", "已拣货", "配送中", "待出发"].includes(item.status))
+          .map((item) => ({
+            id: item.id,
+            user: item.user,
+            distance: item.distance || "1.2km",
+            address: item.address,
+            phone: item.phone,
+            eta: "18:30 前送达",
+            status: item.status === "配送中" ? "配送中" : "待出发"
+          }));
+        this.globalData.stats = {
+          pendingOrders: orders.filter((item) => item.status === "待接单").length,
+          picking: orders.filter((item) => ["已接单", "待拣货"].includes(item.status)).length,
+          delivering: orders.filter((item) => item.status === "配送中").length
+        };
+        return orders;
+      })
+      .catch(() => null);
+  },
+
+  updateOrderStatus(id, status) {
+    return request(`/api/staff/orders/${id}/status`, {
+      method: "PATCH",
+      data: { status }
+    }).then((order) => {
+      const index = this.globalData.orders.findIndex((item) => item.id === id);
+      if (index >= 0) this.globalData.orders[index] = order;
+      return order;
+    });
   }
 });

@@ -18,6 +18,9 @@ Page({
 
   onLoad() {
     this.setData({ products: app.globalData.products.slice(0, 6) });
+    app.loadRemoteData().then(() => {
+      this.setData({ products: app.globalData.products.slice(0, 6) });
+    });
   },
 
   goProduct(event) {
