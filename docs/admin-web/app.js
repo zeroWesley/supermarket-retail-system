@@ -41,6 +41,7 @@ let currentPage = "dashboard";
 const content = document.getElementById("content");
 const pageTitle = document.getElementById("pageTitle");
 const pageDesc = document.getElementById("pageDesc");
+const entryScreen = document.getElementById("entryScreen");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
 const modalForm = document.getElementById("modalForm");
@@ -105,6 +106,15 @@ function setRole(role) {
   document.querySelector(".nav-operate").classList.toggle("hidden", role !== "operate");
   document.querySelector(".nav-manage").classList.toggle("hidden", role !== "manage");
   setPage(role === "operate" ? "dashboard" : "accounts");
+}
+
+function enterWorkspace(role) {
+  entryScreen.classList.add("hidden");
+  setRole(role);
+}
+
+function backToEntry() {
+  entryScreen.classList.remove("hidden");
 }
 
 function setPage(page) {
@@ -609,6 +619,8 @@ function deleteAccount(id) {
 
 document.querySelectorAll(".role-btn").forEach((btn) => btn.addEventListener("click", () => setRole(btn.dataset.role)));
 document.querySelectorAll(".nav-btn").forEach((btn) => btn.addEventListener("click", () => setPage(btn.dataset.page)));
+document.querySelectorAll("[data-entry-role]").forEach((btn) => btn.addEventListener("click", () => enterWorkspace(btn.dataset.entryRole)));
+document.getElementById("backEntryBtn").addEventListener("click", backToEntry);
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 document.getElementById("modal").addEventListener("click", (event) => {
   if (event.target.id === "modal") closeModal();

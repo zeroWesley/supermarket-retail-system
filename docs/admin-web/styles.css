@@ -30,6 +30,83 @@ button {
   cursor: pointer;
 }
 
+.entry-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 80% 12%, rgba(19, 182, 107, .18), transparent 28%),
+    linear-gradient(135deg, #f5f7fa, #eefaf4);
+  z-index: 30;
+}
+
+.entry-card {
+  width: min(820px, 100%);
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(20, 28, 39, .13);
+}
+
+.entry-brand {
+  margin-bottom: 22px;
+  color: var(--ink);
+}
+
+.entry-brand span {
+  color: var(--muted);
+}
+
+.entry-card h1 {
+  margin-top: 18px;
+  font-size: 34px;
+}
+
+.entry-card p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.entry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.entry-option {
+  min-height: 142px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+}
+
+.entry-option:hover {
+  border-color: var(--brand);
+  box-shadow: 0 12px 30px rgba(19, 182, 107, .12);
+}
+
+.entry-option strong,
+.entry-option span {
+  display: block;
+}
+
+.entry-option strong {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.entry-option span {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .app-shell {
   min-height: 100vh;
   display: grid;
@@ -422,7 +499,8 @@ th {
   .metric-grid,
   .two-col,
   .flow,
-  .form-grid {
+  .form-grid,
+  .entry-grid {
     grid-template-columns: 1fr;
   }
 

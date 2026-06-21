@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <section class="entry-screen" id="entryScreen">
+    <div class="entry-card">
+      <div class="brand entry-brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <strong>Zero便利超市</strong>
+          <span>后台工作台</span>
+        </div>
+      </div>
+      <span class="store-pill">当前登录：系统管理员</span>
+      <h1>请选择进入的后台</h1>
+      <p>检测到当前账号拥有管理端与运营端权限，可按本次工作目标选择入口。</p>
+      <div class="entry-grid">
+        <button class="entry-option" data-entry-role="operate">
+          <strong>进入运营端</strong>
+          <span>经营概览、商品库存、活动配置、订单和门店</span>
+        </button>
+        <button class="entry-option" data-entry-role="manage">
+          <strong>进入管理端</strong>
+          <span>账号管理、角色权限、操作日志</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -46,6 +71,7 @@
         </div>
         <div class="top-actions">
           <span class="store-pill">城南店</span>
+          <button class="secondary" id="backEntryBtn">返回入口</button>
           <button class="secondary" id="resetDataBtn">重置演示数据</button>
         </div>
       </header>
