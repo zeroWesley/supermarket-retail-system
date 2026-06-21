@@ -55,6 +55,13 @@ outputs/prototype/index.html
 outputs/admin-web/index.html
 ```
 
+后台演示账号：
+
+```text
+管理员：admin / admin123
+普通运营人员：operator / ops123
+```
+
 ### 2. GitHub Pages 线上查看
 
 仓库推送后，在 GitHub 仓库中进入：

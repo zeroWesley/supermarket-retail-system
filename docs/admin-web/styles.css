@@ -30,6 +30,7 @@ button {
   cursor: pointer;
 }
 
+.login-screen,
 .entry-screen {
   position: fixed;
   inset: 0;
@@ -42,6 +43,7 @@ button {
   z-index: 30;
 }
 
+.login-card,
 .entry-card {
   width: min(820px, 100%);
   padding: 34px;
@@ -49,6 +51,10 @@ button {
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 24px 70px rgba(20, 28, 39, .13);
+}
+
+.login-card {
+  width: min(520px, 100%);
 }
 
 .entry-brand {
@@ -65,10 +71,51 @@ button {
   font-size: 34px;
 }
 
+.login-card h1 {
+  margin: 18px 0 10px;
+  font-size: 34px;
+}
+
+.login-card p,
 .entry-card p {
   margin: 0 0 22px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 7px;
+  color: #3f4856;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.login-form .primary {
+  height: 42px;
+  margin-top: 4px;
+}
+
+.demo-accounts {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.demo-accounts button {
+  height: 38px;
+  border-radius: 8px;
+  background: #eef2f6;
+  color: var(--ink);
+  text-align: left;
+  padding: 0 12px;
 }
 
 .entry-grid {
@@ -424,6 +471,25 @@ th {
   font-weight: 800;
 }
 
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.check-item {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -500,7 +566,8 @@ th {
   .two-col,
   .flow,
   .form-grid,
-  .entry-grid {
+  .entry-grid,
+  .check-grid {
     grid-template-columns: 1fr;
   }
 

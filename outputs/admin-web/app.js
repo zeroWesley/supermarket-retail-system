@@ -1,4 +1,7 @@
-const STORAGE_KEY = "zero-admin-web-v1";
+const STORAGE_KEY = "zero-admin-web-v2";
+
+const operatePages = ["dashboard", "products", "inventory", "promotions", "orders", "stores"];
+const managePages = ["accounts", "permissions", "logs"];
 
 const seedData = {
   products: [
@@ -23,9 +26,42 @@ const seedData = {
     { id: "north", name: "城北店", address: "云桥路 19 号", staff: 5, radius: "2.5km", status: "营业中" }
   ],
   accounts: [
-    { id: "admin-wang", name: "王店长", phone: "138****0001", role: "门店店长", store: "城南店", status: "启用" },
-    { id: "staff-zhang", name: "张师傅", phone: "138****0002", role: "配送/拣货员工", store: "城南店", status: "启用" },
-    { id: "ops-li", name: "李运营", phone: "138****0003", role: "运营人员", store: "全部门店", status: "待激活" }
+    {
+      id: "admin",
+      username: "admin",
+      password: "admin123",
+      name: "系统管理员",
+      phone: "138****0001",
+      role: "系统管理员",
+      store: "全部门店",
+      status: "启用",
+      workspaces: ["manage", "operate"],
+      permissions: [...managePages, ...operatePages]
+    },
+    {
+      id: "operator",
+      username: "operator",
+      password: "ops123",
+      name: "李运营",
+      phone: "138****0003",
+      role: "运营人员",
+      store: "全部门店",
+      status: "启用",
+      workspaces: ["operate"],
+      permissions: ["products"]
+    },
+    {
+      id: "staff-zhang",
+      username: "staff",
+      password: "staff123",
+      name: "张师傅",
+      phone: "138****0002",
+      role: "配送/拣货员工",
+      store: "城南店",
+      status: "启用",
+      workspaces: [],
+      permissions: []
+    }
   ],
   logs: [
     { time: "14:20", actor: "王店长", action: "新增账号", target: "张师傅", result: "成功" },
@@ -37,10 +73,12 @@ const seedData = {
 let state = loadState();
 let currentRole = "operate";
 let currentPage = "dashboard";
+let currentUser = null;
 
 const content = document.getElementById("content");
 const pageTitle = document.getElementById("pageTitle");
 const pageDesc = document.getElementById("pageDesc");
+const loginScreen = document.getElementById("loginScreen");
 const entryScreen = document.getElementById("entryScreen");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
@@ -57,6 +95,18 @@ const pageMeta = {
   accounts: ["账号管理", "添加、停用和删除后台账号，并绑定门店角色。"],
   permissions: ["角色权限", "配置系统管理员、运营人员、店长和员工的菜单权限。"],
   logs: ["操作日志", "查看账号、活动、库存、订单等关键操作记录。"]
+};
+
+const menuLabels = {
+  dashboard: "经营概览",
+  products: "商品管理",
+  inventory: "库存管理",
+  promotions: "营销活动",
+  orders: "订单管理",
+  stores: "门店配置",
+  accounts: "账号管理",
+  permissions: "角色权限",
+  logs: "操作日志"
 };
 
 function loadState() {
@@ -88,10 +138,15 @@ function tag(text) {
   return `<span class="tag ${cls}">${text}</span>`;
 }
 
+function workspaceText(workspaces = []) {
+  if (!workspaces.length) return "无后台入口";
+  return workspaces.map((item) => item === "manage" ? "管理端" : "运营端").join("、");
+}
+
 function log(action, target) {
   state.logs.unshift({
     time: new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" }),
-    actor: currentRole === "manage" ? "系统管理员" : "李运营",
+    actor: currentUser?.name || (currentRole === "manage" ? "系统管理员" : "李运营"),
     action,
     target,
     result: "成功"
@@ -100,12 +155,72 @@ function log(action, target) {
   saveState();
 }
 
+function userHasPage(page) {
+  return currentUser?.permissions?.includes(page);
+}
+
+function firstAllowedPage(role) {
+  const pages = role === "manage" ? managePages : operatePages;
+  return pages.find(userHasPage);
+}
+
+function applyMenuPermissions() {
+  document.querySelectorAll(".nav-btn").forEach((btn) => {
+    const page = btn.dataset.page;
+    btn.classList.toggle("hidden", !userHasPage(page));
+  });
+}
+
+function updateUserLabels() {
+  const text = currentUser ? `当前登录：${currentUser.name}（${currentUser.role}）` : "未登录";
+  document.getElementById("currentUserLabel").textContent = text;
+  document.getElementById("entryUserLabel").textContent = text;
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  const data = Object.fromEntries(new FormData(event.currentTarget).entries());
+  const account = state.accounts.find((item) => item.username === data.username && item.password === data.password && item.status === "启用");
+  if (!account) {
+    showToast("账号或密码错误");
+    return;
+  }
+  currentUser = account;
+  updateUserLabels();
+  loginScreen.classList.add("hidden");
+  if (account.workspaces.includes("manage") && account.workspaces.includes("operate")) {
+    entryScreen.classList.remove("hidden");
+  } else if (account.workspaces.includes("operate")) {
+    enterWorkspace("operate");
+  } else if (account.workspaces.includes("manage")) {
+    enterWorkspace("manage");
+  } else {
+    showToast("当前账号无后台权限");
+    loginScreen.classList.remove("hidden");
+  }
+}
+
+function logout() {
+  currentUser = null;
+  updateUserLabels();
+  entryScreen.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+}
+
 function setRole(role) {
   currentRole = role;
   document.querySelectorAll(".role-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.role === role));
   document.querySelector(".nav-operate").classList.toggle("hidden", role !== "operate");
   document.querySelector(".nav-manage").classList.toggle("hidden", role !== "manage");
-  setPage(role === "operate" ? "dashboard" : "accounts");
+  applyMenuPermissions();
+  const page = firstAllowedPage(role);
+  if (!page) {
+    content.innerHTML = `<section class="panel"><h2>暂无可访问菜单</h2><p class="muted">请联系管理员授予当前后台的菜单权限。</p></section>`;
+    pageTitle.textContent = role === "operate" ? "运营端" : "管理端";
+    pageDesc.textContent = "当前账号没有可访问菜单。";
+    return;
+  }
+  setPage(page);
 }
 
 function enterWorkspace(role) {
@@ -114,7 +229,11 @@ function enterWorkspace(role) {
 }
 
 function backToEntry() {
-  entryScreen.classList.remove("hidden");
+  if (currentUser?.workspaces?.includes("manage") && currentUser?.workspaces?.includes("operate")) {
+    entryScreen.classList.remove("hidden");
+  } else {
+    showToast("当前账号只有一个后台入口");
+  }
 }
 
 function setPage(page) {
@@ -275,16 +394,19 @@ function renderAccounts() {
     <section class="panel">
       <div class="panel-head"><h2>账号管理</h2><button class="primary" data-open="account">新增账号</button></div>
       <table>
-        <thead><tr><th>账号</th><th>手机号</th><th>角色</th><th>所属门店</th><th>状态</th><th>操作</th></tr></thead>
+        <thead><tr><th>账号</th><th>登录名</th><th>手机号</th><th>角色</th><th>后台入口</th><th>已授予菜单</th><th>状态</th><th>操作</th></tr></thead>
         <tbody>
           ${state.accounts.map((item) => `
             <tr>
               <td>${item.name}</td>
+              <td>${item.username || "-"}</td>
               <td>${item.phone}</td>
               <td>${item.role}</td>
-              <td>${item.store}</td>
+              <td>${workspaceText(item.workspaces)}</td>
+              <td>${(item.permissions || []).map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权"}</td>
               <td>${tag(item.status)}</td>
               <td class="table-actions">
+                <button class="link-btn" data-edit-permission="${item.id}">授予权限</button>
                 <button class="link-btn" data-toggle-account="${item.id}">${item.status === "启用" ? "停用" : "启用"}</button>
                 <button class="link-btn" data-delete-account="${item.id}">删除</button>
               </td>
@@ -297,21 +419,27 @@ function renderAccounts() {
 }
 
 function renderPermissions() {
-  const roles = [
-    ["系统管理员", "账号、权限、日志、运营全部菜单", "全部门店", "新增/删除账号，分配权限"],
-    ["运营人员", "经营概览、商品、库存、活动、订单", "全部门店或指定门店", "配置活动、上下架商品"],
-    ["门店店长", "订单、库存、门店商品", "本门店", "库存修正、订单异常处理"],
-    ["配送/拣货员工", "员工端工作台", "本门店", "接单、拣货、扫码出入库、配送"]
-  ];
   return `
     <section class="panel">
-      <div class="panel-head"><h2>角色权限矩阵</h2><button class="primary" data-save-permissions>保存权限</button></div>
+      <div class="panel-head"><h2>账号菜单权限</h2><span class="store-pill">按账号单独授予，不再只依赖角色</span></div>
       <table>
-        <thead><tr><th>角色</th><th>可见菜单</th><th>数据范围</th><th>关键操作</th></tr></thead>
+        <thead><tr><th>账号</th><th>角色</th><th>可进入后台</th><th>菜单权限</th><th>操作</th></tr></thead>
         <tbody>
-          ${roles.map((row) => `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`).join("")}
+          ${state.accounts.map((item) => `
+            <tr>
+              <td>${item.name}<br><span class="muted">${item.username || "-"}</span></td>
+              <td>${item.role}</td>
+              <td>${workspaceText(item.workspaces)}</td>
+              <td>${(item.permissions || []).map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权"}</td>
+              <td><button class="link-btn" data-edit-permission="${item.id}">编辑权限</button></td>
+            </tr>
+          `).join("")}
         </tbody>
       </table>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>权限示例</h2></div>
+      <p class="muted">普通运营账号默认只授予“商品管理”，所以登录后只能看到商品管理菜单，不会看到经营数据、活动配置或订单数据。</p>
     </section>
   `;
 }
@@ -407,6 +535,7 @@ function bindPageActions() {
   document.querySelectorAll("[data-toggle-store]").forEach((btn) => btn.addEventListener("click", () => toggleStore(btn.dataset.toggleStore)));
   document.querySelectorAll("[data-toggle-account]").forEach((btn) => btn.addEventListener("click", () => toggleAccount(btn.dataset.toggleAccount)));
   document.querySelectorAll("[data-delete-account]").forEach((btn) => btn.addEventListener("click", () => deleteAccount(btn.dataset.deleteAccount)));
+  document.querySelectorAll("[data-edit-permission]").forEach((btn) => btn.addEventListener("click", () => openPermissionForm(btn.dataset.editPermission)));
   document.querySelectorAll("[data-save-permissions]").forEach((btn) => btn.addEventListener("click", () => showToast("权限已保存")));
   const filterBtn = document.querySelector("[data-filter='products']");
   if (filterBtn) filterBtn.addEventListener("click", filterProducts);
@@ -431,6 +560,14 @@ function openStockForm(id) {
   modalTitle.textContent = "人工库存修正";
   modalForm.innerHTML = stockForm(product);
   modalForm.dataset.type = "stock";
+  modal.classList.remove("hidden");
+}
+
+function openPermissionForm(id) {
+  const account = state.accounts.find((item) => item.id === id);
+  modalTitle.textContent = `授予权限：${account.name}`;
+  modalForm.innerHTML = permissionForm(account);
+  modalForm.dataset.type = "permission";
   modal.classList.remove("hidden");
 }
 
@@ -491,11 +628,47 @@ function accountForm() {
   return `
     <div class="form-grid">
       <div class="form-field"><label>姓名</label><input class="input" name="name" required></div>
+      <div class="form-field"><label>登录名</label><input class="input" name="username" required></div>
+      <div class="form-field"><label>密码</label><input class="input" name="password" value="123456" required></div>
       <div class="form-field"><label>手机号</label><input class="input" name="phone" value="138****0000"></div>
       <div class="form-field"><label>角色</label><select class="select" name="role"><option>运营人员</option><option>门店店长</option><option>配送/拣货员工</option><option>系统管理员</option></select></div>
       <div class="form-field"><label>门店</label><input class="input" name="store" value="城南店"></div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存账号</button></div>
+  `;
+}
+
+function checkbox(name, value, label, checked) {
+  return `<label class="check-item"><input type="checkbox" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
+}
+
+function permissionForm(account) {
+  const workspaces = account.workspaces || [];
+  const permissions = account.permissions || [];
+  return `
+    <input type="hidden" name="id" value="${account.id}">
+    <div class="form-grid">
+      <div class="form-field full">
+        <label>可进入后台</label>
+        <div class="check-grid">
+          ${checkbox("workspaces", "manage", "管理端", workspaces.includes("manage"))}
+          ${checkbox("workspaces", "operate", "运营端", workspaces.includes("operate"))}
+        </div>
+      </div>
+      <div class="form-field full">
+        <label>管理端菜单权限</label>
+        <div class="check-grid">
+          ${managePages.map((page) => checkbox("permissions", page, menuLabels[page], permissions.includes(page))).join("")}
+        </div>
+      </div>
+      <div class="form-field full">
+        <label>运营端菜单权限</label>
+        <div class="check-grid">
+          ${operatePages.map((page) => checkbox("permissions", page, menuLabels[page], permissions.includes(page))).join("")}
+        </div>
+      </div>
+    </div>
+    <div class="panel-head" style="margin-top:18px"><button class="primary">保存权限</button></div>
   `;
 }
 
@@ -506,7 +679,8 @@ function closeModal() {
 
 function handleSubmit(event) {
   event.preventDefault();
-  const data = Object.fromEntries(new FormData(modalForm).entries());
+  const formData = new FormData(modalForm);
+  const data = Object.fromEntries(formData.entries());
   const type = modalForm.dataset.type;
   if (type === "product") {
     const product = { id: `product-${Date.now()}`, name: data.name, category: data.category, price: Number(data.price), stock: Number(data.stock), threshold: Number(data.threshold), status: "已上架", tag: data.tag || "新品" };
@@ -533,9 +707,32 @@ function handleSubmit(event) {
     log("新增门店", store.name);
   }
   if (type === "account") {
-    const account = { id: `account-${Date.now()}`, name: data.name, phone: data.phone, role: data.role, store: data.store, status: "启用" };
+    const account = {
+      id: `account-${Date.now()}`,
+      username: data.username,
+      password: data.password,
+      name: data.name,
+      phone: data.phone,
+      role: data.role,
+      store: data.store,
+      status: "启用",
+      workspaces: ["operate"],
+      permissions: ["products"]
+    };
     state.accounts.unshift(account);
     log("新增账号", account.name);
+  }
+  if (type === "permission") {
+    const account = state.accounts.find((item) => item.id === data.id);
+    if (account) {
+      account.workspaces = formData.getAll("workspaces");
+      account.permissions = formData.getAll("permissions");
+      log("菜单权限调整", account.name);
+      if (currentUser?.id === account.id) {
+        currentUser = account;
+        applyMenuPermissions();
+      }
+    }
   }
   saveState();
   closeModal();
@@ -620,7 +817,16 @@ function deleteAccount(id) {
 document.querySelectorAll(".role-btn").forEach((btn) => btn.addEventListener("click", () => setRole(btn.dataset.role)));
 document.querySelectorAll(".nav-btn").forEach((btn) => btn.addEventListener("click", () => setPage(btn.dataset.page)));
 document.querySelectorAll("[data-entry-role]").forEach((btn) => btn.addEventListener("click", () => enterWorkspace(btn.dataset.entryRole)));
+document.querySelectorAll("[data-fill-login]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const account = state.accounts.find((item) => item.username === btn.dataset.fillLogin);
+    document.querySelector("[name='username']").value = account.username;
+    document.querySelector("[name='password']").value = account.password;
+  });
+});
+document.getElementById("loginForm").addEventListener("submit", handleLogin);
 document.getElementById("backEntryBtn").addEventListener("click", backToEntry);
+document.getElementById("logoutBtn").addEventListener("click", logout);
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 document.getElementById("modal").addEventListener("click", (event) => {
   if (event.target.id === "modal") closeModal();

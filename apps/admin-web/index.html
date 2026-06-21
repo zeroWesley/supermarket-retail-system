@@ -7,7 +7,36 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <section class="entry-screen" id="entryScreen">
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="brand entry-brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <strong>Zero便利超市</strong>
+          <span>后台登录</span>
+        </div>
+      </div>
+      <h1>登录后台</h1>
+      <p>使用演示账号登录，系统会根据账号权限展示对应后台和菜单。</p>
+      <form id="loginForm" class="login-form">
+        <label>
+          账号
+          <input class="input" name="username" value="admin" autocomplete="username">
+        </label>
+        <label>
+          密码
+          <input class="input" name="password" value="admin123" type="password" autocomplete="current-password">
+        </label>
+        <button class="primary">登录</button>
+      </form>
+      <div class="demo-accounts">
+        <button data-fill-login="admin">管理员：admin / admin123</button>
+        <button data-fill-login="operator">运营人员：operator / ops123</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="entry-screen hidden" id="entryScreen">
     <div class="entry-card">
       <div class="brand entry-brand">
         <div class="brand-mark">Z</div>
@@ -16,7 +45,7 @@
           <span>后台工作台</span>
         </div>
       </div>
-      <span class="store-pill">当前登录：系统管理员</span>
+      <span class="store-pill" id="entryUserLabel">当前登录：系统管理员</span>
       <h1>请选择进入的后台</h1>
       <p>检测到当前账号拥有管理端与运营端权限，可按本次工作目标选择入口。</p>
       <div class="entry-grid">
@@ -70,8 +99,10 @@
           <p id="pageDesc">查看门店经营、订单履约、库存预警和活动效果。</p>
         </div>
         <div class="top-actions">
+          <span class="store-pill" id="currentUserLabel">未登录</span>
           <span class="store-pill">城南店</span>
           <button class="secondary" id="backEntryBtn">返回入口</button>
+          <button class="secondary" id="logoutBtn">退出登录</button>
           <button class="secondary" id="resetDataBtn">重置演示数据</button>
         </div>
       </header>
