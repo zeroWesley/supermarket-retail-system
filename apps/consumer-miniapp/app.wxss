@@ -14,7 +14,7 @@ page {
   padding: 26rpx;
   border-radius: 24rpx;
   background: #ffffff;
-  box-shadow: 0 12rpx 34rpx rgba(16, 36, 28, 0.07);
+  box-shadow: 0 10rpx 30rpx rgba(16, 36, 28, 0.08);
 }
 
 .muted {
@@ -45,18 +45,18 @@ page {
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #00b96b, #00d084);
+  background: linear-gradient(135deg, #00b96b, #00a96a);
   color: #ffffff;
   font-weight: 900;
   text-align: center;
-  box-shadow: 0 12rpx 24rpx rgba(0, 185, 107, 0.24);
+  box-shadow: 0 12rpx 24rpx rgba(0, 185, 107, 0.25);
 }
 
 .ghost-btn {
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 999rpx;
-  background: #eef7f3;
+  background: #eefaf4;
   color: #07854d;
   font-weight: 900;
   text-align: center;

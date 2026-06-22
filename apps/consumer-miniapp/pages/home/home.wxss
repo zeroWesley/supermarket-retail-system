@@ -1,7 +1,7 @@
 .top {
-  padding: 28rpx 24rpx 24rpx;
-  background: linear-gradient(180deg, #ffffff, #f2fbf7);
-  border-bottom: 1rpx solid #dcefe6;
+  padding: 30rpx 24rpx 28rpx;
+  background: linear-gradient(180deg, #00b96b 0%, #46d99a 68%, #f3f7f5 100%);
+  color: #ffffff;
 }
 
 .store-row {
@@ -11,32 +11,33 @@
   margin-bottom: 18rpx;
 }
 
-.store-label {
-  margin-bottom: 4rpx;
-  color: #0b9a60;
-  font-size: 22rpx;
-  font-weight: 900;
-}
-
 .store-name {
-  font-size: 36rpx;
+  font-size: 38rpx;
   font-weight: 900;
   letter-spacing: 0;
 }
 
 .store-meta {
   margin-top: 8rpx;
-  color: #64736c;
+  color: rgba(255, 255, 255, 0.86);
   font-size: 24rpx;
 }
 
 .switch {
-  padding: 12rpx 20rpx;
+  padding: 11rpx 22rpx;
   border-radius: 999rpx;
-  background: #dcfce7;
-  color: #07854d;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
   font-size: 24rpx;
   font-weight: 900;
+  border: 1rpx solid rgba(255, 255, 255, 0.42);
+}
+
+.search-bar {
+  display: grid;
+  grid-template-columns: 1fr 112rpx;
+  gap: 12rpx;
+  align-items: center;
 }
 
 .search {
@@ -45,18 +46,30 @@
   padding: 0 30rpx;
   border-radius: 999rpx;
   background: #ffffff;
-  color: #8b9690;
+  color: #77827c;
   font-size: 26rpx;
-  box-shadow: inset 0 0 0 1rpx #dbe7e1;
+  box-shadow: 0 8rpx 20rpx rgba(16, 36, 28, 0.12);
+}
+
+.search-btn {
+  height: 78rpx;
+  line-height: 78rpx;
+  border-radius: 999rpx;
+  background: #064e3b;
+  color: #ffffff;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: 900;
+  box-shadow: 0 8rpx 20rpx rgba(6, 78, 59, 0.18);
 }
 
 .hero {
-  margin: 20rpx 24rpx;
+  margin: -8rpx 24rpx 20rpx;
   padding: 34rpx 32rpx;
   border-radius: 28rpx;
   color: #ffffff;
-  background: linear-gradient(135deg, #012f24, #00b96b 58%, #9df8cc);
-  box-shadow: 0 18rpx 40rpx rgba(0, 145, 91, 0.22);
+  background: linear-gradient(135deg, #063f30, #00b96b 58%, #9df8cc);
+  box-shadow: 0 18rpx 40rpx rgba(0, 185, 107, 0.22);
 }
 
 .hero-kicker {
@@ -108,7 +121,7 @@
   color: #17211c;
   text-align: center;
   font-size: 24rpx;
-  box-shadow: 0 8rpx 22rpx rgba(23, 33, 28, 0.05);
+  box-shadow: 0 8rpx 22rpx rgba(16, 36, 28, 0.06);
 }
 
 .service-row text {
@@ -128,8 +141,8 @@
 .coupon {
   padding: 18rpx 10rpx;
   border-radius: 20rpx;
-  background: linear-gradient(135deg, #fff7ed, #fff);
-  color: #b03b12;
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+  color: #d9480f;
   text-align: center;
   font-size: 24rpx;
   font-weight: 900;
@@ -149,7 +162,7 @@
   gap: 22rpx 12rpx;
   margin: 26rpx 24rpx;
   text-align: center;
-  color: #31433a;
+  color: #253543;
   font-size: 24rpx;
 }
 
@@ -160,9 +173,9 @@
   margin: 0 auto 10rpx;
   border-radius: 28rpx;
   background: #ffffff;
-  color: #00a767;
+  color: #00b96b;
   font-weight: 900;
-  box-shadow: 0 8rpx 22rpx rgba(0, 130, 82, 0.10);
+  box-shadow: 0 8rpx 22rpx rgba(0, 185, 107, 0.12);
 }
 
 .scene-row {
@@ -202,14 +215,14 @@
   overflow: hidden;
   border-radius: 24rpx;
   background: #ffffff;
-  box-shadow: 0 10rpx 28rpx rgba(23, 33, 28, 0.06);
+  box-shadow: 0 10rpx 28rpx rgba(16, 36, 28, 0.07);
 }
 
 .product-cover {
   height: 210rpx;
   line-height: 210rpx;
-  background: #e9f8f1;
-  color: #13b66b;
+  background: #e9f8ff;
+  color: #00b96b;
   text-align: center;
   font-size: 76rpx;
   font-weight: 900;
@@ -257,7 +270,7 @@
   line-height: 52rpx;
   padding: 0 16rpx;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #00b96b, #00d084);
+  background: linear-gradient(135deg, #00b96b, #00a96a);
   color: #ffffff;
   text-align: center;
   font-size: 24rpx;

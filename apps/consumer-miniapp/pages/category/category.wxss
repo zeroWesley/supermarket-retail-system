@@ -34,8 +34,8 @@
 
 .cat.active {
   background: #ffffff;
-  color: #008856;
-  border-left-color: #00c777;
+  color: #07854d;
+  border-left-color: #00b96b;
   font-weight: 900;
 }
 
@@ -51,7 +51,7 @@
   padding: 18rpx;
   border-radius: 24rpx;
   background: #ffffff;
-  box-shadow: 0 8rpx 24rpx rgba(23, 33, 28, 0.05);
+  box-shadow: 0 8rpx 24rpx rgba(16, 36, 28, 0.06);
 }
 
 .cover {
@@ -60,7 +60,7 @@
   line-height: 164rpx;
   border-radius: 20rpx;
   background: #eefaf4;
-  color: #13b66b;
+  color: #00b96b;
   text-align: center;
   font-size: 60rpx;
   font-weight: 900;
@@ -103,7 +103,7 @@
   line-height: 52rpx;
   padding: 0 16rpx;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #00b96b, #00d084);
+  background: linear-gradient(135deg, #00b96b, #00a96a);
   color: #ffffff;
   text-align: center;
   font-size: 24rpx;
