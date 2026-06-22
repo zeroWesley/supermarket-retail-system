@@ -7,11 +7,14 @@ function request(path, options = {}) {
       method: options.method || "GET",
       data: options.data || {},
       header: { "content-type": "application/json" },
+      timeout: options.timeout || 15000,
       success(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) resolve(res.data);
         else reject(new Error(`API ${res.statusCode}`));
       },
-      fail: reject
+      fail(error) {
+        reject(new Error(`API 请求失败：${error.errMsg || "unknown"}`));
+      }
     });
   });
 }
