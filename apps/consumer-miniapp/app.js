@@ -79,6 +79,32 @@ App({
         icon: "家"
       }
     ],
+    promotions: [
+      {
+        id: "promo-full-79",
+        name: "满79减10",
+        type: "满减",
+        target: "全场商品",
+        status: "进行中",
+        displayText: "满79减10 · 全场商品"
+      },
+      {
+        id: "promo-beer-night",
+        name: "酒水夜间特价",
+        type: "限时特价",
+        target: "酒水饮料",
+        status: "进行中",
+        displayText: "酒水夜间特价 · 酒水饮料"
+      },
+      {
+        id: "promo-free-delivery",
+        name: "满99免配送费",
+        type: "配送优惠",
+        target: "全场商品",
+        status: "进行中",
+        displayText: "满99免配送费 · 全场商品"
+      }
+    ],
     cart: [
       { productId: "beer-qingdao", quantity: 6 },
       { productId: "apple-fuji", quantity: 2 },
@@ -107,6 +133,7 @@ App({
       .then((data) => {
         this.globalData.categories = data.categories || this.globalData.categories;
         this.globalData.products = data.products || this.globalData.products;
+        this.globalData.promotions = data.promotions || this.globalData.promotions;
         this.globalData.orders = data.orders || this.globalData.orders;
         return data;
       })

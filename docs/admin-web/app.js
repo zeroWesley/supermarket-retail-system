@@ -532,10 +532,11 @@ function renderLogs() {
 function productTable(items) {
   return `
     <table>
-      <thead><tr><th>商品</th><th>分类</th><th>售价</th><th>库存</th><th>标签</th><th>状态</th><th>操作</th></tr></thead>
+      <thead><tr><th>图片</th><th>商品</th><th>分类</th><th>售价</th><th>库存</th><th>标签</th><th>状态</th><th>操作</th></tr></thead>
       <tbody>
         ${items.map((item) => `
           <tr>
+            <td>${item.image ? `<img class="product-thumb" src="${item.image}" alt="${item.name}">` : `<span class="product-thumb fallback">${item.icon || "商"}</span>`}</td>
             <td>${item.name}</td>
             <td>${item.category}</td>
             <td>${money(item.price)}</td>
@@ -681,6 +682,7 @@ function productForm(product = {}) {
       <div class="form-field"><label>标签</label><input class="input" name="tag" value="${product.tag || "新品"}"></div>
       <div class="form-field"><label>状态</label><select class="select" name="status"><option ${product.status === "已上架" ? "selected" : ""}>已上架</option><option ${product.status === "已下架" ? "selected" : ""}>已下架</option></select></div>
       <div class="form-field"><label>C端短描述</label><input class="input" name="desc" value="${product.desc || product.tag || ""}"></div>
+      <div class="form-field full"><label>商品配图 URL（模拟后台上传后生成）</label><input class="input" name="image" value="${product.image || ""}" placeholder="https://..."></div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存商品</button></div>
   `;
@@ -785,7 +787,9 @@ async function handleSubmit(event) {
       threshold: Number(data.threshold),
       status: data.status || "已上架",
       tag: data.tag || "新品",
-      desc: data.desc || data.tag || ""
+      desc: data.desc || data.tag || "",
+      image: data.image || "",
+      uploadStatus: data.image ? "后台已上传" : "未上传"
     };
     const index = state.products.findIndex((item) => item.id === product.id);
     if (index >= 0) {

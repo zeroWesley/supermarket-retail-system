@@ -1,85 +1,909 @@
 {
   "stores": [
-    { "id": "south", "name": "城南店", "address": "绿洲路 88 号", "staff": 8, "radius": "3km", "status": "营业中" },
-    { "id": "north", "name": "城北店", "address": "云桥路 19 号", "staff": 5, "radius": "2.5km", "status": "营业中" },
-    { "id": "east", "name": "城东店", "address": "星河街 12 号", "staff": 6, "radius": "2.8km", "status": "营业中" },
-    { "id": "campus", "name": "大学城店", "address": "书香路 6 号", "staff": 4, "radius": "2km", "status": "暂停营业" }
+    {
+      "id": "south",
+      "name": "城南店",
+      "address": "绿洲路 88 号",
+      "staff": 8,
+      "radius": "3km",
+      "status": "营业中"
+    },
+    {
+      "id": "north",
+      "name": "城北店",
+      "address": "云桥路 19 号",
+      "staff": 5,
+      "radius": "2.5km",
+      "status": "营业中"
+    },
+    {
+      "id": "east",
+      "name": "城东店",
+      "address": "星河街 12 号",
+      "staff": 6,
+      "radius": "2.8km",
+      "status": "营业中"
+    },
+    {
+      "id": "campus",
+      "name": "大学城店",
+      "address": "书香路 6 号",
+      "staff": 4,
+      "radius": "2km",
+      "status": "暂停营业"
+    }
   ],
   "categories": [
-    { "id": "hot", "name": "热销" },
-    { "id": "fresh", "name": "水果生鲜" },
-    { "id": "beer", "name": "酒水饮料" },
-    { "id": "milk", "name": "牛奶冷藏" },
-    { "id": "snack", "name": "休闲零食" },
-    { "id": "daily", "name": "日用百货" },
-    { "id": "grain", "name": "粮油调味" },
-    { "id": "frozen", "name": "冷冻速食" }
+    {
+      "id": "hot",
+      "name": "热销"
+    },
+    {
+      "id": "fresh",
+      "name": "水果生鲜"
+    },
+    {
+      "id": "beer",
+      "name": "酒水饮料"
+    },
+    {
+      "id": "milk",
+      "name": "牛奶冷藏"
+    },
+    {
+      "id": "snack",
+      "name": "休闲零食"
+    },
+    {
+      "id": "daily",
+      "name": "日用百货"
+    },
+    {
+      "id": "grain",
+      "name": "粮油调味"
+    },
+    {
+      "id": "frozen",
+      "name": "冷冻速食"
+    }
   ],
   "products": [
-    { "id": "beer-qingdao", "categoryId": "beer", "name": "青岛啤酒 500ml 单罐", "desc": "冰镇更畅快，员工自配送", "category": "酒水饮料", "price": 5.5, "oldPrice": 6.5, "stock": 126, "threshold": 24, "status": "已上架", "tag": "限时特价", "icon": "酒" },
-    { "id": "beer-snow", "categoryId": "beer", "name": "雪花啤酒 500ml 六连包", "desc": "聚餐夜宵组合装", "category": "酒水饮料", "price": 29.9, "oldPrice": 35.9, "stock": 36, "threshold": 18, "status": "已上架", "tag": "满减可用", "icon": "酒" },
-    { "id": "wine-rio", "categoryId": "beer", "name": "RIO微醺鸡尾酒 330ml", "desc": "低度果味酒，适合小酌", "category": "酒水饮料", "price": 9.9, "oldPrice": 12.9, "stock": 14, "threshold": 20, "status": "已上架", "tag": "低库存", "icon": "酒" },
-    { "id": "water-nongfu", "categoryId": "beer", "name": "农夫山泉 550ml", "desc": "日常饮用水", "category": "酒水饮料", "price": 2.0, "stock": 220, "threshold": 50, "status": "已上架", "tag": "热销", "icon": "水" },
-    { "id": "coke-zero", "categoryId": "beer", "name": "可口可乐零度 500ml", "desc": "无糖汽水", "category": "酒水饮料", "price": 3.5, "stock": 68, "threshold": 24, "status": "已上架", "tag": "第二件半价", "icon": "饮" },
-    { "id": "apple-fuji", "categoryId": "fresh", "name": "烟台红富士苹果 约500g", "desc": "新鲜脆甜，门店现拣", "category": "水果生鲜", "price": 6.9, "stock": 42, "threshold": 20, "status": "已上架", "tag": "满减可用", "icon": "鲜" },
-    { "id": "banana", "categoryId": "fresh", "name": "进口香蕉 约600g", "desc": "熟度适中，适合早餐", "category": "水果生鲜", "price": 7.5, "stock": 28, "threshold": 12, "status": "已上架", "tag": "今日到货", "icon": "鲜" },
-    { "id": "orange", "categoryId": "fresh", "name": "赣南脐橙 约500g", "desc": "酸甜多汁", "category": "水果生鲜", "price": 8.8, "stock": 9, "threshold": 15, "status": "已上架", "tag": "库存预警", "icon": "鲜" },
-    { "id": "vegetable-green", "categoryId": "fresh", "name": "精选上海青 约400g", "desc": "生鲜称重，允许员工调整", "category": "水果生鲜", "price": 4.99, "stock": 32, "threshold": 10, "status": "已上架", "tag": "今日到货", "icon": "菜" },
-    { "id": "tomato", "categoryId": "fresh", "name": "本地番茄 约500g", "desc": "适合凉拌和炒蛋", "category": "水果生鲜", "price": 5.8, "stock": 0, "threshold": 10, "status": "已上架", "tag": "缺货", "icon": "菜" },
-    { "id": "egg", "categoryId": "fresh", "name": "鲜鸡蛋 10枚装", "desc": "家庭早餐常备", "category": "水果生鲜", "price": 12.8, "stock": 26, "threshold": 12, "status": "已上架", "tag": "常购", "icon": "蛋" },
-    { "id": "milk-fresh", "categoryId": "milk", "name": "鲜牛奶 950ml 冷藏配送", "desc": "低温商品，尽快送达", "category": "冷藏乳品", "price": 13.8, "stock": 8, "threshold": 12, "status": "已上架", "tag": "库存预警", "icon": "乳" },
-    { "id": "yogurt-cup", "categoryId": "milk", "name": "原味酸奶 180g", "desc": "冷藏乳品", "category": "冷藏乳品", "price": 4.5, "stock": 48, "threshold": 18, "status": "已上架", "tag": "早餐搭配", "icon": "乳" },
-    { "id": "cheese-stick", "categoryId": "milk", "name": "儿童奶酪棒 5支装", "desc": "冷藏配送", "category": "冷藏乳品", "price": 18.9, "stock": 6, "threshold": 10, "status": "已上架", "tag": "库存预警", "icon": "乳" },
-    { "id": "chips", "categoryId": "snack", "name": "原味薯片 104g", "desc": "聚会零食搭配", "category": "休闲零食", "price": 8.8, "stock": 58, "threshold": 16, "status": "已上架", "tag": "第二件半价", "icon": "零" },
-    { "id": "nuts-mix", "categoryId": "snack", "name": "每日坚果 25g", "desc": "办公室轻食", "category": "休闲零食", "price": 5.9, "stock": 64, "threshold": 20, "status": "已上架", "tag": "新品", "icon": "零" },
-    { "id": "duck-neck", "categoryId": "snack", "name": "香辣鸭脖 120g", "desc": "夜宵酒水搭配", "category": "休闲零食", "price": 13.9, "stock": 19, "threshold": 12, "status": "已上架", "tag": "酒水搭配", "icon": "零" },
-    { "id": "rice-5kg", "categoryId": "grain", "name": "东北大米 5kg", "desc": "家庭粮油补货", "category": "粮油调味", "price": 39.9, "stock": 22, "threshold": 8, "status": "已上架", "tag": "满99减15", "icon": "粮" },
-    { "id": "oil-corn", "categoryId": "grain", "name": "玉米胚芽油 1.8L", "desc": "日常烹饪用油", "category": "粮油调味", "price": 36.8, "stock": 11, "threshold": 12, "status": "已上架", "tag": "库存预警", "icon": "油" },
-    { "id": "soy-sauce", "categoryId": "grain", "name": "生抽酱油 500ml", "desc": "厨房调味", "category": "粮油调味", "price": 9.9, "stock": 45, "threshold": 10, "status": "已上架", "tag": "常购", "icon": "调" },
-    { "id": "dumpling", "categoryId": "frozen", "name": "猪肉白菜水饺 500g", "desc": "冷冻速食，需尽快送达", "category": "冷冻速食", "price": 16.9, "stock": 18, "threshold": 10, "status": "已上架", "tag": "冷冻配送", "icon": "冻" },
-    { "id": "ice-cream", "categoryId": "frozen", "name": "香草冰淇淋 75g", "desc": "冷冻商品", "category": "冷冻速食", "price": 6.0, "stock": 4, "threshold": 12, "status": "已上架", "tag": "库存预警", "icon": "冰" },
-    { "id": "tissue", "categoryId": "daily", "name": "抽纸 3包/提", "desc": "家庭日用补货", "category": "日用百货", "price": 12.9, "stock": 74, "threshold": 20, "status": "已上架", "tag": "常购", "icon": "家" },
-    { "id": "laundry", "categoryId": "daily", "name": "洗衣液 2kg", "desc": "家庭清洁用品", "category": "日用百货", "price": 29.9, "stock": 15, "threshold": 8, "status": "已上架", "tag": "家庭装", "icon": "家" },
-    { "id": "mask", "categoryId": "daily", "name": "一次性口罩 10只装", "desc": "日用防护", "category": "日用百货", "price": 6.9, "stock": 0, "threshold": 20, "status": "已下架", "tag": "已下架", "icon": "家" }
+    {
+      "id": "beer-qingdao",
+      "categoryId": "beer",
+      "name": "青岛啤酒 500ml 单罐",
+      "desc": "冰镇更畅快，员工自配送",
+      "category": "酒水饮料",
+      "price": 5.5,
+      "oldPrice": 6.5,
+      "stock": 126,
+      "threshold": 24,
+      "status": "已上架",
+      "tag": "限时特价",
+      "icon": "酒",
+      "image": "https://source.unsplash.com/640x640/?beer,can",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "beer-snow",
+      "categoryId": "beer",
+      "name": "雪花啤酒 500ml 六连包",
+      "desc": "聚餐夜宵组合装",
+      "category": "酒水饮料",
+      "price": 29.9,
+      "oldPrice": 35.9,
+      "stock": 36,
+      "threshold": 18,
+      "status": "已上架",
+      "tag": "满减可用",
+      "icon": "酒",
+      "image": "https://source.unsplash.com/640x640/?beer,pack",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "wine-rio",
+      "categoryId": "beer",
+      "name": "RIO微醺鸡尾酒 330ml",
+      "desc": "低度果味酒，适合小酌",
+      "category": "酒水饮料",
+      "price": 9.9,
+      "oldPrice": 12.9,
+      "stock": 14,
+      "threshold": 20,
+      "status": "已上架",
+      "tag": "低库存",
+      "icon": "酒",
+      "image": "https://source.unsplash.com/640x640/?cocktail,can",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "water-nongfu",
+      "categoryId": "beer",
+      "name": "农夫山泉 550ml",
+      "desc": "日常饮用水",
+      "category": "酒水饮料",
+      "price": 2,
+      "stock": 220,
+      "threshold": 50,
+      "status": "已上架",
+      "tag": "热销",
+      "icon": "水",
+      "image": "https://source.unsplash.com/640x640/?bottled-water",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "coke-zero",
+      "categoryId": "beer",
+      "name": "可口可乐零度 500ml",
+      "desc": "无糖汽水",
+      "category": "酒水饮料",
+      "price": 3.5,
+      "stock": 68,
+      "threshold": 24,
+      "status": "已上架",
+      "tag": "第二件半价",
+      "icon": "饮",
+      "image": "https://source.unsplash.com/640x640/?cola,bottle",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "apple-fuji",
+      "categoryId": "fresh",
+      "name": "烟台红富士苹果 约500g",
+      "desc": "新鲜脆甜，门店现拣",
+      "category": "水果生鲜",
+      "price": 6.9,
+      "stock": 42,
+      "threshold": 20,
+      "status": "已上架",
+      "tag": "满减可用",
+      "icon": "鲜",
+      "image": "https://source.unsplash.com/640x640/?red-apple",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "banana",
+      "categoryId": "fresh",
+      "name": "进口香蕉 约600g",
+      "desc": "熟度适中，适合早餐",
+      "category": "水果生鲜",
+      "price": 7.5,
+      "stock": 28,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "今日到货",
+      "icon": "鲜",
+      "image": "https://source.unsplash.com/640x640/?banana",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "orange",
+      "categoryId": "fresh",
+      "name": "赣南脐橙 约500g",
+      "desc": "酸甜多汁",
+      "category": "水果生鲜",
+      "price": 8.8,
+      "stock": 9,
+      "threshold": 15,
+      "status": "已上架",
+      "tag": "库存预警",
+      "icon": "鲜",
+      "image": "https://source.unsplash.com/640x640/?orange-fruit",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "vegetable-green",
+      "categoryId": "fresh",
+      "name": "精选上海青 约400g",
+      "desc": "生鲜称重，允许员工调整",
+      "category": "水果生鲜",
+      "price": 4.99,
+      "stock": 32,
+      "threshold": 10,
+      "status": "已上架",
+      "tag": "今日到货",
+      "icon": "菜",
+      "image": "https://source.unsplash.com/640x640/?bok-choy,vegetable",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "tomato",
+      "categoryId": "fresh",
+      "name": "本地番茄 约500g",
+      "desc": "适合凉拌和炒蛋",
+      "category": "水果生鲜",
+      "price": 5.8,
+      "stock": 0,
+      "threshold": 10,
+      "status": "已上架",
+      "tag": "缺货",
+      "icon": "菜",
+      "image": "https://source.unsplash.com/640x640/?tomato",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "egg",
+      "categoryId": "fresh",
+      "name": "鲜鸡蛋 10枚装",
+      "desc": "家庭早餐常备",
+      "category": "水果生鲜",
+      "price": 12.8,
+      "stock": 26,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "常购",
+      "icon": "蛋",
+      "image": "https://source.unsplash.com/640x640/?eggs,carton",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "milk-fresh",
+      "categoryId": "milk",
+      "name": "鲜牛奶 950ml 冷藏配送",
+      "desc": "低温商品，尽快送达",
+      "category": "冷藏乳品",
+      "price": 13.8,
+      "stock": 8,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "库存预警",
+      "icon": "乳",
+      "image": "https://source.unsplash.com/640x640/?milk,bottle",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "yogurt-cup",
+      "categoryId": "milk",
+      "name": "原味酸奶 180g",
+      "desc": "冷藏乳品",
+      "category": "冷藏乳品",
+      "price": 4.5,
+      "stock": 48,
+      "threshold": 18,
+      "status": "已上架",
+      "tag": "早餐搭配",
+      "icon": "乳",
+      "image": "https://source.unsplash.com/640x640/?yogurt,cup",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "cheese-stick",
+      "categoryId": "milk",
+      "name": "儿童奶酪棒 5支装",
+      "desc": "冷藏配送",
+      "category": "冷藏乳品",
+      "price": 18.9,
+      "stock": 6,
+      "threshold": 10,
+      "status": "已上架",
+      "tag": "库存预警",
+      "icon": "乳",
+      "image": "https://source.unsplash.com/640x640/?cheese-snack",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "chips",
+      "categoryId": "snack",
+      "name": "原味薯片 104g",
+      "desc": "聚会零食搭配",
+      "category": "休闲零食",
+      "price": 8.8,
+      "stock": 58,
+      "threshold": 16,
+      "status": "已上架",
+      "tag": "第二件半价",
+      "icon": "零",
+      "image": "https://source.unsplash.com/640x640/?potato-chips",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "nuts-mix",
+      "categoryId": "snack",
+      "name": "每日坚果 25g",
+      "desc": "办公室轻食",
+      "category": "休闲零食",
+      "price": 5.9,
+      "stock": 64,
+      "threshold": 20,
+      "status": "已上架",
+      "tag": "新品",
+      "icon": "零",
+      "image": "https://source.unsplash.com/640x640/?mixed-nuts",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "duck-neck",
+      "categoryId": "snack",
+      "name": "香辣鸭脖 120g",
+      "desc": "夜宵酒水搭配",
+      "category": "休闲零食",
+      "price": 13.9,
+      "stock": 19,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "酒水搭配",
+      "icon": "零",
+      "image": "https://source.unsplash.com/640x640/?%E4%BC%91%E9%97%B2%E9%9B%B6%E9%A3%9F",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "rice-5kg",
+      "categoryId": "grain",
+      "name": "东北大米 5kg",
+      "desc": "家庭粮油补货",
+      "category": "粮油调味",
+      "price": 39.9,
+      "stock": 22,
+      "threshold": 8,
+      "status": "已上架",
+      "tag": "满99减15",
+      "icon": "粮",
+      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "oil-corn",
+      "categoryId": "grain",
+      "name": "玉米胚芽油 1.8L",
+      "desc": "日常烹饪用油",
+      "category": "粮油调味",
+      "price": 36.8,
+      "stock": 11,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "库存预警",
+      "icon": "油",
+      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "soy-sauce",
+      "categoryId": "grain",
+      "name": "生抽酱油 500ml",
+      "desc": "厨房调味",
+      "category": "粮油调味",
+      "price": 9.9,
+      "stock": 45,
+      "threshold": 10,
+      "status": "已上架",
+      "tag": "常购",
+      "icon": "调",
+      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "dumpling",
+      "categoryId": "frozen",
+      "name": "猪肉白菜水饺 500g",
+      "desc": "冷冻速食，需尽快送达",
+      "category": "冷冻速食",
+      "price": 16.9,
+      "stock": 18,
+      "threshold": 10,
+      "status": "已上架",
+      "tag": "冷冻配送",
+      "icon": "冻",
+      "image": "https://source.unsplash.com/640x640/?dumplings,frozen",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "ice-cream",
+      "categoryId": "frozen",
+      "name": "香草冰淇淋 75g",
+      "desc": "冷冻商品",
+      "category": "冷冻速食",
+      "price": 6,
+      "stock": 4,
+      "threshold": 12,
+      "status": "已上架",
+      "tag": "库存预警",
+      "icon": "冰",
+      "image": "https://source.unsplash.com/640x640/?ice-cream",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "tissue",
+      "categoryId": "daily",
+      "name": "抽纸 3包/提",
+      "desc": "家庭日用补货",
+      "category": "日用百货",
+      "price": 12.9,
+      "stock": 74,
+      "threshold": 20,
+      "status": "已上架",
+      "tag": "常购",
+      "icon": "家",
+      "image": "https://source.unsplash.com/640x640/?tissue-paper",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "laundry",
+      "categoryId": "daily",
+      "name": "洗衣液 2kg",
+      "desc": "家庭清洁用品",
+      "category": "日用百货",
+      "price": 29.9,
+      "stock": 15,
+      "threshold": 8,
+      "status": "已上架",
+      "tag": "家庭装",
+      "icon": "家",
+      "image": "https://source.unsplash.com/640x640/?%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    },
+    {
+      "id": "mask",
+      "categoryId": "daily",
+      "name": "一次性口罩 10只装",
+      "desc": "日用防护",
+      "category": "日用百货",
+      "price": 6.9,
+      "stock": 0,
+      "threshold": 20,
+      "status": "已下架",
+      "tag": "已下架",
+      "icon": "家",
+      "image": "https://source.unsplash.com/640x640/?%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7",
+      "imageSource": "Unsplash Source",
+      "uploadStatus": "后台已上传"
+    }
   ],
   "promotions": [
-    { "id": "promo-full-79", "name": "满79减10", "type": "满减", "target": "全场商品", "start": "2026-06-21", "end": "2026-06-30", "status": "进行中", "metric": "已用 38 次" },
-    { "id": "promo-full-99", "name": "满99减15", "type": "满减", "target": "粮油调味、日用百货", "start": "2026-06-21", "end": "2026-07-15", "status": "进行中", "metric": "已用 21 次" },
-    { "id": "promo-beer-night", "name": "酒水夜间特价", "type": "限时特价", "target": "酒水饮料", "start": "2026-06-21", "end": "2026-07-05", "status": "进行中", "metric": "销售 126 件" },
-    { "id": "promo-new-user", "name": "新人优惠券", "type": "优惠券", "target": "新用户", "start": "2026-06-21", "end": "长期", "status": "待启用", "metric": "未开始" },
-    { "id": "promo-fresh-morning", "name": "早市生鲜 9 折", "type": "限时折扣", "target": "水果生鲜", "start": "2026-06-22", "end": "2026-06-28", "status": "待启用", "metric": "待开始" },
-    { "id": "promo-ice-cream", "name": "冷冻冰品秒杀", "type": "秒杀", "target": "冷冻速食", "start": "2026-06-21", "end": "2026-06-21", "status": "已结束", "metric": "成交 32 件" },
-    { "id": "promo-snack-bundle", "name": "零食第二件半价", "type": "第二件半价", "target": "休闲零食", "start": "2026-06-21", "end": "2026-07-01", "status": "进行中", "metric": "带动 54 件" },
-    { "id": "promo-free-delivery", "name": "满99免配送费", "type": "配送优惠", "target": "全场商品", "start": "2026-06-21", "end": "2026-07-31", "status": "进行中", "metric": "减免 18 单" }
+    {
+      "id": "promo-full-79",
+      "name": "满79减10",
+      "type": "满减",
+      "target": "全场商品",
+      "start": "2026-06-21",
+      "end": "2026-06-30",
+      "status": "进行中",
+      "metric": "已用 38 次",
+      "image": "https://source.unsplash.com/900x360/?grocery,shopping",
+      "displayText": "满79减10 · 全场商品"
+    },
+    {
+      "id": "promo-full-99",
+      "name": "满99减15",
+      "type": "满减",
+      "target": "粮油调味、日用百货",
+      "start": "2026-06-21",
+      "end": "2026-07-15",
+      "status": "进行中",
+      "metric": "已用 21 次",
+      "image": "https://source.unsplash.com/900x360/?supermarket,cart",
+      "displayText": "满99减15 · 粮油调味、日用百货"
+    },
+    {
+      "id": "promo-beer-night",
+      "name": "酒水夜间特价",
+      "type": "限时特价",
+      "target": "酒水饮料",
+      "start": "2026-06-21",
+      "end": "2026-07-05",
+      "status": "进行中",
+      "metric": "销售 126 件",
+      "image": "https://source.unsplash.com/900x360/?beer,party",
+      "displayText": "酒水夜间特价 · 酒水饮料"
+    },
+    {
+      "id": "promo-new-user",
+      "name": "新人优惠券",
+      "type": "优惠券",
+      "target": "新用户",
+      "start": "2026-06-21",
+      "end": "长期",
+      "status": "待启用",
+      "metric": "未开始",
+      "image": "https://source.unsplash.com/900x360/?coupon,shopping",
+      "displayText": "新人优惠券 · 新用户"
+    },
+    {
+      "id": "promo-fresh-morning",
+      "name": "早市生鲜 9 折",
+      "type": "限时折扣",
+      "target": "水果生鲜",
+      "start": "2026-06-22",
+      "end": "2026-06-28",
+      "status": "待启用",
+      "metric": "待开始",
+      "image": "https://source.unsplash.com/900x360/?fresh-fruit,market",
+      "displayText": "早市生鲜 9 折 · 水果生鲜"
+    },
+    {
+      "id": "promo-ice-cream",
+      "name": "冷冻冰品秒杀",
+      "type": "秒杀",
+      "target": "冷冻速食",
+      "start": "2026-06-21",
+      "end": "2026-06-21",
+      "status": "已结束",
+      "metric": "成交 32 件",
+      "image": "https://source.unsplash.com/900x360/?ice-cream,dessert",
+      "displayText": "冷冻冰品秒杀 · 冷冻速食"
+    },
+    {
+      "id": "promo-snack-bundle",
+      "name": "零食第二件半价",
+      "type": "第二件半价",
+      "target": "休闲零食",
+      "start": "2026-06-21",
+      "end": "2026-07-01",
+      "status": "进行中",
+      "metric": "带动 54 件",
+      "image": "https://source.unsplash.com/900x360/?snacks",
+      "displayText": "零食第二件半价 · 休闲零食"
+    },
+    {
+      "id": "promo-free-delivery",
+      "name": "满99免配送费",
+      "type": "配送优惠",
+      "target": "全场商品",
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "进行中",
+      "metric": "减免 18 单",
+      "image": "https://source.unsplash.com/900x360/?delivery,grocery",
+      "displayText": "满99免配送费 · 全场商品"
+    }
   ],
   "orders": [
-    { "id": "20260621001", "user": "李先生", "phone": "138****8888", "address": "绿洲小区 3 栋 1602", "amount": 63.6, "store": "城南店", "status": "配送中", "items": "青岛啤酒、苹果、牛奶等 3 件", "remark": "啤酒要冰的，水果挑硬一点", "abnormal": "", "timeline": ["模拟支付成功", "员工已完成拣货", "订单配送中"] },
-    { "id": "20260621002", "user": "周女士", "phone": "138****1024", "address": "云桥花园 6 栋", "amount": 48.2, "store": "城北店", "status": "待接单", "items": "上海青、鸡蛋、调味料等 5 件", "remark": "菜要新鲜", "abnormal": "", "timeline": ["模拟支付成功", "等待员工接单"] },
-    { "id": "20260621003", "user": "王先生", "phone": "138****5521", "address": "万达公寓 12 层", "amount": 132, "store": "城南店", "status": "缺货异常", "items": "鲜牛奶、酒水等 6 件", "remark": "", "abnormal": "鲜牛奶库存不足", "timeline": ["模拟支付成功", "员工标记缺货异常"] },
-    { "id": "20260621004", "user": "赵女士", "phone": "139****2018", "address": "云上公馆 2 栋 808", "amount": 108.7, "store": "城东店", "status": "待拣货", "items": "大米、玉米油、抽纸等 4 件", "remark": "送到前电话联系", "abnormal": "", "timeline": ["模拟支付成功", "员工已接单"] },
-    { "id": "20260621005", "user": "陈先生", "phone": "136****7788", "address": "大学城宿舍 7 号楼", "amount": 42.8, "store": "大学城店", "status": "已取消", "items": "零食、可乐等 5 件", "remark": "用户取消", "abnormal": "门店暂停营业", "timeline": ["模拟支付成功", "门店暂停营业", "订单已取消"] },
-    { "id": "20260621006", "user": "刘女士", "phone": "135****6677", "address": "绿洲小区 9 栋 601", "amount": 88.3, "store": "城南店", "status": "已完成", "items": "鲜牛奶、鸡蛋、香蕉等 4 件", "remark": "放门口即可", "abnormal": "", "timeline": ["模拟支付成功", "员工已拣货", "订单配送中", "用户确认收货"] },
-    { "id": "20260621007", "user": "黄先生", "phone": "137****8899", "address": "星河湾 1 栋 1201", "amount": 26.8, "store": "城东店", "status": "已接单", "items": "冰淇淋、水饺等 2 件", "remark": "冷冻商品请快送", "abnormal": "", "timeline": ["模拟支付成功", "员工已接单"] },
-    { "id": "20260621008", "user": "孙女士", "phone": "133****5566", "address": "云桥花园 1 栋 302", "amount": 119.5, "store": "城北店", "status": "退款中", "items": "RIO鸡尾酒、薯片、鸭脖等 6 件", "remark": "部分商品缺货", "abnormal": "RIO库存不足，用户申请退款", "timeline": ["模拟支付成功", "员工标记部分缺货", "用户申请退款"] },
-    { "id": "20260621009", "user": "吴先生", "phone": "131****0099", "address": "绿洲路写字楼 A 座", "amount": 31.9, "store": "城南店", "status": "已拣货", "items": "农夫山泉、抽纸等 2 件", "remark": "前台代收", "abnormal": "", "timeline": ["模拟支付成功", "员工已完成拣货"] },
-    { "id": "20260621010", "user": "郑女士", "phone": "132****1188", "address": "书香路教师公寓", "amount": 74.6, "store": "大学城店", "status": "待接单", "items": "酸奶、每日坚果、番茄等 5 件", "remark": "番茄挑熟一点", "abnormal": "", "timeline": ["模拟支付成功", "等待员工接单"] }
+    {
+      "id": "20260621001",
+      "user": "李先生",
+      "phone": "138****8888",
+      "address": "绿洲小区 3 栋 1602",
+      "amount": 63.6,
+      "store": "城南店",
+      "status": "配送中",
+      "items": "青岛啤酒、苹果、牛奶等 3 件",
+      "remark": "啤酒要冰的，水果挑硬一点",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "员工已完成拣货",
+        "订单配送中"
+      ]
+    },
+    {
+      "id": "20260621002",
+      "user": "周女士",
+      "phone": "138****1024",
+      "address": "云桥花园 6 栋",
+      "amount": 48.2,
+      "store": "城北店",
+      "status": "待接单",
+      "items": "上海青、鸡蛋、调味料等 5 件",
+      "remark": "菜要新鲜",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "等待员工接单"
+      ]
+    },
+    {
+      "id": "20260621003",
+      "user": "王先生",
+      "phone": "138****5521",
+      "address": "万达公寓 12 层",
+      "amount": 132,
+      "store": "城南店",
+      "status": "缺货异常",
+      "items": "鲜牛奶、酒水等 6 件",
+      "remark": "",
+      "abnormal": "鲜牛奶库存不足",
+      "timeline": [
+        "模拟支付成功",
+        "员工标记缺货异常"
+      ]
+    },
+    {
+      "id": "20260621004",
+      "user": "赵女士",
+      "phone": "139****2018",
+      "address": "云上公馆 2 栋 808",
+      "amount": 108.7,
+      "store": "城东店",
+      "status": "待拣货",
+      "items": "大米、玉米油、抽纸等 4 件",
+      "remark": "送到前电话联系",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "员工已接单"
+      ]
+    },
+    {
+      "id": "20260621005",
+      "user": "陈先生",
+      "phone": "136****7788",
+      "address": "大学城宿舍 7 号楼",
+      "amount": 42.8,
+      "store": "大学城店",
+      "status": "已取消",
+      "items": "零食、可乐等 5 件",
+      "remark": "用户取消",
+      "abnormal": "门店暂停营业",
+      "timeline": [
+        "模拟支付成功",
+        "门店暂停营业",
+        "订单已取消"
+      ]
+    },
+    {
+      "id": "20260621006",
+      "user": "刘女士",
+      "phone": "135****6677",
+      "address": "绿洲小区 9 栋 601",
+      "amount": 88.3,
+      "store": "城南店",
+      "status": "已完成",
+      "items": "鲜牛奶、鸡蛋、香蕉等 4 件",
+      "remark": "放门口即可",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "员工已拣货",
+        "订单配送中",
+        "用户确认收货"
+      ]
+    },
+    {
+      "id": "20260621007",
+      "user": "黄先生",
+      "phone": "137****8899",
+      "address": "星河湾 1 栋 1201",
+      "amount": 26.8,
+      "store": "城东店",
+      "status": "已接单",
+      "items": "冰淇淋、水饺等 2 件",
+      "remark": "冷冻商品请快送",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "员工已接单"
+      ]
+    },
+    {
+      "id": "20260621008",
+      "user": "孙女士",
+      "phone": "133****5566",
+      "address": "云桥花园 1 栋 302",
+      "amount": 119.5,
+      "store": "城北店",
+      "status": "退款中",
+      "items": "RIO鸡尾酒、薯片、鸭脖等 6 件",
+      "remark": "部分商品缺货",
+      "abnormal": "RIO库存不足，用户申请退款",
+      "timeline": [
+        "模拟支付成功",
+        "员工标记部分缺货",
+        "用户申请退款"
+      ]
+    },
+    {
+      "id": "20260621009",
+      "user": "吴先生",
+      "phone": "131****0099",
+      "address": "绿洲路写字楼 A 座",
+      "amount": 31.9,
+      "store": "城南店",
+      "status": "已拣货",
+      "items": "农夫山泉、抽纸等 2 件",
+      "remark": "前台代收",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "员工已完成拣货"
+      ]
+    },
+    {
+      "id": "20260621010",
+      "user": "郑女士",
+      "phone": "132****1188",
+      "address": "书香路教师公寓",
+      "amount": 74.6,
+      "store": "大学城店",
+      "status": "待接单",
+      "items": "酸奶、每日坚果、番茄等 5 件",
+      "remark": "番茄挑熟一点",
+      "abnormal": "",
+      "timeline": [
+        "模拟支付成功",
+        "等待员工接单"
+      ]
+    }
   ],
   "accounts": [
-    { "id": "admin", "username": "admin", "password": "admin123", "name": "系统管理员", "phone": "138****0001", "role": "系统管理员", "store": "全部门店", "status": "启用", "workspaces": ["manage", "operate"], "permissions": ["accounts", "permissions", "logs", "dashboard", "products", "inventory", "promotions", "orders", "stores"] },
-    { "id": "operator", "username": "operator", "password": "ops123", "name": "李运营", "phone": "138****0003", "role": "运营人员", "store": "全部门店", "status": "启用", "workspaces": ["operate"], "permissions": ["products"] },
-    { "id": "ops-full", "username": "opsfull", "password": "ops123", "name": "全权限运营", "phone": "138****0004", "role": "运营人员", "store": "全部门店", "status": "启用", "workspaces": ["operate"], "permissions": ["dashboard", "products", "inventory", "promotions", "orders", "stores"] },
-    { "id": "ops-promo", "username": "promo", "password": "ops123", "name": "活动运营", "phone": "138****0005", "role": "运营人员", "store": "全部门店", "status": "启用", "workspaces": ["operate"], "permissions": ["promotions", "products"] },
-    { "id": "ops-store", "username": "storekeeper", "password": "ops123", "name": "门店店长", "phone": "138****0006", "role": "门店店长", "store": "城南店", "status": "启用", "workspaces": ["operate"], "permissions": ["inventory", "orders", "stores"] },
-    { "id": "staff-zhang", "username": "staff", "password": "staff123", "name": "张师傅", "phone": "138****0002", "role": "配送/拣货员工", "store": "城南店", "status": "启用", "workspaces": [], "permissions": [] }
+    {
+      "id": "admin",
+      "username": "admin",
+      "password": "admin123",
+      "name": "系统管理员",
+      "phone": "138****0001",
+      "role": "系统管理员",
+      "store": "全部门店",
+      "status": "启用",
+      "workspaces": [
+        "manage",
+        "operate"
+      ],
+      "permissions": [
+        "accounts",
+        "permissions",
+        "logs",
+        "dashboard",
+        "products",
+        "inventory",
+        "promotions",
+        "orders",
+        "stores"
+      ]
+    },
+    {
+      "id": "operator",
+      "username": "operator",
+      "password": "ops123",
+      "name": "李运营",
+      "phone": "138****0003",
+      "role": "运营人员",
+      "store": "全部门店",
+      "status": "启用",
+      "workspaces": [
+        "operate"
+      ],
+      "permissions": [
+        "products"
+      ]
+    },
+    {
+      "id": "ops-full",
+      "username": "opsfull",
+      "password": "ops123",
+      "name": "全权限运营",
+      "phone": "138****0004",
+      "role": "运营人员",
+      "store": "全部门店",
+      "status": "启用",
+      "workspaces": [
+        "operate"
+      ],
+      "permissions": [
+        "dashboard",
+        "products",
+        "inventory",
+        "promotions",
+        "orders",
+        "stores"
+      ]
+    },
+    {
+      "id": "ops-promo",
+      "username": "promo",
+      "password": "ops123",
+      "name": "活动运营",
+      "phone": "138****0005",
+      "role": "运营人员",
+      "store": "全部门店",
+      "status": "启用",
+      "workspaces": [
+        "operate"
+      ],
+      "permissions": [
+        "promotions",
+        "products"
+      ]
+    },
+    {
+      "id": "ops-store",
+      "username": "storekeeper",
+      "password": "ops123",
+      "name": "门店店长",
+      "phone": "138****0006",
+      "role": "门店店长",
+      "store": "城南店",
+      "status": "启用",
+      "workspaces": [
+        "operate"
+      ],
+      "permissions": [
+        "inventory",
+        "orders",
+        "stores"
+      ]
+    },
+    {
+      "id": "staff-zhang",
+      "username": "staff",
+      "password": "staff123",
+      "name": "张师傅",
+      "phone": "138****0002",
+      "role": "配送/拣货员工",
+      "store": "城南店",
+      "status": "启用",
+      "workspaces": [],
+      "permissions": []
+    }
   ],
   "logs": [
-    { "time": "14:55", "actor": "系统管理员", "action": "批量导入测试商品", "target": "25 个商品", "result": "成功" },
-    { "time": "14:40", "actor": "李运营", "action": "新建活动", "target": "满99免配送费", "result": "成功" },
-    { "time": "14:20", "actor": "王店长", "action": "新增账号", "target": "张师傅", "result": "成功" },
-    { "time": "13:42", "actor": "李运营", "action": "修改活动", "target": "满79减10", "result": "成功" },
-    { "time": "13:10", "actor": "门店店长", "action": "库存修正", "target": "鲜牛奶 950ml 调整为 8", "result": "成功" },
-    { "time": "12:48", "actor": "员工端", "action": "订单状态更新", "target": "#20260621001 配送中", "result": "成功" },
-    { "time": "12:18", "actor": "张师傅", "action": "库存入库", "target": "青岛啤酒 +36", "result": "成功" },
-    { "time": "11:36", "actor": "C端用户", "action": "提交订单", "target": "#20260621010", "result": "成功" }
+    {
+      "time": "14:55",
+      "actor": "系统管理员",
+      "action": "批量导入测试商品",
+      "target": "25 个商品",
+      "result": "成功"
+    },
+    {
+      "time": "14:40",
+      "actor": "李运营",
+      "action": "新建活动",
+      "target": "满99免配送费",
+      "result": "成功"
+    },
+    {
+      "time": "14:20",
+      "actor": "王店长",
+      "action": "新增账号",
+      "target": "张师傅",
+      "result": "成功"
+    },
+    {
+      "time": "13:42",
+      "actor": "李运营",
+      "action": "修改活动",
+      "target": "满79减10",
+      "result": "成功"
+    },
+    {
+      "time": "13:10",
+      "actor": "门店店长",
+      "action": "库存修正",
+      "target": "鲜牛奶 950ml 调整为 8",
+      "result": "成功"
+    },
+    {
+      "time": "12:48",
+      "actor": "员工端",
+      "action": "订单状态更新",
+      "target": "#20260621001 配送中",
+      "result": "成功"
+    },
+    {
+      "time": "12:18",
+      "actor": "张师傅",
+      "action": "库存入库",
+      "target": "青岛啤酒 +36",
+      "result": "成功"
+    },
+    {
+      "time": "11:36",
+      "actor": "C端用户",
+      "action": "提交订单",
+      "target": "#20260621010",
+      "result": "成功"
+    }
   ]
 }

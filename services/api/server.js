@@ -139,6 +139,9 @@ async function handler(req, res) {
     if (url.pathname === "/api/public/products") {
       return send(res, 200, db.products.filter((item) => item.status === "已上架").map(publicProduct));
     }
+    if (url.pathname === "/api/public/promotions") {
+      return send(res, 200, db.promotions.filter((item) => item.status === "进行中"));
+    }
     if (url.pathname === "/api/public/categories") return send(res, 200, db.categories);
     if (url.pathname === "/api/public/orders" && req.method === "POST") {
       const body = await readBody(req);

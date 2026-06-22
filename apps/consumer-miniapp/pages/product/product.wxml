@@ -1,5 +1,8 @@
 <view class="page" wx:if="{{product}}">
-  <view class="cover">{{product.icon}}</view>
+  <view class="cover">
+    <image wx:if="{{product.image}}" src="{{product.image}}" mode="aspectFill"></image>
+    <text wx:else>{{product.icon}}</text>
+  </view>
   <view class="detail">
     <view class="price-row">
       <text class="price">¥{{product.price}}</text>
@@ -13,6 +16,10 @@
       <view>缺货可退</view>
     </view>
     <view class="card info">
+      <view class="line">
+        <text>图片</text>
+        <text>{{product.uploadStatus || '后台配置'}}</text>
+      </view>
       <view class="line">
         <text>活动</text>
         <text>{{product.tag}}</text>

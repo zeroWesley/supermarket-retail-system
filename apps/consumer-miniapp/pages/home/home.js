@@ -4,6 +4,7 @@ Page({
   data: {
     store: app.globalData.store,
     products: [],
+    promotions: [],
     quickEntries: [
       { icon: "鲜", name: "水果生鲜" },
       { icon: "酒", name: "酒水饮料" },
@@ -16,10 +17,18 @@ Page({
     ]
   },
 
+  refreshFromGlobal() {
+    const activePromotions = app.globalData.promotions.filter((item) => item.status === "进行中").slice(0, 3);
+    this.setData({
+      products: app.globalData.products.slice(0, 6),
+      promotions: activePromotions
+    });
+  },
+
   onLoad() {
-    this.setData({ products: app.globalData.products.slice(0, 6) });
+    this.refreshFromGlobal();
     app.loadRemoteData().then(() => {
-      this.setData({ products: app.globalData.products.slice(0, 6) });
+      this.refreshFromGlobal();
     });
   },
 

@@ -403,6 +403,22 @@ h1 {
   font-weight: 800;
 }
 
+.product-thumb {
+  display: block;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #eefaf4;
+}
+
+.product-thumb.fallback {
+  line-height: 52px;
+  color: var(--brand);
+  text-align: center;
+  font-weight: 900;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

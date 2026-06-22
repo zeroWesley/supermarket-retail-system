@@ -22,9 +22,10 @@
   </view>
 
   <view class="coupon-row">
-    <view class="coupon">新人券 ¥12</view>
-    <view class="coupon">满99减15</view>
-    <view class="coupon">酒水特价</view>
+    <view wx:for="{{promotions}}" wx:key="id" class="coupon">
+      <view>{{item.name}}</view>
+      <text>{{item.target}}</text>
+    </view>
   </view>
 
   <view class="quick-grid">
@@ -52,7 +53,10 @@
 
   <view class="product-grid">
     <view wx:for="{{products}}" wx:key="id" class="product-card" bindtap="goProduct" data-id="{{item.id}}">
-      <view class="product-cover">{{item.icon}}</view>
+      <view class="product-cover">
+        <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill"></image>
+        <text wx:else>{{item.icon}}</text>
+      </view>
       <view class="product-body">
         <view class="product-name">{{item.name}}</view>
         <view class="muted">{{item.desc}}</view>

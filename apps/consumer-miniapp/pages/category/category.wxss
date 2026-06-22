@@ -64,6 +64,13 @@
   font-weight: 900;
 }
 
+.cover image {
+  display: block;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 16rpx;
+}
+
 .name {
   font-size: 28rpx;
   font-weight: 900;

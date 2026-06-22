@@ -10,7 +10,10 @@
     </view>
     <view class="list">
       <view wx:for="{{products}}" wx:key="id" class="product-row" bindtap="goProduct" data-id="{{item.id}}">
-        <view class="cover">{{item.icon}}</view>
+        <view class="cover">
+          <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill"></image>
+          <text wx:else>{{item.icon}}</text>
+        </view>
         <view class="body">
           <view class="name">{{item.name}}</view>
           <view class="muted">{{item.desc}}</view>
