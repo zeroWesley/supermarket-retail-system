@@ -64,31 +64,41 @@ function publicProduct(product) {
   };
 }
 
+const resourceLabels = {
+  products: "商品",
+  promotions: "活动",
+  orders: "订单",
+  stores: "门店",
+  accounts: "账号"
+};
+
 function routeResource(db, name, req, res, id) {
   if (!db[name]) return send(res, 404, { message: "Not found" });
   if (req.method === "GET") {
     return send(res, 200, id ? db[name].find((item) => item.id === id) : db[name]);
   }
   return readBody(req).then((body) => {
+    const { actor, ...payload } = body;
+    const label = resourceLabels[name] || name;
     if (req.method === "POST") {
-      const item = { id: body.id || `${name}-${Date.now()}`, ...body };
+      const item = { id: payload.id || `${name}-${Date.now()}`, ...payload };
       db[name].unshift(item);
-      log(db, body.actor, `新增${name}`, item.name || item.id);
+      log(db, actor, `新增${label}`, item.name || item.id);
       writeDb(db);
       return send(res, 201, item);
     }
     if ((req.method === "PUT" || req.method === "PATCH") && id) {
       const index = db[name].findIndex((item) => item.id === id);
       if (index < 0) return send(res, 404, { message: "Not found" });
-      db[name][index] = { ...db[name][index], ...body, id };
-      log(db, body.actor, `更新${name}`, db[name][index].name || id);
+      db[name][index] = { ...db[name][index], ...payload, id };
+      log(db, actor, `更新${label}`, db[name][index].name || id);
       writeDb(db);
       return send(res, 200, db[name][index]);
     }
     if (req.method === "DELETE" && id) {
       const item = db[name].find((entry) => entry.id === id);
       db[name] = db[name].filter((entry) => entry.id !== id);
-      log(db, body.actor, `删除${name}`, item?.name || id);
+      log(db, actor, `删除${label}`, item?.name || id);
       writeDb(db);
       return send(res, 200, { ok: true });
     }

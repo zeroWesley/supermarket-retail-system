@@ -416,6 +416,7 @@ function renderPromotions() {
               <td>${tag(item.status)}</td>
               <td>${item.metric}</td>
               <td class="table-actions">
+                <button class="link-btn" data-edit-promo="${item.id}">编辑</button>
                 <button class="link-btn" data-toggle-promo="${item.id}">${item.status === "进行中" ? "停用" : "启用"}</button>
                 <button class="link-btn" data-delete-promo="${item.id}">删除</button>
               </td>
@@ -542,8 +543,10 @@ function productTable(items) {
             <td>${item.tag}</td>
             <td>${tag(item.status)}</td>
             <td class="table-actions">
+              <button class="link-btn" data-edit-product="${item.id}">编辑</button>
               <button class="link-btn" data-toggle-product="${item.id}">${item.status === "已上架" ? "下架" : "上架"}</button>
               <button class="link-btn" data-adjust-stock="${item.id}">调库存</button>
+              <button class="link-btn" data-delete-product="${item.id}">删除</button>
             </td>
           </tr>
         `).join("")}
@@ -596,8 +599,11 @@ function orderTable(items, withActions = false) {
 function bindPageActions() {
   document.querySelectorAll("[data-nav]").forEach((btn) => btn.addEventListener("click", () => setPage(btn.dataset.nav)));
   document.querySelectorAll("[data-open]").forEach((btn) => btn.addEventListener("click", () => openForm(btn.dataset.open)));
+  document.querySelectorAll("[data-edit-product]").forEach((btn) => btn.addEventListener("click", () => openProductForm(btn.dataset.editProduct)));
   document.querySelectorAll("[data-toggle-product]").forEach((btn) => btn.addEventListener("click", () => toggleProduct(btn.dataset.toggleProduct)));
   document.querySelectorAll("[data-adjust-stock]").forEach((btn) => btn.addEventListener("click", () => openStockForm(btn.dataset.adjustStock)));
+  document.querySelectorAll("[data-delete-product]").forEach((btn) => btn.addEventListener("click", () => deleteProduct(btn.dataset.deleteProduct)));
+  document.querySelectorAll("[data-edit-promo]").forEach((btn) => btn.addEventListener("click", () => openPromotionForm(btn.dataset.editPromo)));
   document.querySelectorAll("[data-toggle-promo]").forEach((btn) => btn.addEventListener("click", () => togglePromo(btn.dataset.togglePromo)));
   document.querySelectorAll("[data-delete-promo]").forEach((btn) => btn.addEventListener("click", () => deletePromo(btn.dataset.deletePromo)));
   document.querySelectorAll("[data-next-order]").forEach((btn) => btn.addEventListener("click", () => nextOrder(btn.dataset.nextOrder)));
@@ -625,11 +631,29 @@ function openForm(type) {
   modal.classList.remove("hidden");
 }
 
+function openProductForm(id) {
+  const product = state.products.find((item) => item.id === id);
+  if (!product) return;
+  modalTitle.textContent = `编辑商品：${product.name}`;
+  modalForm.innerHTML = productForm(product);
+  modalForm.dataset.type = "product";
+  modal.classList.remove("hidden");
+}
+
 function openStockForm(id) {
   const product = state.products.find((item) => item.id === id);
   modalTitle.textContent = "人工库存修正";
   modalForm.innerHTML = stockForm(product);
   modalForm.dataset.type = "stock";
+  modal.classList.remove("hidden");
+}
+
+function openPromotionForm(id) {
+  const promo = state.promotions.find((item) => item.id === id);
+  if (!promo) return;
+  modalTitle.textContent = `编辑活动：${promo.name}`;
+  modalForm.innerHTML = promotionForm(promo);
+  modalForm.dataset.type = "promotion";
   modal.classList.remove("hidden");
 }
 
@@ -645,28 +669,34 @@ function openPermissionForm(id) {
   modal.classList.remove("hidden");
 }
 
-function productForm() {
+function productForm(product = {}) {
   return `
     <div class="form-grid">
-      <div class="form-field"><label>商品名称</label><input class="input" name="name" required></div>
-      <div class="form-field"><label>分类</label><input class="input" name="category" value="水果生鲜" required></div>
-      <div class="form-field"><label>售价</label><input class="input" name="price" type="number" step="0.01" value="9.90" required></div>
-      <div class="form-field"><label>库存</label><input class="input" name="stock" type="number" value="20" required></div>
-      <div class="form-field"><label>预警阈值</label><input class="input" name="threshold" type="number" value="10" required></div>
-      <div class="form-field"><label>标签</label><input class="input" name="tag" value="新品"></div>
+      <input type="hidden" name="id" value="${product.id || ""}">
+      <div class="form-field"><label>商品名称</label><input class="input" name="name" value="${product.name || ""}" required></div>
+      <div class="form-field"><label>分类</label><input class="input" name="category" value="${product.category || "水果生鲜"}" required></div>
+      <div class="form-field"><label>售价</label><input class="input" name="price" type="number" step="0.01" value="${product.price || "9.90"}" required></div>
+      <div class="form-field"><label>库存</label><input class="input" name="stock" type="number" value="${product.stock ?? 20}" required></div>
+      <div class="form-field"><label>预警阈值</label><input class="input" name="threshold" type="number" value="${product.threshold ?? 10}" required></div>
+      <div class="form-field"><label>标签</label><input class="input" name="tag" value="${product.tag || "新品"}"></div>
+      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${product.status === "已上架" ? "selected" : ""}>已上架</option><option ${product.status === "已下架" ? "selected" : ""}>已下架</option></select></div>
+      <div class="form-field"><label>C端短描述</label><input class="input" name="desc" value="${product.desc || product.tag || ""}"></div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存商品</button></div>
   `;
 }
 
-function promotionForm() {
+function promotionForm(promo = {}) {
   return `
     <div class="form-grid">
-      <div class="form-field"><label>活动名称</label><input class="input" name="name" required></div>
-      <div class="form-field"><label>类型</label><select class="select" name="type"><option>满减</option><option>优惠券</option><option>限时特价</option><option>秒杀</option></select></div>
-      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="2026-06-21"></div>
-      <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="2026-06-30"></div>
-      <div class="form-field full"><label>适用范围</label><input class="input" name="target" value="全场商品"></div>
+      <input type="hidden" name="id" value="${promo.id || ""}">
+      <div class="form-field"><label>活动名称</label><input class="input" name="name" value="${promo.name || ""}" required></div>
+      <div class="form-field"><label>类型</label><select class="select" name="type">${["满减", "优惠券", "限时特价", "限时折扣", "秒杀", "第二件半价", "配送优惠"].map((item) => `<option ${promo.type === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
+      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${promo.start || "2026-06-21"}"></div>
+      <div class="form-field"><label>结束日期</label><input class="input" name="end" value="${promo.end || "2026-06-30"}"></div>
+      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${promo.status === "待启用" ? "selected" : ""}>待启用</option><option ${promo.status === "进行中" ? "selected" : ""}>进行中</option><option ${promo.status === "已停用" ? "selected" : ""}>已停用</option><option ${promo.status === "已结束" ? "selected" : ""}>已结束</option></select></div>
+      <div class="form-field"><label>效果指标</label><input class="input" name="metric" value="${promo.metric || "未开始"}"></div>
+      <div class="form-field full"><label>适用范围</label><input class="input" name="target" value="${promo.target || "全场商品"}"></div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存活动</button></div>
   `;
@@ -746,16 +776,40 @@ async function handleSubmit(event) {
   const data = Object.fromEntries(formData.entries());
   const type = modalForm.dataset.type;
   if (type === "product") {
-    const product = { id: `product-${Date.now()}`, name: data.name, category: data.category, price: Number(data.price), stock: Number(data.stock), threshold: Number(data.threshold), status: "已上架", tag: data.tag || "新品" };
-    state.products.unshift(product);
-    log("新增商品", product.name);
-    await syncResource("products", product);
+    const product = {
+      id: data.id || `product-${Date.now()}`,
+      name: data.name,
+      category: data.category,
+      price: Number(data.price),
+      stock: Number(data.stock),
+      threshold: Number(data.threshold),
+      status: data.status || "已上架",
+      tag: data.tag || "新品",
+      desc: data.desc || data.tag || ""
+    };
+    const index = state.products.findIndex((item) => item.id === product.id);
+    if (index >= 0) {
+      state.products[index] = { ...state.products[index], ...product };
+      log("编辑商品", product.name);
+      await syncResource("products", state.products[index], "PATCH");
+    } else {
+      state.products.unshift(product);
+      log("新增商品", product.name);
+      await syncResource("products", product);
+    }
   }
   if (type === "promotion") {
-    const promo = { id: `promo-${Date.now()}`, name: data.name, type: data.type, target: data.target, start: data.start, end: data.end || "长期", status: "待启用", metric: "未开始" };
-    state.promotions.unshift(promo);
-    log("新建活动", promo.name);
-    await syncResource("promotions", promo);
+    const promo = { id: data.id || `promo-${Date.now()}`, name: data.name, type: data.type, target: data.target, start: data.start, end: data.end || "长期", status: data.status || "待启用", metric: data.metric || "未开始" };
+    const index = state.promotions.findIndex((item) => item.id === promo.id);
+    if (index >= 0) {
+      state.promotions[index] = { ...state.promotions[index], ...promo };
+      log("编辑活动", promo.name);
+      await syncResource("promotions", state.promotions[index], "PATCH");
+    } else {
+      state.promotions.unshift(promo);
+      log("新建活动", promo.name);
+      await syncResource("promotions", promo);
+    }
   }
   if (type === "stock") {
     const product = state.products.find((item) => item.id === data.id);
@@ -815,6 +869,16 @@ async function toggleProduct(id) {
   product.status = product.status === "已上架" ? "已下架" : "已上架";
   log("商品上下架", product.name);
   await syncResource("products", product, "PATCH");
+  saveState();
+  render();
+}
+
+async function deleteProduct(id) {
+  const product = state.products.find((item) => item.id === id);
+  if (!product) return;
+  state.products = state.products.filter((item) => item.id !== id);
+  log("删除商品", product.name);
+  await deleteResource("products", id);
   saveState();
   render();
 }
@@ -910,10 +974,17 @@ document.getElementById("modal").addEventListener("click", (event) => {
   if (event.target.id === "modal") closeModal();
 });
 document.getElementById("modalForm").addEventListener("submit", handleSubmit);
-document.getElementById("resetDataBtn").addEventListener("click", () => {
-  state = structuredClone(seedData);
+document.getElementById("resetDataBtn").addEventListener("click", async () => {
+  if (apiOnline) {
+    try {
+      state = await apiRequest("/api/reset", { method: "POST" });
+    } catch {
+      state = structuredClone(seedData);
+    }
+  } else {
+    state = structuredClone(seedData);
+  }
   saveState();
-  if (apiOnline) apiRequest("/api/reset", { method: "POST" }).catch(() => {});
   render();
   showToast("演示数据已重置");
 });
