@@ -182,6 +182,12 @@ function tag(text) {
   return `<span class="tag ${cls}">${text}</span>`;
 }
 
+function mediaUrl(src = "") {
+  if (!src) return "";
+  if (src.startsWith("/assets/")) return `../${src.slice(1)}`;
+  return src;
+}
+
 function workspaceText(workspaces = []) {
   if (!workspaces.length) return "无后台入口";
   return workspaces.map((item) => item === "manage" ? "管理端" : "运营端").join("、");
@@ -536,7 +542,7 @@ function productTable(items) {
       <tbody>
         ${items.map((item) => `
           <tr>
-            <td>${item.image ? `<img class="product-thumb" src="${item.image}" alt="${item.name}">` : `<span class="product-thumb fallback">${item.icon || "商"}</span>`}</td>
+            <td>${item.image ? `<img class="product-thumb" src="${mediaUrl(item.image)}" alt="${item.name}">` : `<span class="product-thumb fallback">${item.icon || "商"}</span>`}</td>
             <td>${item.name}</td>
             <td>${item.category}</td>
             <td>${money(item.price)}</td>
