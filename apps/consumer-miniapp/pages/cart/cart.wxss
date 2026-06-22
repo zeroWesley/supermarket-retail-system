@@ -1,10 +1,12 @@
 .notice {
   margin: 20rpx 24rpx;
-  padding: 18rpx 24rpx;
-  border-radius: 16rpx;
-  background: #fff1e8;
-  color: #a84812;
+  padding: 20rpx 26rpx;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+  color: #b03b12;
   font-size: 26rpx;
+  font-weight: 900;
+  border: 1rpx solid #ffd9bd;
 }
 
 .cart-row {
@@ -13,20 +15,28 @@
   gap: 18rpx;
   margin: 20rpx 24rpx;
   padding: 20rpx;
-  border-radius: 18rpx;
+  border-radius: 24rpx;
   background: #ffffff;
+  box-shadow: 0 10rpx 26rpx rgba(23, 33, 28, 0.06);
 }
 
 .cover {
   width: 150rpx;
   height: 150rpx;
   line-height: 150rpx;
-  border-radius: 16rpx;
+  border-radius: 20rpx;
   background: #eefaf4;
   color: #13b66b;
   text-align: center;
   font-size: 60rpx;
   font-weight: 900;
+}
+
+.cover image {
+  display: block;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 20rpx;
 }
 
 .name {
@@ -43,10 +53,25 @@
 
 .qty {
   display: flex;
-  gap: 22rpx;
-  color: #13b66b;
-  font-size: 32rpx;
+  align-items: center;
+  gap: 20rpx;
+  color: #07854d;
+  font-size: 30rpx;
   font-weight: 900;
+}
+
+.qty text {
+  min-width: 44rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  border-radius: 999rpx;
+  background: #eefaf4;
+  text-align: center;
+}
+
+.qty text:nth-child(2) {
+  background: transparent;
+  color: #17211c;
 }
 
 .block-title {
@@ -60,7 +85,7 @@
   justify-content: space-between;
   gap: 20rpx;
   padding: 18rpx 0;
-  border-bottom: 1rpx solid #e7ebf0;
+  border-bottom: 1rpx solid #e2ece6;
   font-size: 26rpx;
 }
 
@@ -79,12 +104,13 @@
   bottom: 0;
   left: 0;
   display: grid;
-  grid-template-columns: 1fr 220rpx;
+  grid-template-columns: 1fr 230rpx;
   gap: 18rpx;
   align-items: center;
   padding: 18rpx 24rpx 28rpx;
   background: #ffffff;
-  border-top: 1rpx solid #e7ebf0;
+  border-top: 1rpx solid #e2ece6;
+  box-shadow: 0 -12rpx 30rpx rgba(23, 33, 28, 0.08);
 }
 
 .total {

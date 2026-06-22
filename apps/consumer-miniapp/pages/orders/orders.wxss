@@ -3,7 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 12rpx;
   padding: 20rpx 24rpx;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff, #f3fbf7);
   text-align: center;
   color: #697386;
   font-size: 26rpx;
@@ -15,16 +15,17 @@
 }
 
 .filter-row .active {
-  background: #eefaf4;
+  background: #dcfce7;
   color: #07854d;
   font-weight: 900;
 }
 
 .order-card {
   margin: 20rpx 24rpx;
-  padding: 24rpx;
-  border-radius: 18rpx;
+  padding: 26rpx;
+  border-radius: 24rpx;
   background: #ffffff;
+  box-shadow: 0 10rpx 28rpx rgba(23, 33, 28, 0.06);
 }
 
 .order-head {
@@ -39,6 +40,19 @@
   font-weight: 900;
 }
 
+.order-desc {
+  color: #52615a;
+  font-size: 26rpx;
+  line-height: 1.45;
+}
+
+.order-amount {
+  margin-top: 10rpx;
+  color: #ff4d18;
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
 .timeline {
   margin: 22rpx 0;
 }
@@ -48,7 +62,7 @@
   align-items: center;
   gap: 14rpx;
   margin-bottom: 12rpx;
-  color: #697386;
+  color: #64736c;
   font-size: 24rpx;
 }
 
@@ -56,7 +70,8 @@
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;
-  background: #13b66b;
+  background: #00c777;
+  box-shadow: 0 0 0 6rpx #e0f8ed;
 }
 
 .action-row {

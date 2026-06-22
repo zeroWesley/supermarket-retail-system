@@ -1,10 +1,13 @@
 <view class="page">
-  <view class="notice">满79减10，当前还差 ¥{{gapAmount}}</view>
+  <view class="notice">满79减10 · 当前还差 ¥{{gapAmount}} 可享优惠</view>
   <view wx:for="{{items}}" wx:key="productId" class="cart-row">
-    <view class="cover">{{item.product.icon}}</view>
+    <view class="cover">
+      <image wx:if="{{item.product.image}}" src="{{item.product.image}}" mode="aspectFill"></image>
+      <text wx:else>{{item.product.icon}}</text>
+    </view>
     <view>
       <view class="name">{{item.product.name}}</view>
-      <view class="muted">¥{{item.product.price}} × {{item.quantity}}</view>
+      <view class="muted">{{item.product.desc}}</view>
       <view class="cart-bottom">
         <view class="price">¥{{item.subtotal}}</view>
         <view class="qty">
@@ -17,9 +20,9 @@
   </view>
 
   <view class="card">
-    <view class="block-title">配送信息</view>
+    <view class="block-title">配送到家</view>
     <view class="muted">绿洲小区 3 栋 1602 · 李先生 138****8888</view>
-    <view class="muted">期望 18:00-19:00 送达 · 员工自配送</view>
+    <view class="muted">期望 18:00-19:00 送达 · 门店员工自配送</view>
   </view>
 
   <view class="card info-card">
@@ -32,8 +35,8 @@
   <view class="checkout">
     <view>
       <view class="total">合计 ¥{{payAmount}}</view>
-      <view class="muted">含配送费 ¥3.00，模拟支付</view>
+      <view class="muted">已含配送费，当前为模拟支付</view>
     </view>
-    <view class="primary-btn" bindtap="submitOrder">提交订单</view>
+    <view class="primary-btn" bindtap="submitOrder">确认下单</view>
   </view>
 </view>

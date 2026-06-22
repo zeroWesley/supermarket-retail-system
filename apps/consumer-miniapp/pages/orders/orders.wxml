@@ -1,7 +1,7 @@
 <view class="page">
   <view class="filter-row">
     <view class="active">全部</view>
-    <view>待拣货</view>
+    <view>待处理</view>
     <view>配送中</view>
     <view>已完成</view>
   </view>
@@ -11,7 +11,8 @@
       <view class="order-no">订单 #{{item.id}}</view>
       <view class="tag {{item.status === '待拣货' ? 'tag-warn' : ''}}">{{item.status}}</view>
     </view>
-    <view class="muted">{{item.items}} · ¥{{item.amount}}</view>
+    <view class="order-desc">{{item.items}}</view>
+    <view class="order-amount">¥{{item.amount}}</view>
     <view class="timeline">
       <view wx:for="{{item.timeline}}" wx:key="*this" class="time-item">
         <view class="dot"></view>
@@ -20,7 +21,7 @@
     </view>
     <view class="action-row">
       <view class="ghost-btn">申请售后</view>
-      <view class="primary-btn">查看详情</view>
+      <view class="primary-btn">查看进度</view>
     </view>
   </view>
 </view>

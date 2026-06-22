@@ -1,6 +1,6 @@
 <view class="page">
   <view class="search-wrap">
-    <view class="search">搜索商品名称/条码</view>
+    <view class="search">搜索商品名称、品牌或条码</view>
   </view>
   <view class="layout">
     <view class="side">
@@ -17,12 +17,13 @@
         <view class="body">
           <view class="name">{{item.name}}</view>
           <view class="muted">{{item.desc}}</view>
+          <view class="mini-tag">{{item.tag}}</view>
           <view class="row-bottom">
             <view>
               <view class="price">¥{{item.price}}</view>
-              <view class="muted">库存 {{item.stock}}</view>
+              <view class="muted">库存 {{item.stock}} · 门店现拣</view>
             </view>
-            <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>
+            <view class="add" catchtap="addCart" data-id="{{item.id}}">加购</view>
           </view>
         </view>
       </view>

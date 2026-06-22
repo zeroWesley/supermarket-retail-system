@@ -2,29 +2,32 @@
   <view class="top">
     <view class="store-row">
       <view>
+        <view class="store-label">当前门店</view>
         <view class="store-name">{{store.name}}</view>
-        <view class="store-meta">{{store.distance}} · {{store.eta}}</view>
+        <view class="store-meta">{{store.distance}} · {{store.eta}} · 门店现拣</view>
       </view>
-      <view class="switch">切换</view>
+      <view class="switch">切换门店</view>
     </view>
-    <view class="search">搜索 酒水、生鲜、牛奶、零食</view>
+    <view class="search">搜索鲜奶、啤酒、水果、今日特价</view>
   </view>
 
   <view class="hero">
-    <view class="hero-title">今晚聚餐不用等</view>
-    <view class="hero-desc">满79减10 · 生鲜酒水员工自配送</view>
+    <view class="hero-kicker">Zero 即时达</view>
+    <view class="hero-title">今晚吃喝用，一次配齐</view>
+    <view class="hero-desc">生鲜酒水员工自配送 · 缺货先确认再处理</view>
+    <view class="hero-action">去选今日好货</view>
   </view>
 
   <view class="service-row">
-    <view>约32分钟达</view>
-    <view>门店现拣</view>
-    <view>缺货可退</view>
+    <view><text>约32分钟</text><text>快送到家</text></view>
+    <view><text>门店现拣</text><text>新鲜可见</text></view>
+    <view><text>缺货确认</text><text>放心退款</text></view>
   </view>
 
   <view class="coupon-row">
     <view wx:for="{{promotions}}" wx:key="id" class="coupon">
       <view>{{item.name}}</view>
-      <text>{{item.target}}</text>
+      <text>{{item.target}} 可用</text>
     </view>
   </view>
 
@@ -58,14 +61,15 @@
         <text wx:else>{{item.icon}}</text>
       </view>
       <view class="product-body">
+        <view class="product-tag">{{item.tag}}</view>
         <view class="product-name">{{item.name}}</view>
         <view class="muted">{{item.desc}}</view>
         <view class="product-bottom">
           <view>
             <view class="price">¥{{item.price}}</view>
-            <view class="muted">库存 {{item.stock}}</view>
+            <view class="muted">库存 {{item.stock}} · 现拣现送</view>
           </view>
-          <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>
+          <view class="add" catchtap="addCart" data-id="{{item.id}}">加购</view>
         </view>
       </view>
     </view>

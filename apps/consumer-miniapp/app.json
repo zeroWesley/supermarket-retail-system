@@ -9,13 +9,13 @@
   ],
   "window": {
     "navigationBarTitleText": "Zero便利超市",
-    "navigationBarBackgroundColor": "#13b66b",
+    "navigationBarBackgroundColor": "#00b96b",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#f6f8fb"
+    "backgroundColor": "#f3f7f5"
   },
   "tabBar": {
-    "color": "#697386",
-    "selectedColor": "#13b66b",
+    "color": "#77827c",
+    "selectedColor": "#00b96b",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
