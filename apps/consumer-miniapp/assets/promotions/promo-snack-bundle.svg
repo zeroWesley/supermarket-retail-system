@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#07854d"/><stop offset="1" stop-color="#13b66b"/></linearGradient></defs>
+  <rect width="900" height="360" rx="42" fill="url(#g)"/>
+  <circle cx="760" cy="88" r="118" fill="#fff" opacity="0.12"/>
+  <circle cx="96" cy="310" r="150" fill="#fff" opacity="0.10"/>
+  <text x="70" y="132" font-size="56" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" font-weight="900" fill="#fff">零食第二件半价</text>
+  <text x="72" y="205" font-size="34" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#dcfce7">第二件半价 · 休闲零食</text>
+  <text x="72" y="278" font-size="28" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#bbf7d0">2026-06-21 至 2026-07-01</text>
+</svg>

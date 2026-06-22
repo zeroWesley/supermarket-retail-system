@@ -81,8 +81,8 @@
       "status": "已上架",
       "tag": "限时特价",
       "icon": "酒",
-      "image": "https://source.unsplash.com/640x640/?beer,can",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/beer-qingdao.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -98,8 +98,8 @@
       "status": "已上架",
       "tag": "满减可用",
       "icon": "酒",
-      "image": "https://source.unsplash.com/640x640/?beer,pack",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/beer-snow.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -115,8 +115,8 @@
       "status": "已上架",
       "tag": "低库存",
       "icon": "酒",
-      "image": "https://source.unsplash.com/640x640/?cocktail,can",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/wine-rio.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -131,8 +131,8 @@
       "status": "已上架",
       "tag": "热销",
       "icon": "水",
-      "image": "https://source.unsplash.com/640x640/?bottled-water",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/water-nongfu.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -147,8 +147,8 @@
       "status": "已上架",
       "tag": "第二件半价",
       "icon": "饮",
-      "image": "https://source.unsplash.com/640x640/?cola,bottle",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/coke-zero.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -163,8 +163,8 @@
       "status": "已上架",
       "tag": "满减可用",
       "icon": "鲜",
-      "image": "https://source.unsplash.com/640x640/?red-apple",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/apple-fuji.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -179,8 +179,8 @@
       "status": "已上架",
       "tag": "今日到货",
       "icon": "鲜",
-      "image": "https://source.unsplash.com/640x640/?banana",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/banana.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -195,8 +195,8 @@
       "status": "已上架",
       "tag": "库存预警",
       "icon": "鲜",
-      "image": "https://source.unsplash.com/640x640/?orange-fruit",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/orange.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -211,8 +211,8 @@
       "status": "已上架",
       "tag": "今日到货",
       "icon": "菜",
-      "image": "https://source.unsplash.com/640x640/?bok-choy,vegetable",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/vegetable-green.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -227,8 +227,8 @@
       "status": "已上架",
       "tag": "缺货",
       "icon": "菜",
-      "image": "https://source.unsplash.com/640x640/?tomato",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/tomato.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -243,8 +243,8 @@
       "status": "已上架",
       "tag": "常购",
       "icon": "蛋",
-      "image": "https://source.unsplash.com/640x640/?eggs,carton",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/egg.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -259,8 +259,8 @@
       "status": "已上架",
       "tag": "库存预警",
       "icon": "乳",
-      "image": "https://source.unsplash.com/640x640/?milk,bottle",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/milk-fresh.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -275,8 +275,8 @@
       "status": "已上架",
       "tag": "早餐搭配",
       "icon": "乳",
-      "image": "https://source.unsplash.com/640x640/?yogurt,cup",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/yogurt-cup.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -291,8 +291,8 @@
       "status": "已上架",
       "tag": "库存预警",
       "icon": "乳",
-      "image": "https://source.unsplash.com/640x640/?cheese-snack",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/cheese-stick.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -307,8 +307,8 @@
       "status": "已上架",
       "tag": "第二件半价",
       "icon": "零",
-      "image": "https://source.unsplash.com/640x640/?potato-chips",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/chips.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -323,8 +323,8 @@
       "status": "已上架",
       "tag": "新品",
       "icon": "零",
-      "image": "https://source.unsplash.com/640x640/?mixed-nuts",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/nuts-mix.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -339,8 +339,8 @@
       "status": "已上架",
       "tag": "酒水搭配",
       "icon": "零",
-      "image": "https://source.unsplash.com/640x640/?%E4%BC%91%E9%97%B2%E9%9B%B6%E9%A3%9F",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/duck-neck.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -355,8 +355,8 @@
       "status": "已上架",
       "tag": "满99减15",
       "icon": "粮",
-      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/rice-5kg.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -371,8 +371,8 @@
       "status": "已上架",
       "tag": "库存预警",
       "icon": "油",
-      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/oil-corn.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -387,8 +387,8 @@
       "status": "已上架",
       "tag": "常购",
       "icon": "调",
-      "image": "https://source.unsplash.com/640x640/?%E7%B2%AE%E6%B2%B9%E8%B0%83%E5%91%B3",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/soy-sauce.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -403,8 +403,8 @@
       "status": "已上架",
       "tag": "冷冻配送",
       "icon": "冻",
-      "image": "https://source.unsplash.com/640x640/?dumplings,frozen",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/dumpling.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -419,8 +419,8 @@
       "status": "已上架",
       "tag": "库存预警",
       "icon": "冰",
-      "image": "https://source.unsplash.com/640x640/?ice-cream",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/ice-cream.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -435,8 +435,8 @@
       "status": "已上架",
       "tag": "常购",
       "icon": "家",
-      "image": "https://source.unsplash.com/640x640/?tissue-paper",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/tissue.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -451,8 +451,8 @@
       "status": "已上架",
       "tag": "家庭装",
       "icon": "家",
-      "image": "https://source.unsplash.com/640x640/?%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/laundry.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     },
     {
@@ -467,8 +467,8 @@
       "status": "已下架",
       "tag": "已下架",
       "icon": "家",
-      "image": "https://source.unsplash.com/640x640/?%E6%97%A5%E7%94%A8%E7%99%BE%E8%B4%A7",
-      "imageSource": "Unsplash Source",
+      "image": "/assets/products/mask.svg",
+      "imageSource": "本地演示商品图",
       "uploadStatus": "后台已上传"
     }
   ],
@@ -482,8 +482,9 @@
       "end": "2026-06-30",
       "status": "进行中",
       "metric": "已用 38 次",
-      "image": "https://source.unsplash.com/900x360/?grocery,shopping",
-      "displayText": "满79减10 · 全场商品"
+      "image": "/assets/promotions/promo-full-79.svg",
+      "displayText": "满79减10 · 全场商品",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-full-99",
@@ -494,8 +495,9 @@
       "end": "2026-07-15",
       "status": "进行中",
       "metric": "已用 21 次",
-      "image": "https://source.unsplash.com/900x360/?supermarket,cart",
-      "displayText": "满99减15 · 粮油调味、日用百货"
+      "image": "/assets/promotions/promo-full-99.svg",
+      "displayText": "满99减15 · 粮油调味、日用百货",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-beer-night",
@@ -506,8 +508,9 @@
       "end": "2026-07-05",
       "status": "进行中",
       "metric": "销售 126 件",
-      "image": "https://source.unsplash.com/900x360/?beer,party",
-      "displayText": "酒水夜间特价 · 酒水饮料"
+      "image": "/assets/promotions/promo-beer-night.svg",
+      "displayText": "酒水夜间特价 · 酒水饮料",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-new-user",
@@ -518,8 +521,9 @@
       "end": "长期",
       "status": "待启用",
       "metric": "未开始",
-      "image": "https://source.unsplash.com/900x360/?coupon,shopping",
-      "displayText": "新人优惠券 · 新用户"
+      "image": "/assets/promotions/promo-new-user.svg",
+      "displayText": "新人优惠券 · 新用户",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-fresh-morning",
@@ -530,8 +534,9 @@
       "end": "2026-06-28",
       "status": "待启用",
       "metric": "待开始",
-      "image": "https://source.unsplash.com/900x360/?fresh-fruit,market",
-      "displayText": "早市生鲜 9 折 · 水果生鲜"
+      "image": "/assets/promotions/promo-fresh-morning.svg",
+      "displayText": "早市生鲜 9 折 · 水果生鲜",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-ice-cream",
@@ -542,8 +547,9 @@
       "end": "2026-06-21",
       "status": "已结束",
       "metric": "成交 32 件",
-      "image": "https://source.unsplash.com/900x360/?ice-cream,dessert",
-      "displayText": "冷冻冰品秒杀 · 冷冻速食"
+      "image": "/assets/promotions/promo-ice-cream.svg",
+      "displayText": "冷冻冰品秒杀 · 冷冻速食",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-snack-bundle",
@@ -554,8 +560,9 @@
       "end": "2026-07-01",
       "status": "进行中",
       "metric": "带动 54 件",
-      "image": "https://source.unsplash.com/900x360/?snacks",
-      "displayText": "零食第二件半价 · 休闲零食"
+      "image": "/assets/promotions/promo-snack-bundle.svg",
+      "displayText": "零食第二件半价 · 休闲零食",
+      "imageSource": "本地演示活动图"
     },
     {
       "id": "promo-free-delivery",
@@ -566,8 +573,9 @@
       "end": "2026-07-31",
       "status": "进行中",
       "metric": "减免 18 单",
-      "image": "https://source.unsplash.com/900x360/?delivery,grocery",
-      "displayText": "满99免配送费 · 全场商品"
+      "image": "/assets/promotions/promo-free-delivery.svg",
+      "displayText": "满99免配送费 · 全场商品",
+      "imageSource": "本地演示活动图"
     }
   ],
   "orders": [

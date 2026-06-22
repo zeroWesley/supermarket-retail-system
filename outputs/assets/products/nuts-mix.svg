@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <rect width="640" height="640" rx="72" fill="#fefce8"/>
+  <circle cx="500" cy="120" r="92" fill="#eab308" opacity="0.14"/>
+  <circle cx="120" cy="520" r="120" fill="#eab308" opacity="0.10"/>
+  <rect x="120" y="116" width="400" height="320" rx="54" fill="#fff" stroke="#eab308" stroke-width="10"/>
+  <rect x="178" y="174" width="284" height="142" rx="36" fill="#eab308" opacity="0.16"/>
+  <text x="320" y="276" text-anchor="middle" font-size="128" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" font-weight="900" fill="#eab308">坚</text>
+  <text x="320" y="500" text-anchor="middle" font-size="38" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" font-weight="800" fill="#713f12">每日坚果 25g</text>
+  <text x="320" y="552" text-anchor="middle" font-size="30" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#eab308">休闲零食</text>
+</svg>
