@@ -14,11 +14,17 @@ function ensureDb() {
 
 function readDb() {
   ensureDb();
-  return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
+  return normalizeDb(JSON.parse(fs.readFileSync(DB_FILE, "utf8")));
 }
 
 function writeDb(db) {
   fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
+}
+
+function normalizeDb(db) {
+  db.coupons = (db.coupons || []).map((item) => normalizeResource("coupons", item));
+  db.campaigns = (db.campaigns || []).map((item) => normalizeResource("campaigns", item));
+  return db;
 }
 
 function send(res, status, data) {
@@ -81,8 +87,25 @@ function publicCampaigns(db) {
     .sort((a, b) => Number(a.sort || 99) - Number(b.sort || 99))
     .map((item) => ({
       ...item,
-      coupon: coupons.find((coupon) => coupon.id === item.couponId) || null
+      activity_id: item.activity_id || item.id,
+      coupon_id: item.coupon_id || item.couponId,
+      couponId: item.couponId || item.coupon_id,
+      coupon: coupons.find((coupon) => coupon.id === (item.coupon_id || item.couponId) || coupon.coupon_id === (item.coupon_id || item.couponId)) || null
     }));
+}
+
+function normalizeResource(name, item) {
+  if (name === "coupons") {
+    const couponId = item.coupon_id || item.id || `coupon-${Date.now()}`;
+    return { ...item, id: item.id || couponId, coupon_id: couponId };
+  }
+  if (name === "campaigns") {
+    const fallbackActivityId = item.id && item.id.startsWith("campaign-") ? item.id.replace("campaign-", "activity-") : item.id;
+    const activityId = item.activity_id || fallbackActivityId || `activity-${Date.now()}`;
+    const couponId = item.coupon_id || item.couponId || "";
+    return { ...item, id: item.id || activityId, activity_id: activityId, coupon_id: couponId, couponId };
+  }
+  return item;
 }
 
 function routeResource(db, name, req, res, id) {
@@ -94,7 +117,7 @@ function routeResource(db, name, req, res, id) {
     const { actor, ...payload } = body;
     const label = resourceLabels[name] || name;
     if (req.method === "POST") {
-      const item = { id: payload.id || `${name}-${Date.now()}`, ...payload };
+      const item = normalizeResource(name, { id: payload.id || payload.coupon_id || payload.activity_id || `${name}-${Date.now()}`, ...payload });
       db[name].unshift(item);
       log(db, actor, `新增${label}`, item.name || item.id);
       writeDb(db);
@@ -103,7 +126,7 @@ function routeResource(db, name, req, res, id) {
     if ((req.method === "PUT" || req.method === "PATCH") && id) {
       const index = db[name].findIndex((item) => item.id === id);
       if (index < 0) return send(res, 404, { message: "Not found" });
-      db[name][index] = { ...db[name][index], ...payload, id };
+      db[name][index] = normalizeResource(name, { ...db[name][index], ...payload, id });
       log(db, actor, `更新${label}`, db[name][index].name || id);
       writeDb(db);
       return send(res, 200, db[name][index]);

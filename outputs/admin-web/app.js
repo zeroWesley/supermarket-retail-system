@@ -13,12 +13,12 @@ const seedData = {
     { id: "chips", name: "原味薯片 104g", category: "休闲零食", price: 8.8, stock: 58, threshold: 16, status: "已下架", tag: "第二件半价" }
   ],
   coupons: [
-    { id: "coupon-full-79", name: "满79减10", type: "通用券", usableProducts: [], amount: 10, threshold: 79, stock: 500, start: "2026-06-21", end: "2026-07-31", status: "启用", description: "全场商品满79元可用。" },
-    { id: "coupon-beer-20", name: "酒水满59减8", type: "商品券", usableProducts: ["beer-qingdao"], amount: 8, threshold: 59, stock: 180, start: "2026-06-21", end: "2026-07-15", status: "启用", description: "仅限酒水饮料商品使用。" }
+    { id: "coupon-full-79", coupon_id: "coupon-full-79", name: "满79减10", type: "通用券", usableProducts: [], amount: 10, threshold: 79, stock: 500, start: "2026-06-21", end: "2026-07-31", status: "启用", description: "全场商品满79元可用。" },
+    { id: "coupon-beer-20", coupon_id: "coupon-beer-20", name: "酒水满59减8", type: "商品券", usableProducts: ["beer-qingdao"], amount: 8, threshold: 59, stock: 180, start: "2026-06-21", end: "2026-07-15", status: "启用", description: "仅限酒水饮料商品使用。" }
   ],
   campaigns: [
-    { id: "campaign-home-banner", name: "首页主Banner-今晚吃喝用", position: "首页主Banner", couponId: "coupon-full-79", start: "2026-06-21", end: "2026-07-31", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送", sort: 1 },
-    { id: "campaign-beer-night", name: "首页券区-酒水夜间特价", position: "首页优惠券区", couponId: "coupon-beer-20", start: "2026-06-21", end: "2026-07-15", status: "进行中", title: "酒水满59减8", subtitle: "酒水饮料可用", sort: 2 }
+    { id: "campaign-home-banner", activity_id: "activity-home-banner", name: "首页主Banner-今晚吃喝用", position: "首页主Banner", coupon_id: "coupon-full-79", couponId: "coupon-full-79", start: "2026-06-21", end: "2026-07-31", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送", sort: 1 },
+    { id: "campaign-beer-night", activity_id: "activity-beer-night", name: "首页券区-酒水夜间特价", position: "首页优惠券区", coupon_id: "coupon-beer-20", couponId: "coupon-beer-20", start: "2026-06-21", end: "2026-07-15", status: "进行中", title: "酒水满59减8", subtitle: "酒水饮料可用", sort: 2 }
   ],
   promotions: [],
   orders: [
@@ -203,8 +203,22 @@ function operatePermissionText(account) {
   return operatePermissions.map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权";
 }
 
+function couponBusinessId(coupon = {}) {
+  return coupon.coupon_id || coupon.id || "";
+}
+
+function activityBusinessId(campaign = {}) {
+  const fallbackActivityId = campaign.id && campaign.id.startsWith("campaign-") ? campaign.id.replace("campaign-", "activity-") : campaign.id;
+  return campaign.activity_id || fallbackActivityId || "";
+}
+
+function campaignCouponId(campaign = {}) {
+  return campaign.coupon_id || campaign.couponId || "";
+}
+
 function couponName(id) {
-  return (state.coupons || []).find((item) => item.id === id)?.name || id || "未绑定";
+  const coupon = (state.coupons || []).find((item) => item.id === id || item.coupon_id === id);
+  return coupon ? `${couponBusinessId(coupon)} ｜ ${coupon.name}` : id || "未绑定";
 }
 
 function couponProductsText(coupon) {
@@ -220,7 +234,11 @@ function productOptions(selected = []) {
 }
 
 function couponOptions(selected = "") {
-  return (state.coupons || []).map((item) => `<option value="${item.id}" ${selected === item.id ? "selected" : ""}>${item.name}</option>`).join("");
+  return (state.coupons || []).map((item) => {
+    const couponId = couponBusinessId(item);
+    const isSelected = selected === item.id || selected === couponId;
+    return `<option value="${couponId}" ${isSelected ? "selected" : ""}>${couponId} ｜ ${item.name}</option>`;
+  }).join("");
 }
 
 function isAdminAccount(account = currentUser) {
@@ -420,10 +438,11 @@ function renderCoupons() {
         <button class="primary" data-open="coupon">新增优惠券</button>
       </div>
       <table>
-        <thead><tr><th>券名称</th><th>类型</th><th>面额/门槛</th><th>库存</th><th>可用时间</th><th>可用商品</th><th>状态</th><th>操作</th></tr></thead>
+        <thead><tr><th>券ID</th><th>券名称</th><th>类型</th><th>面额/门槛</th><th>库存</th><th>可用时间</th><th>可用商品</th><th>状态</th><th>操作</th></tr></thead>
         <tbody>
           ${(state.coupons || []).map((item) => `
             <tr>
+              <td><code class="code-id">${couponBusinessId(item)}</code></td>
               <td>${item.name}</td>
               <td>${item.type}</td>
               <td>${money(item.amount)} / 满${item.threshold}</td>
@@ -452,13 +471,14 @@ function renderCampaigns() {
         <button class="primary" data-open="campaign">新增投放</button>
       </div>
       <table>
-        <thead><tr><th>活动</th><th>投放位置</th><th>绑定券</th><th>时间</th><th>状态</th><th>展示文案</th><th>操作</th></tr></thead>
+        <thead><tr><th>活动ID</th><th>活动</th><th>投放位置</th><th>绑定券ID</th><th>时间</th><th>状态</th><th>展示文案</th><th>操作</th></tr></thead>
         <tbody>
           ${(state.campaigns || []).map((item) => `
             <tr>
+              <td><code class="code-id">${activityBusinessId(item)}</code></td>
               <td>${item.name}</td>
               <td>${item.position}</td>
-              <td>${couponName(item.couponId)}</td>
+              <td>${couponName(campaignCouponId(item))}</td>
               <td>${item.start} 至 ${item.end}</td>
               <td>${tag(item.status)}</td>
               <td>${item.title}<br><span class="muted">${item.subtitle || ""}</span></td>
@@ -749,9 +769,11 @@ function productForm(product = {}) {
 }
 
 function couponForm(coupon = {}) {
+  const couponId = couponBusinessId(coupon) || `coupon-${Date.now()}`;
   return `
     <div class="form-grid">
       <input type="hidden" name="id" value="${coupon.id || ""}">
+      <div class="form-field"><label>券ID coupon_id</label><input class="input" name="coupon_id" value="${couponId}" required></div>
       <div class="form-field"><label>券名称</label><input class="input" name="name" value="${coupon.name || ""}" required></div>
       <div class="form-field"><label>券类型</label><select class="select" name="type"><option ${coupon.type === "通用券" ? "selected" : ""}>通用券</option><option ${coupon.type === "商品券" ? "selected" : ""}>商品券</option></select></div>
       <div class="form-field"><label>面额</label><input class="input" name="amount" type="number" step="0.01" value="${coupon.amount ?? 10}" required></div>
@@ -768,12 +790,15 @@ function couponForm(coupon = {}) {
 }
 
 function campaignForm(campaign = {}) {
+  const activityId = activityBusinessId(campaign) || `activity-${Date.now()}`;
+  const selectedCouponId = campaignCouponId(campaign);
   return `
     <div class="form-grid">
       <input type="hidden" name="id" value="${campaign.id || ""}">
+      <div class="form-field"><label>活动ID activity_id</label><input class="input" name="activity_id" value="${activityId}" required></div>
       <div class="form-field"><label>活动名称</label><input class="input" name="name" value="${campaign.name || ""}" required></div>
       <div class="form-field"><label>投放位置</label><select class="select" name="position">${["首页主Banner", "首页优惠券区", "首页频道入口", "分类页顶部", "商品详情页"].map((item) => `<option ${campaign.position === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
-      <div class="form-field"><label>绑定优惠券</label><select class="select" name="couponId">${couponOptions(campaign.couponId)}</select></div>
+      <div class="form-field"><label>绑定券ID coupon_id</label><select class="select" name="coupon_id">${couponOptions(selectedCouponId)}</select></div>
       <div class="form-field"><label>排序</label><input class="input" name="sort" type="number" value="${campaign.sort ?? 10}"></div>
       <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${campaign.start || "2026-06-23"}"></div>
       <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="${campaign.end || "2026-07-31"}"></div>
@@ -885,8 +910,10 @@ async function handleSubmit(event) {
     }
   }
   if (type === "coupon") {
+    const couponId = data.coupon_id || data.id || `coupon-${Date.now()}`;
     const coupon = {
-      id: data.id || `coupon-${Date.now()}`,
+      id: data.id || couponId,
+      coupon_id: couponId,
       name: data.name,
       type: data.type,
       usableProducts: formData.getAll("usableProducts"),
@@ -911,11 +938,15 @@ async function handleSubmit(event) {
     }
   }
   if (type === "campaign") {
+    const activityId = data.activity_id || data.id || `activity-${Date.now()}`;
+    const boundCouponId = data.coupon_id || data.couponId;
     const campaign = {
-      id: data.id || `campaign-${Date.now()}`,
+      id: data.id || activityId,
+      activity_id: activityId,
       name: data.name,
       position: data.position,
-      couponId: data.couponId,
+      coupon_id: boundCouponId,
+      couponId: boundCouponId,
       start: data.start,
       end: data.end,
       status: data.status || "待启用",

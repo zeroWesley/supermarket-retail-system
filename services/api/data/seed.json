@@ -861,6 +861,7 @@
   "coupons": [
     {
       "id": "coupon-full-79",
+      "coupon_id": "coupon-full-79",
       "name": "满79减10",
       "type": "通用券",
       "usableProducts": [],
@@ -874,6 +875,7 @@
     },
     {
       "id": "coupon-full-99",
+      "coupon_id": "coupon-full-99",
       "name": "满99减15",
       "type": "通用券",
       "usableProducts": [],
@@ -887,6 +889,7 @@
     },
     {
       "id": "coupon-beer-20",
+      "coupon_id": "coupon-beer-20",
       "name": "酒水满59减8",
       "type": "商品券",
       "usableProducts": [
@@ -905,6 +908,7 @@
     },
     {
       "id": "coupon-fresh-30",
+      "coupon_id": "coupon-fresh-30",
       "name": "生鲜满39减6",
       "type": "商品券",
       "usableProducts": [
@@ -925,8 +929,10 @@
   "campaigns": [
     {
       "id": "campaign-home-banner",
+      "activity_id": "activity-home-banner",
       "name": "首页主Banner-今晚吃喝用",
       "position": "首页主Banner",
+      "coupon_id": "coupon-full-79",
       "couponId": "coupon-full-79",
       "start": "2026-06-21",
       "end": "2026-07-31",
@@ -938,8 +944,10 @@
     },
     {
       "id": "campaign-coupon-row-99",
+      "activity_id": "activity-coupon-row-99",
       "name": "首页券区-满99减15",
       "position": "首页优惠券区",
+      "coupon_id": "coupon-full-99",
       "couponId": "coupon-full-99",
       "start": "2026-06-21",
       "end": "2026-07-31",
@@ -951,8 +959,10 @@
     },
     {
       "id": "campaign-beer-night",
+      "activity_id": "activity-beer-night",
       "name": "首页券区-酒水夜间特价",
       "position": "首页优惠券区",
+      "coupon_id": "coupon-beer-20",
       "couponId": "coupon-beer-20",
       "start": "2026-06-21",
       "end": "2026-07-15",
@@ -964,8 +974,10 @@
     },
     {
       "id": "campaign-fresh-morning",
+      "activity_id": "activity-fresh-morning",
       "name": "首页频道-早市生鲜",
       "position": "首页频道入口",
+      "coupon_id": "coupon-fresh-30",
       "couponId": "coupon-fresh-30",
       "start": "2026-06-22",
       "end": "2026-07-10",

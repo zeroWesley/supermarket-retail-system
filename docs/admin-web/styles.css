@@ -403,6 +403,20 @@ h1 {
   font-weight: 800;
 }
 
+.code-id {
+  display: inline-flex;
+  max-width: 180px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .product-thumb {
   display: block;
   width: 52px;

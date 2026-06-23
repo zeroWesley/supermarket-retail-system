@@ -34,6 +34,8 @@ http://127.0.0.1:8787
 
 `/api/promotions` 仍保留为旧原型兼容接口，新版本营销后台以 `coupons` 和 `campaigns` 为主。
 
+优惠券使用 `coupon_id` 作为后台可见业务 ID；活动投放使用 `activity_id` 作为后台可见业务 ID。活动绑定优惠券时保存 `coupon_id`，同时兼容旧字段 `couponId` 供小程序读取。
+
 数据文件位于 `services/api/data/db.json`。首次启动会从 `seed.json` 复制生成。
 
 ## 演示数据
