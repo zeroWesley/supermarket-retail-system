@@ -106,12 +106,12 @@ App({
       }
     ],
     coupons: [
-      { id: "coupon-full-79", coupon_id: "coupon-full-79", name: "满79减10", type: "通用券", amount: 10, threshold: 79, status: "启用" },
-      { id: "coupon-full-99", coupon_id: "coupon-full-99", name: "满99减15", type: "通用券", amount: 15, threshold: 99, status: "启用" }
+      { id: "coupon-full-79", coupon_id: "100001", name: "满79减10", type: "通用券", amount: 10, threshold: 79, status: "启用" },
+      { id: "coupon-full-99", coupon_id: "100002", name: "满99减15", type: "通用券", amount: 15, threshold: 99, status: "启用" }
     ],
     campaigns: [
-      { id: "campaign-home-banner", activity_id: "activity-home-banner", name: "首页主Banner", position: "首页主Banner", coupon_id: "coupon-full-79", couponId: "coupon-full-79", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送 · 缺货先确认再处理", sort: 1 },
-      { id: "campaign-coupon-row-99", activity_id: "activity-coupon-row-99", name: "首页券区", position: "首页优惠券区", coupon_id: "coupon-full-99", couponId: "coupon-full-99", status: "进行中", title: "满99减15", subtitle: "全场商品可用", sort: 2 }
+      { id: "campaign-home-banner", activity_id: "200001", name: "首页主Banner", position: "首页主Banner", coupon_id: "100001", couponId: "100001", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送 · 缺货先确认再处理", sort: 1 },
+      { id: "campaign-coupon-row-99", activity_id: "200002", name: "首页券区", position: "首页优惠券区", coupon_id: "100002", couponId: "100002", status: "进行中", title: "满99减15", subtitle: "全场商品可用", sort: 2 }
     ],
     cart: [
       { productId: "beer-qingdao", quantity: 6 },

@@ -94,15 +94,42 @@ function publicCampaigns(db) {
     }));
 }
 
+function normalizeCouponId(value = "", item = {}) {
+  const raw = String(value || "").trim();
+  if (/^\d+$/.test(raw)) return raw;
+  const map = {
+    "coupon-full-79": "100001",
+    "coupon-full-99": "100002",
+    "coupon-beer-20": "100003",
+    "coupon-fresh-30": "100004"
+  };
+  return map[raw] || map[item.id] || "";
+}
+
+function normalizeActivityId(value = "", item = {}) {
+  const raw = String(value || "").trim();
+  if (/^\d+$/.test(raw)) return raw;
+  const map = {
+    "campaign-home-banner": "200001",
+    "activity-home-banner": "200001",
+    "campaign-coupon-row-99": "200002",
+    "activity-coupon-row-99": "200002",
+    "campaign-beer-night": "200003",
+    "activity-beer-night": "200003",
+    "campaign-fresh-morning": "200004",
+    "activity-fresh-morning": "200004"
+  };
+  return map[raw] || map[item.id] || "";
+}
+
 function normalizeResource(name, item) {
   if (name === "coupons") {
-    const couponId = item.coupon_id || item.id || `coupon-${Date.now()}`;
+    const couponId = normalizeCouponId(item.coupon_id || item.id, item) || `${Date.now()}`;
     return { ...item, id: item.id || couponId, coupon_id: couponId };
   }
   if (name === "campaigns") {
-    const fallbackActivityId = item.id && item.id.startsWith("campaign-") ? item.id.replace("campaign-", "activity-") : item.id;
-    const activityId = item.activity_id || fallbackActivityId || `activity-${Date.now()}`;
-    const couponId = item.coupon_id || item.couponId || "";
+    const activityId = normalizeActivityId(item.activity_id || item.id, item) || `${Date.now()}`;
+    const couponId = normalizeCouponId(item.coupon_id || item.couponId);
     return { ...item, id: item.id || activityId, activity_id: activityId, coupon_id: couponId, couponId };
   }
   return item;

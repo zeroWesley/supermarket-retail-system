@@ -13,12 +13,12 @@ const seedData = {
     { id: "chips", name: "原味薯片 104g", category: "休闲零食", price: 8.8, stock: 58, threshold: 16, status: "已下架", tag: "第二件半价" }
   ],
   coupons: [
-    { id: "coupon-full-79", coupon_id: "coupon-full-79", name: "满79减10", type: "通用券", usableProducts: [], amount: 10, threshold: 79, stock: 500, start: "2026-06-21", end: "2026-07-31", status: "启用", description: "全场商品满79元可用。" },
-    { id: "coupon-beer-20", coupon_id: "coupon-beer-20", name: "酒水满59减8", type: "商品券", usableProducts: ["beer-qingdao"], amount: 8, threshold: 59, stock: 180, start: "2026-06-21", end: "2026-07-15", status: "启用", description: "仅限酒水饮料商品使用。" }
+    { id: "coupon-full-79", coupon_id: "100001", name: "满79减10", type: "通用券", usableProducts: [], amount: 10, threshold: 79, stock: 500, start: "2026-06-21", end: "2026-07-31", status: "启用", description: "全场商品满79元可用。" },
+    { id: "coupon-beer-20", coupon_id: "100003", name: "酒水满59减8", type: "商品券", usableProducts: ["beer-qingdao"], amount: 8, threshold: 59, stock: 180, start: "2026-06-21", end: "2026-07-15", status: "启用", description: "仅限酒水饮料商品使用。" }
   ],
   campaigns: [
-    { id: "campaign-home-banner", activity_id: "activity-home-banner", name: "首页主Banner-今晚吃喝用", position: "首页主Banner", coupon_id: "coupon-full-79", couponId: "coupon-full-79", start: "2026-06-21", end: "2026-07-31", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送", sort: 1 },
-    { id: "campaign-beer-night", activity_id: "activity-beer-night", name: "首页券区-酒水夜间特价", position: "首页优惠券区", coupon_id: "coupon-beer-20", couponId: "coupon-beer-20", start: "2026-06-21", end: "2026-07-15", status: "进行中", title: "酒水满59减8", subtitle: "酒水饮料可用", sort: 2 }
+    { id: "campaign-home-banner", activity_id: "200001", name: "首页主Banner-今晚吃喝用", position: "首页主Banner", coupon_id: "100001", couponId: "100001", start: "2026-06-21", end: "2026-07-31", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送", sort: 1 },
+    { id: "campaign-beer-night", activity_id: "200003", name: "首页券区-酒水夜间特价", position: "首页优惠券区", coupon_id: "100003", couponId: "100003", start: "2026-06-21", end: "2026-07-15", status: "进行中", title: "酒水满59减8", subtitle: "酒水饮料可用", sort: 2 }
   ],
   promotions: [],
   orders: [
@@ -204,20 +204,20 @@ function operatePermissionText(account) {
 }
 
 function couponBusinessId(coupon = {}) {
-  return coupon.coupon_id || coupon.id || "";
+  return normalizeCouponBusinessId(coupon.coupon_id || coupon.id || "", coupon);
 }
 
 function activityBusinessId(campaign = {}) {
-  const fallbackActivityId = campaign.id && campaign.id.startsWith("campaign-") ? campaign.id.replace("campaign-", "activity-") : campaign.id;
-  return campaign.activity_id || fallbackActivityId || "";
+  return normalizeActivityBusinessId(campaign.activity_id || campaign.id || "", campaign);
 }
 
 function campaignCouponId(campaign = {}) {
-  return campaign.coupon_id || campaign.couponId || "";
+  return normalizeCouponBusinessId(campaign.coupon_id || campaign.couponId || "");
 }
 
 function couponName(id) {
-  const coupon = (state.coupons || []).find((item) => item.id === id || item.coupon_id === id);
+  const numericId = normalizeCouponBusinessId(id);
+  const coupon = (state.coupons || []).find((item) => item.id === id || item.coupon_id === id || couponBusinessId(item) === numericId);
   return coupon ? `${couponBusinessId(coupon)} ｜ ${coupon.name}` : id || "未绑定";
 }
 
@@ -234,11 +234,49 @@ function productOptions(selected = []) {
 }
 
 function couponOptions(selected = "") {
+  const selectedId = normalizeCouponBusinessId(selected);
   return (state.coupons || []).map((item) => {
     const couponId = couponBusinessId(item);
-    const isSelected = selected === item.id || selected === couponId;
+    const isSelected = selected === item.id || selected === item.coupon_id || selectedId === couponId;
     return `<option value="${couponId}" ${isSelected ? "selected" : ""}>${couponId} ｜ ${item.name}</option>`;
   }).join("");
+}
+
+function normalizeCouponBusinessId(value = "", coupon = {}) {
+  const raw = String(value || "").trim();
+  if (/^\d+$/.test(raw)) return raw;
+  const map = {
+    "coupon-full-79": "100001",
+    "coupon-full-99": "100002",
+    "coupon-beer-20": "100003",
+    "coupon-fresh-30": "100004"
+  };
+  return map[raw] || map[coupon.id] || "";
+}
+
+function normalizeActivityBusinessId(value = "", campaign = {}) {
+  const raw = String(value || "").trim();
+  if (/^\d+$/.test(raw)) return raw;
+  const map = {
+    "campaign-home-banner": "200001",
+    "activity-home-banner": "200001",
+    "campaign-coupon-row-99": "200002",
+    "activity-coupon-row-99": "200002",
+    "campaign-beer-night": "200003",
+    "activity-beer-night": "200003",
+    "campaign-fresh-morning": "200004",
+    "activity-fresh-morning": "200004"
+  };
+  return map[raw] || map[campaign.id] || "";
+}
+
+function nextNumericId(items = [], field, start) {
+  const max = items.reduce((value, item) => {
+    const normalized = field === "coupon_id" ? couponBusinessId(item) : activityBusinessId(item);
+    const current = Number(normalized || item[field]);
+    return Number.isFinite(current) ? Math.max(value, current) : value;
+  }, start - 1);
+  return String(max + 1);
 }
 
 function isAdminAccount(account = currentUser) {
@@ -769,11 +807,11 @@ function productForm(product = {}) {
 }
 
 function couponForm(coupon = {}) {
-  const couponId = couponBusinessId(coupon) || `coupon-${Date.now()}`;
+  const couponId = couponBusinessId(coupon) || nextNumericId(state.coupons || [], "coupon_id", 100001);
   return `
     <div class="form-grid">
       <input type="hidden" name="id" value="${coupon.id || ""}">
-      <div class="form-field"><label>券ID coupon_id</label><input class="input" name="coupon_id" value="${couponId}" required></div>
+      <div class="form-field"><label>券ID coupon_id</label><input class="input" name="coupon_id" value="${couponId}" inputmode="numeric" pattern="[0-9]*" required></div>
       <div class="form-field"><label>券名称</label><input class="input" name="name" value="${coupon.name || ""}" required></div>
       <div class="form-field"><label>券类型</label><select class="select" name="type"><option ${coupon.type === "通用券" ? "selected" : ""}>通用券</option><option ${coupon.type === "商品券" ? "selected" : ""}>商品券</option></select></div>
       <div class="form-field"><label>面额</label><input class="input" name="amount" type="number" step="0.01" value="${coupon.amount ?? 10}" required></div>
@@ -790,12 +828,12 @@ function couponForm(coupon = {}) {
 }
 
 function campaignForm(campaign = {}) {
-  const activityId = activityBusinessId(campaign) || `activity-${Date.now()}`;
+  const activityId = activityBusinessId(campaign) || nextNumericId(state.campaigns || [], "activity_id", 200001);
   const selectedCouponId = campaignCouponId(campaign);
   return `
     <div class="form-grid">
       <input type="hidden" name="id" value="${campaign.id || ""}">
-      <div class="form-field"><label>活动ID activity_id</label><input class="input" name="activity_id" value="${activityId}" required></div>
+      <div class="form-field"><label>活动ID activity_id</label><input class="input" name="activity_id" value="${activityId}" inputmode="numeric" pattern="[0-9]*" required></div>
       <div class="form-field"><label>活动名称</label><input class="input" name="name" value="${campaign.name || ""}" required></div>
       <div class="form-field"><label>投放位置</label><select class="select" name="position">${["首页主Banner", "首页优惠券区", "首页频道入口", "分类页顶部", "商品详情页"].map((item) => `<option ${campaign.position === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
       <div class="form-field"><label>绑定券ID coupon_id</label><select class="select" name="coupon_id">${couponOptions(selectedCouponId)}</select></div>
@@ -910,9 +948,9 @@ async function handleSubmit(event) {
     }
   }
   if (type === "coupon") {
-    const couponId = data.coupon_id || data.id || `coupon-${Date.now()}`;
+    const couponId = normalizeCouponBusinessId(data.coupon_id) || nextNumericId(state.coupons || [], "coupon_id", 100001);
     const coupon = {
-      id: data.id || couponId,
+      id: data.id || `coupon-${couponId}`,
       coupon_id: couponId,
       name: data.name,
       type: data.type,
@@ -938,10 +976,10 @@ async function handleSubmit(event) {
     }
   }
   if (type === "campaign") {
-    const activityId = data.activity_id || data.id || `activity-${Date.now()}`;
-    const boundCouponId = data.coupon_id || data.couponId;
+    const activityId = normalizeActivityBusinessId(data.activity_id) || nextNumericId(state.campaigns || [], "activity_id", 200001);
+    const boundCouponId = normalizeCouponBusinessId(data.coupon_id || data.couponId);
     const campaign = {
-      id: data.id || activityId,
+      id: data.id || `campaign-${activityId}`,
       activity_id: activityId,
       name: data.name,
       position: data.position,
