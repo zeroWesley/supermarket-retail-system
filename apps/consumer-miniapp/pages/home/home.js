@@ -5,6 +5,7 @@ Page({
     store: app.globalData.store,
     products: [],
     promotions: [],
+    heroCampaign: null,
     quickEntries: [
       { icon: "鲜", name: "水果生鲜" },
       { icon: "酒", name: "酒水饮料" },
@@ -18,10 +19,16 @@ Page({
   },
 
   refreshFromGlobal() {
-    const activePromotions = app.globalData.promotions.filter((item) => item.status === "进行中").slice(0, 3);
+    const activeCampaigns = app.globalData.campaigns
+      .filter((item) => item.status === "进行中")
+      .sort((a, b) => Number(a.sort || 99) - Number(b.sort || 99));
+    const heroCampaign = activeCampaigns.find((item) => item.position === "首页主Banner") || activeCampaigns[0] || null;
+    const couponCampaigns = activeCampaigns.filter((item) => item.position === "首页优惠券区").slice(0, 3);
+    const fallbackPromotions = app.globalData.promotions.filter((item) => item.status === "进行中").slice(0, 3);
     this.setData({
       products: app.globalData.products.slice(0, 6),
-      promotions: activePromotions
+      promotions: couponCampaigns.length ? couponCampaigns : fallbackPromotions,
+      heroCampaign
     });
   },
 

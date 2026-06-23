@@ -67,10 +67,23 @@ function publicProduct(product) {
 const resourceLabels = {
   products: "商品",
   promotions: "活动",
+  coupons: "优惠券",
+  campaigns: "活动投放",
   orders: "订单",
   stores: "门店",
   accounts: "账号"
 };
+
+function publicCampaigns(db) {
+  const coupons = db.coupons || [];
+  return (db.campaigns || [])
+    .filter((item) => item.status === "进行中")
+    .sort((a, b) => Number(a.sort || 99) - Number(b.sort || 99))
+    .map((item) => ({
+      ...item,
+      coupon: coupons.find((coupon) => coupon.id === item.couponId) || null
+    }));
+}
 
 function routeResource(db, name, req, res, id) {
   if (!db[name]) return send(res, 404, { message: "Not found" });
@@ -124,6 +137,8 @@ async function handler(req, res) {
         categories: db.categories,
         products: db.products.map(publicProduct),
         promotions: db.promotions,
+        coupons: db.coupons || [],
+        campaigns: db.campaigns || [],
         orders: db.orders,
         accounts: db.accounts,
         logs: db.logs
@@ -142,6 +157,8 @@ async function handler(req, res) {
     if (url.pathname === "/api/public/promotions") {
       return send(res, 200, db.promotions.filter((item) => item.status === "进行中"));
     }
+    if (url.pathname === "/api/public/campaigns") return send(res, 200, publicCampaigns(db));
+    if (url.pathname === "/api/public/coupons") return send(res, 200, (db.coupons || []).filter((item) => item.status === "启用"));
     if (url.pathname === "/api/public/categories") return send(res, 200, db.categories);
     if (url.pathname === "/api/public/orders" && req.method === "POST") {
       const body = await readBody(req);
@@ -177,6 +194,8 @@ async function handler(req, res) {
     }
     if (parts[0] === "api" && parts[1] === "products") return routeResource(db, "products", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "promotions") return routeResource(db, "promotions", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "coupons") return routeResource(db, "coupons", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "campaigns") return routeResource(db, "campaigns", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "orders") return routeResource(db, "orders", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "stores") return routeResource(db, "stores", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "accounts") return routeResource(db, "accounts", req, res, parts[2]);

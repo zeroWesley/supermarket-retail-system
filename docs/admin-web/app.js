@@ -1,7 +1,7 @@
 const STORAGE_KEY = "zero-admin-web-v3";
 const API_BASE = localStorage.getItem("ZERO_API_BASE") || "http://127.0.0.1:8787";
 
-const operatePages = ["dashboard", "products", "inventory", "promotions", "orders", "stores"];
+const operatePages = ["dashboard", "products", "coupons", "campaigns", "orders", "stores"];
 const managePages = ["accounts", "permissions", "logs"];
 
 const seedData = {
@@ -12,11 +12,15 @@ const seedData = {
     { id: "vegetable-green", name: "精选上海青 约400g", category: "水果生鲜", price: 4.99, stock: 32, threshold: 10, status: "已上架", tag: "今日到货" },
     { id: "chips", name: "原味薯片 104g", category: "休闲零食", price: 8.8, stock: 58, threshold: 16, status: "已下架", tag: "第二件半价" }
   ],
-  promotions: [
-    { id: "promo-full-79", name: "满79减10", type: "满减", target: "全场商品", start: "2026-06-21", end: "2026-06-30", status: "进行中", metric: "已用 38 次" },
-    { id: "promo-beer-night", name: "酒水夜间特价", type: "限时特价", target: "酒水饮料", start: "2026-06-21", end: "2026-07-05", status: "进行中", metric: "销售 126 件" },
-    { id: "promo-new-user", name: "新人优惠券", type: "优惠券", target: "新用户", start: "2026-06-21", end: "长期", status: "待启用", metric: "未开始" }
+  coupons: [
+    { id: "coupon-full-79", name: "满79减10", type: "通用券", usableProducts: [], amount: 10, threshold: 79, stock: 500, start: "2026-06-21", end: "2026-07-31", status: "启用", description: "全场商品满79元可用。" },
+    { id: "coupon-beer-20", name: "酒水满59减8", type: "商品券", usableProducts: ["beer-qingdao"], amount: 8, threshold: 59, stock: 180, start: "2026-06-21", end: "2026-07-15", status: "启用", description: "仅限酒水饮料商品使用。" }
   ],
+  campaigns: [
+    { id: "campaign-home-banner", name: "首页主Banner-今晚吃喝用", position: "首页主Banner", couponId: "coupon-full-79", start: "2026-06-21", end: "2026-07-31", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送", sort: 1 },
+    { id: "campaign-beer-night", name: "首页券区-酒水夜间特价", position: "首页优惠券区", couponId: "coupon-beer-20", start: "2026-06-21", end: "2026-07-15", status: "进行中", title: "酒水满59减8", subtitle: "酒水饮料可用", sort: 2 }
+  ],
+  promotions: [],
   orders: [
     { id: "20260621001", user: "李先生", amount: 63.6, store: "城南店", status: "配送中", items: "青岛啤酒、苹果、牛奶等 3 件", abnormal: "" },
     { id: "20260621002", user: "周女士", amount: 48.2, store: "城北店", status: "待拣货", items: "上海青、鸡蛋、调味料等 5 件", abnormal: "" },
@@ -89,9 +93,9 @@ const toast = document.getElementById("toast");
 
 const pageMeta = {
   dashboard: ["经营概览", "查看门店经营、订单履约、库存预警和活动效果。"],
-  products: ["商品管理", "新增、编辑、上下架商品，并同步到 C端小程序展示。"],
-  inventory: ["库存管理", "查看实时库存、库存预警、人工修正和出入库记录。"],
-  promotions: ["营销活动", "配置满减、优惠券、限时特价、秒杀等活动。"],
+  products: ["商品管理", "统一管理商品信息、图片、上下架和库存增减，并同步到 C端小程序展示。"],
+  coupons: ["优惠券配置", "创建券定义，维护券类型、适用商品、面额门槛、库存和可用时间。"],
+  campaigns: ["活动配置", "配置活动投放位置、绑定优惠券、投放文案和起止时间。"],
   orders: ["订单管理", "查看全量订单，处理异常订单并调整履约状态。"],
   stores: ["门店配置", "维护门店地址、营业状态、配送范围和员工数量。"],
   accounts: ["账号管理", "添加、停用和删除后台账号，并绑定门店角色。"],
@@ -102,8 +106,8 @@ const pageMeta = {
 const menuLabels = {
   dashboard: "经营概览",
   products: "商品管理",
-  inventory: "库存管理",
-  promotions: "营销活动",
+  coupons: "优惠券配置",
+  campaigns: "活动配置",
   orders: "订单管理",
   stores: "门店配置",
   accounts: "账号管理",
@@ -197,6 +201,26 @@ function operatePermissionText(account) {
   const permissions = account.permissions || [];
   const operatePermissions = permissions.filter((page) => operatePages.includes(page));
   return operatePermissions.map((page) => menuLabels[page]).filter(Boolean).join("、") || "未授权";
+}
+
+function couponName(id) {
+  return (state.coupons || []).find((item) => item.id === id)?.name || id || "未绑定";
+}
+
+function couponProductsText(coupon) {
+  if (coupon.type !== "商品券") return "全场通用";
+  const ids = coupon.usableProducts || [];
+  if (!ids.length) return "未选择商品";
+  return ids.map((id) => state.products.find((item) => item.id === id)?.name || id).slice(0, 2).join("、") + (ids.length > 2 ? ` 等${ids.length}件` : "");
+}
+
+function productOptions(selected = []) {
+  const selectedIds = Array.isArray(selected) ? selected : String(selected || "").split(",").filter(Boolean);
+  return state.products.map((item) => `<option value="${item.id}" ${selectedIds.includes(item.id) ? "selected" : ""}>${item.name}</option>`).join("");
+}
+
+function couponOptions(selected = "") {
+  return (state.coupons || []).map((item) => `<option value="${item.id}" ${selected === item.id ? "selected" : ""}>${item.name}</option>`).join("");
 }
 
 function isAdminAccount(account = currentUser) {
@@ -324,8 +348,8 @@ function render() {
   const renderers = {
     dashboard: renderDashboard,
     products: renderProducts,
-    inventory: renderInventory,
-    promotions: renderPromotions,
+    coupons: renderCoupons,
+    campaigns: renderCampaigns,
     orders: renderOrders,
     stores: renderStores,
     accounts: renderAccounts,
@@ -340,13 +364,13 @@ function renderDashboard() {
   const orderCount = state.orders.length;
   const revenue = state.orders.reduce((sum, item) => sum + item.amount, 0);
   const warningCount = state.products.filter((item) => item.stock <= item.threshold).length;
-  const activePromo = state.promotions.filter((item) => item.status === "进行中").length;
+  const activeCampaigns = (state.campaigns || []).filter((item) => item.status === "进行中").length;
   return `
     <div class="metric-grid">
       <div class="metric"><span>今日订单</span><strong>${orderCount}</strong><small>模拟数据</small></div>
       <div class="metric"><span>模拟销售额</span><strong>${money(revenue)}</strong><small>含配送费</small></div>
       <div class="metric"><span>库存预警</span><strong>${warningCount}</strong><small>低于阈值</small></div>
-      <div class="metric"><span>进行中活动</span><strong>${activePromo}</strong><small>同步 C端</small></div>
+      <div class="metric"><span>进行中投放</span><strong>${activeCampaigns}</strong><small>同步 C端</small></div>
     </div>
     <div class="two-col">
       <section class="panel">
@@ -354,17 +378,17 @@ function renderDashboard() {
         ${orderTable(state.orders.filter((item) => item.status !== "已完成").slice(0, 3))}
       </section>
       <section class="panel">
-        <div class="panel-head"><h2>库存预警</h2><button class="secondary" data-nav="inventory">去处理</button></div>
+        <div class="panel-head"><h2>库存预警</h2><button class="secondary" data-nav="products">去处理</button></div>
         ${inventoryTable(state.products.filter((item) => item.stock <= item.threshold))}
       </section>
     </div>
     <section class="panel">
       <div class="panel-head"><h2>业务流程</h2><span class="tag">演示版</span></div>
       <div class="flow">
-        <div>后台配置商品/活动</div>
+        <div>后台配置商品/优惠券</div>
+        <div>活动投放到 C端</div>
         <div>C端展示并下单</div>
         <div>员工接单拣货</div>
-        <div>人工确认扣库存</div>
         <div>员工自配送完成</div>
       </div>
     </section>
@@ -375,56 +399,73 @@ function renderProducts() {
   return `
     <section class="panel">
       <div class="panel-head">
-        <h2>商品列表</h2>
+        <h2>商品与库存</h2>
         <button class="primary" data-open="product">新增商品</button>
       </div>
       <div class="tool-row">
         <input class="input" id="productKeyword" placeholder="商品名称/分类">
         <button class="secondary" data-filter="products">查询</button>
+        <span class="store-pill">库存低于阈值自动预警</span>
       </div>
       <div id="productTable">${productTable(state.products)}</div>
     </section>
   `;
 }
 
-function renderInventory() {
+function renderCoupons() {
   return `
     <section class="panel">
       <div class="panel-head">
-        <h2>库存列表</h2>
-        <button class="primary" data-open="stock">人工库存修正</button>
+        <h2>优惠券配置</h2>
+        <button class="primary" data-open="coupon">新增优惠券</button>
       </div>
-      <div class="tool-row">
-        <select class="select"><option>城南店</option><option>城北店</option></select>
-        <span class="store-pill">低于阈值自动预警</span>
-      </div>
-      ${inventoryTable(state.products, true)}
+      <table>
+        <thead><tr><th>券名称</th><th>类型</th><th>面额/门槛</th><th>库存</th><th>可用时间</th><th>可用商品</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+          ${(state.coupons || []).map((item) => `
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.type}</td>
+              <td>${money(item.amount)} / 满${item.threshold}</td>
+              <td>${item.stock}</td>
+              <td>${item.start} 至 ${item.end}</td>
+              <td>${couponProductsText(item)}</td>
+              <td>${tag(item.status)}</td>
+              <td class="table-actions">
+                <button class="link-btn" data-edit-coupon="${item.id}">编辑</button>
+                <button class="link-btn" data-toggle-coupon="${item.id}">${item.status === "启用" ? "停用" : "启用"}</button>
+                <button class="link-btn" data-delete-coupon="${item.id}">删除</button>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
     </section>
   `;
 }
 
-function renderPromotions() {
+function renderCampaigns() {
   return `
     <section class="panel">
       <div class="panel-head">
-        <h2>营销活动</h2>
-        <button class="primary" data-open="promotion">新建活动</button>
+        <h2>活动配置</h2>
+        <button class="primary" data-open="campaign">新增投放</button>
       </div>
       <table>
-        <thead><tr><th>活动</th><th>类型</th><th>时间</th><th>适用范围</th><th>状态</th><th>效果</th><th>操作</th></tr></thead>
+        <thead><tr><th>活动</th><th>投放位置</th><th>绑定券</th><th>时间</th><th>状态</th><th>展示文案</th><th>操作</th></tr></thead>
         <tbody>
-          ${state.promotions.map((item) => `
+          ${(state.campaigns || []).map((item) => `
             <tr>
               <td>${item.name}</td>
-              <td>${item.type}</td>
+              <td>${item.position}</td>
+              <td>${couponName(item.couponId)}</td>
               <td>${item.start} 至 ${item.end}</td>
-              <td>${item.target}</td>
               <td>${tag(item.status)}</td>
-              <td>${item.metric}</td>
+              <td>${item.title}<br><span class="muted">${item.subtitle || ""}</span></td>
               <td class="table-actions">
-                <button class="link-btn" data-edit-promo="${item.id}">编辑</button>
-                <button class="link-btn" data-toggle-promo="${item.id}">${item.status === "进行中" ? "停用" : "启用"}</button>
-                <button class="link-btn" data-delete-promo="${item.id}">删除</button>
+                <button class="link-btn" data-edit-campaign="${item.id}">编辑</button>
+                <button class="link-btn" data-toggle-campaign="${item.id}">${item.status === "进行中" ? "停用" : "启用"}</button>
+                <button class="link-btn" data-delete-campaign="${item.id}">删除</button>
               </td>
             </tr>
           `).join("")}
@@ -610,9 +651,12 @@ function bindPageActions() {
   document.querySelectorAll("[data-toggle-product]").forEach((btn) => btn.addEventListener("click", () => toggleProduct(btn.dataset.toggleProduct)));
   document.querySelectorAll("[data-adjust-stock]").forEach((btn) => btn.addEventListener("click", () => openStockForm(btn.dataset.adjustStock)));
   document.querySelectorAll("[data-delete-product]").forEach((btn) => btn.addEventListener("click", () => deleteProduct(btn.dataset.deleteProduct)));
-  document.querySelectorAll("[data-edit-promo]").forEach((btn) => btn.addEventListener("click", () => openPromotionForm(btn.dataset.editPromo)));
-  document.querySelectorAll("[data-toggle-promo]").forEach((btn) => btn.addEventListener("click", () => togglePromo(btn.dataset.togglePromo)));
-  document.querySelectorAll("[data-delete-promo]").forEach((btn) => btn.addEventListener("click", () => deletePromo(btn.dataset.deletePromo)));
+  document.querySelectorAll("[data-edit-coupon]").forEach((btn) => btn.addEventListener("click", () => openCouponForm(btn.dataset.editCoupon)));
+  document.querySelectorAll("[data-toggle-coupon]").forEach((btn) => btn.addEventListener("click", () => toggleCoupon(btn.dataset.toggleCoupon)));
+  document.querySelectorAll("[data-delete-coupon]").forEach((btn) => btn.addEventListener("click", () => deleteCoupon(btn.dataset.deleteCoupon)));
+  document.querySelectorAll("[data-edit-campaign]").forEach((btn) => btn.addEventListener("click", () => openCampaignForm(btn.dataset.editCampaign)));
+  document.querySelectorAll("[data-toggle-campaign]").forEach((btn) => btn.addEventListener("click", () => toggleCampaign(btn.dataset.toggleCampaign)));
+  document.querySelectorAll("[data-delete-campaign]").forEach((btn) => btn.addEventListener("click", () => deleteCampaign(btn.dataset.deleteCampaign)));
   document.querySelectorAll("[data-next-order]").forEach((btn) => btn.addEventListener("click", () => nextOrder(btn.dataset.nextOrder)));
   document.querySelectorAll("[data-abnormal-order]").forEach((btn) => btn.addEventListener("click", () => abnormalOrder(btn.dataset.abnormalOrder)));
   document.querySelectorAll("[data-toggle-store]").forEach((btn) => btn.addEventListener("click", () => toggleStore(btn.dataset.toggleStore)));
@@ -627,7 +671,8 @@ function bindPageActions() {
 function openForm(type) {
   const map = {
     product: ["新增商品", productForm()],
-    promotion: ["新建活动", promotionForm()],
+    coupon: ["新增优惠券", couponForm()],
+    campaign: ["新增活动投放", campaignForm()],
     stock: ["人工库存修正", stockForm()],
     store: ["新增门店", storeForm()],
     account: ["新增账号", accountForm()]
@@ -655,12 +700,21 @@ function openStockForm(id) {
   modal.classList.remove("hidden");
 }
 
-function openPromotionForm(id) {
-  const promo = state.promotions.find((item) => item.id === id);
-  if (!promo) return;
-  modalTitle.textContent = `编辑活动：${promo.name}`;
-  modalForm.innerHTML = promotionForm(promo);
-  modalForm.dataset.type = "promotion";
+function openCouponForm(id) {
+  const coupon = (state.coupons || []).find((item) => item.id === id);
+  if (!coupon) return;
+  modalTitle.textContent = `编辑优惠券：${coupon.name}`;
+  modalForm.innerHTML = couponForm(coupon);
+  modalForm.dataset.type = "coupon";
+  modal.classList.remove("hidden");
+}
+
+function openCampaignForm(id) {
+  const campaign = (state.campaigns || []).find((item) => item.id === id);
+  if (!campaign) return;
+  modalTitle.textContent = `编辑活动投放：${campaign.name}`;
+  modalForm.innerHTML = campaignForm(campaign);
+  modalForm.dataset.type = "campaign";
   modal.classList.remove("hidden");
 }
 
@@ -694,19 +748,41 @@ function productForm(product = {}) {
   `;
 }
 
-function promotionForm(promo = {}) {
+function couponForm(coupon = {}) {
   return `
     <div class="form-grid">
-      <input type="hidden" name="id" value="${promo.id || ""}">
-      <div class="form-field"><label>活动名称</label><input class="input" name="name" value="${promo.name || ""}" required></div>
-      <div class="form-field"><label>类型</label><select class="select" name="type">${["满减", "优惠券", "限时特价", "限时折扣", "秒杀", "第二件半价", "配送优惠"].map((item) => `<option ${promo.type === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
-      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${promo.start || "2026-06-21"}"></div>
-      <div class="form-field"><label>结束日期</label><input class="input" name="end" value="${promo.end || "2026-06-30"}"></div>
-      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${promo.status === "待启用" ? "selected" : ""}>待启用</option><option ${promo.status === "进行中" ? "selected" : ""}>进行中</option><option ${promo.status === "已停用" ? "selected" : ""}>已停用</option><option ${promo.status === "已结束" ? "selected" : ""}>已结束</option></select></div>
-      <div class="form-field"><label>效果指标</label><input class="input" name="metric" value="${promo.metric || "未开始"}"></div>
-      <div class="form-field full"><label>适用范围</label><input class="input" name="target" value="${promo.target || "全场商品"}"></div>
+      <input type="hidden" name="id" value="${coupon.id || ""}">
+      <div class="form-field"><label>券名称</label><input class="input" name="name" value="${coupon.name || ""}" required></div>
+      <div class="form-field"><label>券类型</label><select class="select" name="type"><option ${coupon.type === "通用券" ? "selected" : ""}>通用券</option><option ${coupon.type === "商品券" ? "selected" : ""}>商品券</option></select></div>
+      <div class="form-field"><label>面额</label><input class="input" name="amount" type="number" step="0.01" value="${coupon.amount ?? 10}" required></div>
+      <div class="form-field"><label>使用门槛</label><input class="input" name="threshold" type="number" step="0.01" value="${coupon.threshold ?? 79}" required></div>
+      <div class="form-field"><label>券库存</label><input class="input" name="stock" type="number" value="${coupon.stock ?? 100}" required></div>
+      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${coupon.status === "启用" ? "selected" : ""}>启用</option><option ${coupon.status === "停用" ? "selected" : ""}>停用</option></select></div>
+      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${coupon.start || "2026-06-23"}"></div>
+      <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="${coupon.end || "2026-07-31"}"></div>
+      <div class="form-field full"><label>券可用商品（仅商品券需要，可多选）</label><select class="select" name="usableProducts" multiple>${productOptions(coupon.usableProducts)}</select></div>
+      <div class="form-field full"><label>用途说明</label><textarea class="textarea" name="description">${coupon.description || "用于C端活动投放，用户领取后可在模拟结算中展示。"}</textarea></div>
     </div>
-    <div class="panel-head" style="margin-top:18px"><button class="primary">保存活动</button></div>
+    <div class="panel-head" style="margin-top:18px"><button class="primary">保存优惠券</button></div>
+  `;
+}
+
+function campaignForm(campaign = {}) {
+  return `
+    <div class="form-grid">
+      <input type="hidden" name="id" value="${campaign.id || ""}">
+      <div class="form-field"><label>活动名称</label><input class="input" name="name" value="${campaign.name || ""}" required></div>
+      <div class="form-field"><label>投放位置</label><select class="select" name="position">${["首页主Banner", "首页优惠券区", "首页频道入口", "分类页顶部", "商品详情页"].map((item) => `<option ${campaign.position === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
+      <div class="form-field"><label>绑定优惠券</label><select class="select" name="couponId">${couponOptions(campaign.couponId)}</select></div>
+      <div class="form-field"><label>排序</label><input class="input" name="sort" type="number" value="${campaign.sort ?? 10}"></div>
+      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${campaign.start || "2026-06-23"}"></div>
+      <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="${campaign.end || "2026-07-31"}"></div>
+      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${campaign.status === "进行中" ? "selected" : ""}>进行中</option><option ${campaign.status === "待启用" ? "selected" : ""}>待启用</option><option ${campaign.status === "已停用" ? "selected" : ""}>已停用</option><option ${campaign.status === "已结束" ? "selected" : ""}>已结束</option></select></div>
+      <div class="form-field"><label>活动图 URL</label><input class="input" name="image" value="${campaign.image || ""}" placeholder="/assets/promotions/promo-full-79.svg"></div>
+      <div class="form-field full"><label>C端标题</label><input class="input" name="title" value="${campaign.title || ""}" required></div>
+      <div class="form-field full"><label>C端副标题</label><input class="input" name="subtitle" value="${campaign.subtitle || ""}"></div>
+    </div>
+    <div class="panel-head" style="margin-top:18px"><button class="primary">保存投放</button></div>
   `;
 }
 
@@ -808,17 +884,55 @@ async function handleSubmit(event) {
       await syncResource("products", product);
     }
   }
-  if (type === "promotion") {
-    const promo = { id: data.id || `promo-${Date.now()}`, name: data.name, type: data.type, target: data.target, start: data.start, end: data.end || "长期", status: data.status || "待启用", metric: data.metric || "未开始" };
-    const index = state.promotions.findIndex((item) => item.id === promo.id);
+  if (type === "coupon") {
+    const coupon = {
+      id: data.id || `coupon-${Date.now()}`,
+      name: data.name,
+      type: data.type,
+      usableProducts: formData.getAll("usableProducts"),
+      amount: Number(data.amount),
+      threshold: Number(data.threshold),
+      stock: Number(data.stock),
+      start: data.start,
+      end: data.end,
+      status: data.status || "启用",
+      description: data.description || ""
+    };
+    if (coupon.type === "通用券") coupon.usableProducts = [];
+    const index = (state.coupons || []).findIndex((item) => item.id === coupon.id);
     if (index >= 0) {
-      state.promotions[index] = { ...state.promotions[index], ...promo };
-      log("编辑活动", promo.name);
-      await syncResource("promotions", state.promotions[index], "PATCH");
+      state.coupons[index] = { ...state.coupons[index], ...coupon };
+      log("编辑优惠券", coupon.name);
+      await syncResource("coupons", state.coupons[index], "PATCH");
     } else {
-      state.promotions.unshift(promo);
-      log("新建活动", promo.name);
-      await syncResource("promotions", promo);
+      state.coupons = [coupon, ...(state.coupons || [])];
+      log("新建优惠券", coupon.name);
+      await syncResource("coupons", coupon);
+    }
+  }
+  if (type === "campaign") {
+    const campaign = {
+      id: data.id || `campaign-${Date.now()}`,
+      name: data.name,
+      position: data.position,
+      couponId: data.couponId,
+      start: data.start,
+      end: data.end,
+      status: data.status || "待启用",
+      title: data.title,
+      subtitle: data.subtitle || "",
+      image: data.image || "",
+      sort: Number(data.sort || 10)
+    };
+    const index = (state.campaigns || []).findIndex((item) => item.id === campaign.id);
+    if (index >= 0) {
+      state.campaigns[index] = { ...state.campaigns[index], ...campaign };
+      log("编辑活动投放", campaign.name);
+      await syncResource("campaigns", state.campaigns[index], "PATCH");
+    } else {
+      state.campaigns = [campaign, ...(state.campaigns || [])];
+      log("新建活动投放", campaign.name);
+      await syncResource("campaigns", campaign);
     }
   }
   if (type === "stock") {
@@ -900,20 +1014,38 @@ function filterProducts() {
   bindPageActions();
 }
 
-async function togglePromo(id) {
-  const promo = state.promotions.find((item) => item.id === id);
-  promo.status = promo.status === "进行中" ? "已停用" : "进行中";
-  log("活动启停", promo.name);
-  await syncResource("promotions", promo, "PATCH");
+async function toggleCoupon(id) {
+  const coupon = (state.coupons || []).find((item) => item.id === id);
+  coupon.status = coupon.status === "启用" ? "停用" : "启用";
+  log("优惠券启停", coupon.name);
+  await syncResource("coupons", coupon, "PATCH");
   saveState();
   render();
 }
 
-async function deletePromo(id) {
-  const promo = state.promotions.find((item) => item.id === id);
-  state.promotions = state.promotions.filter((item) => item.id !== id);
-  log("删除活动", promo.name);
-  await deleteResource("promotions", id);
+async function deleteCoupon(id) {
+  const coupon = (state.coupons || []).find((item) => item.id === id);
+  state.coupons = (state.coupons || []).filter((item) => item.id !== id);
+  log("删除优惠券", coupon.name);
+  await deleteResource("coupons", id);
+  saveState();
+  render();
+}
+
+async function toggleCampaign(id) {
+  const campaign = (state.campaigns || []).find((item) => item.id === id);
+  campaign.status = campaign.status === "进行中" ? "已停用" : "进行中";
+  log("活动投放启停", campaign.name);
+  await syncResource("campaigns", campaign, "PATCH");
+  saveState();
+  render();
+}
+
+async function deleteCampaign(id) {
+  const campaign = (state.campaigns || []).find((item) => item.id === id);
+  state.campaigns = (state.campaigns || []).filter((item) => item.id !== id);
+  log("删除活动投放", campaign.name);
+  await deleteResource("campaigns", id);
   saveState();
   render();
 }

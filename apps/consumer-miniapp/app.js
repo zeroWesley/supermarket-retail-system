@@ -105,6 +105,14 @@ App({
         displayText: "满99免配送费 · 全场商品"
       }
     ],
+    coupons: [
+      { id: "coupon-full-79", name: "满79减10", type: "通用券", amount: 10, threshold: 79, status: "启用" },
+      { id: "coupon-full-99", name: "满99减15", type: "通用券", amount: 15, threshold: 99, status: "启用" }
+    ],
+    campaigns: [
+      { id: "campaign-home-banner", name: "首页主Banner", position: "首页主Banner", couponId: "coupon-full-79", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送 · 缺货先确认再处理", sort: 1 },
+      { id: "campaign-coupon-row-99", name: "首页券区", position: "首页优惠券区", couponId: "coupon-full-99", status: "进行中", title: "满99减15", subtitle: "全场商品可用", sort: 2 }
+    ],
     cart: [
       { productId: "beer-qingdao", quantity: 6 },
       { productId: "apple-fuji", quantity: 2 },
@@ -134,6 +142,8 @@ App({
         this.globalData.categories = data.categories || this.globalData.categories;
         this.globalData.products = data.products || this.globalData.products;
         this.globalData.promotions = data.promotions || this.globalData.promotions;
+        this.globalData.coupons = data.coupons || this.globalData.coupons;
+        this.globalData.campaigns = data.campaigns || this.globalData.campaigns;
         this.globalData.orders = data.orders || this.globalData.orders;
         return data;
       })

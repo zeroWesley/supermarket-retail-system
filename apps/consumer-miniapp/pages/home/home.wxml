@@ -15,8 +15,8 @@
 
   <view class="hero">
     <view class="hero-kicker">今日鲜达</view>
-    <view class="hero-title">今晚吃喝用，一次配齐</view>
-    <view class="hero-desc">生鲜酒水员工自配送 · 缺货先确认再处理</view>
+    <view class="hero-title">{{heroCampaign.title || '今晚吃喝用，一次配齐'}}</view>
+    <view class="hero-desc">{{heroCampaign.subtitle || '生鲜酒水员工自配送 · 缺货先确认再处理'}}</view>
     <view class="hero-action">领取新人券</view>
   </view>
 
@@ -28,8 +28,8 @@
 
   <view class="coupon-row">
     <view wx:for="{{promotions}}" wx:key="id" class="coupon">
-      <view>{{item.name}}</view>
-      <text>{{item.target}} 可用</text>
+      <view>{{item.title || item.name}}</view>
+      <text>{{item.subtitle || item.target}} 可用</text>
     </view>
   </view>
 

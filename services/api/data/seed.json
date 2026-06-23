@@ -474,108 +474,52 @@
   ],
   "promotions": [
     {
-      "id": "promo-full-79",
-      "name": "满79减10",
-      "type": "满减",
-      "target": "全场商品",
-      "start": "2026-06-21",
-      "end": "2026-06-30",
-      "status": "进行中",
-      "metric": "已用 38 次",
-      "image": "/assets/promotions/promo-full-79.svg",
-      "displayText": "满79减10 · 全场商品",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-full-99",
-      "name": "满99减15",
-      "type": "满减",
-      "target": "粮油调味、日用百货",
-      "start": "2026-06-21",
-      "end": "2026-07-15",
-      "status": "进行中",
-      "metric": "已用 21 次",
-      "image": "/assets/promotions/promo-full-99.svg",
-      "displayText": "满99减15 · 粮油调味、日用百货",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-beer-night",
-      "name": "酒水夜间特价",
-      "type": "限时特价",
-      "target": "酒水饮料",
-      "start": "2026-06-21",
-      "end": "2026-07-05",
-      "status": "进行中",
-      "metric": "销售 126 件",
-      "image": "/assets/promotions/promo-beer-night.svg",
-      "displayText": "酒水夜间特价 · 酒水饮料",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-new-user",
-      "name": "新人优惠券",
-      "type": "优惠券",
-      "target": "新用户",
-      "start": "2026-06-21",
-      "end": "长期",
-      "status": "待启用",
-      "metric": "未开始",
-      "image": "/assets/promotions/promo-new-user.svg",
-      "displayText": "新人优惠券 · 新用户",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-fresh-morning",
-      "name": "早市生鲜 9 折",
-      "type": "限时折扣",
-      "target": "水果生鲜",
-      "start": "2026-06-22",
-      "end": "2026-06-28",
-      "status": "待启用",
-      "metric": "待开始",
-      "image": "/assets/promotions/promo-fresh-morning.svg",
-      "displayText": "早市生鲜 9 折 · 水果生鲜",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-ice-cream",
-      "name": "冷冻冰品秒杀",
-      "type": "秒杀",
-      "target": "冷冻速食",
-      "start": "2026-06-21",
-      "end": "2026-06-21",
-      "status": "已结束",
-      "metric": "成交 32 件",
-      "image": "/assets/promotions/promo-ice-cream.svg",
-      "displayText": "冷冻冰品秒杀 · 冷冻速食",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-snack-bundle",
-      "name": "零食第二件半价",
-      "type": "第二件半价",
-      "target": "休闲零食",
-      "start": "2026-06-21",
-      "end": "2026-07-01",
-      "status": "进行中",
-      "metric": "带动 54 件",
-      "image": "/assets/promotions/promo-snack-bundle.svg",
-      "displayText": "零食第二件半价 · 休闲零食",
-      "imageSource": "本地演示活动图"
-    },
-    {
-      "id": "promo-free-delivery",
-      "name": "满99免配送费",
-      "type": "配送优惠",
-      "target": "全场商品",
+      "id": "campaign-home-banner",
+      "name": "今晚吃喝用，一次配齐",
+      "type": "活动投放",
+      "target": "首页主Banner",
       "start": "2026-06-21",
       "end": "2026-07-31",
       "status": "进行中",
-      "metric": "减免 18 单",
-      "image": "/assets/promotions/promo-free-delivery.svg",
-      "displayText": "满99免配送费 · 全场商品",
-      "imageSource": "本地演示活动图"
+      "metric": "绑定券 coupon-full-79",
+      "image": "/assets/promotions/promo-full-79.svg",
+      "displayText": "今晚吃喝用，一次配齐 · 生鲜酒水员工自配送 · 缺货先确认再处理"
+    },
+    {
+      "id": "campaign-coupon-row-99",
+      "name": "满99减15",
+      "type": "活动投放",
+      "target": "首页优惠券区",
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "进行中",
+      "metric": "绑定券 coupon-full-99",
+      "image": "/assets/promotions/promo-full-99.svg",
+      "displayText": "满99减15 · 全场商品可用"
+    },
+    {
+      "id": "campaign-beer-night",
+      "name": "酒水满59减8",
+      "type": "活动投放",
+      "target": "首页优惠券区",
+      "start": "2026-06-21",
+      "end": "2026-07-15",
+      "status": "进行中",
+      "metric": "绑定券 coupon-beer-20",
+      "image": "/assets/promotions/promo-beer-night.svg",
+      "displayText": "酒水满59减8 · 酒水饮料可用"
+    },
+    {
+      "id": "campaign-fresh-morning",
+      "name": "早市生鲜 9 折券",
+      "type": "活动投放",
+      "target": "首页频道入口",
+      "start": "2026-06-22",
+      "end": "2026-07-10",
+      "status": "待启用",
+      "metric": "绑定券 coupon-fresh-30",
+      "image": "/assets/promotions/promo-fresh-morning.svg",
+      "displayText": "早市生鲜 9 折券 · 水果生鲜可用"
     }
   ],
   "orders": [
@@ -765,10 +709,10 @@
         "logs",
         "dashboard",
         "products",
-        "inventory",
-        "promotions",
         "orders",
-        "stores"
+        "stores",
+        "coupons",
+        "campaigns"
       ]
     },
     {
@@ -802,10 +746,10 @@
       "permissions": [
         "dashboard",
         "products",
-        "inventory",
-        "promotions",
         "orders",
-        "stores"
+        "stores",
+        "coupons",
+        "campaigns"
       ]
     },
     {
@@ -821,8 +765,9 @@
         "operate"
       ],
       "permissions": [
-        "promotions",
-        "products"
+        "products",
+        "coupons",
+        "campaigns"
       ]
     },
     {
@@ -838,7 +783,6 @@
         "operate"
       ],
       "permissions": [
-        "inventory",
         "orders",
         "stores"
       ]
@@ -912,6 +856,124 @@
       "action": "提交订单",
       "target": "#20260621010",
       "result": "成功"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "coupon-full-79",
+      "name": "满79减10",
+      "type": "通用券",
+      "usableProducts": [],
+      "amount": 10,
+      "threshold": 79,
+      "stock": 500,
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "启用",
+      "description": "全场商品满79元可用，适合首页常规领取。"
+    },
+    {
+      "id": "coupon-full-99",
+      "name": "满99减15",
+      "type": "通用券",
+      "usableProducts": [],
+      "amount": 15,
+      "threshold": 99,
+      "stock": 320,
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "启用",
+      "description": "全场商品满99元可用，可搭配免配送活动。"
+    },
+    {
+      "id": "coupon-beer-20",
+      "name": "酒水满59减8",
+      "type": "商品券",
+      "usableProducts": [
+        "beer-qingdao",
+        "beer-snow",
+        "wine-rio",
+        "coke-zero"
+      ],
+      "amount": 8,
+      "threshold": 59,
+      "stock": 180,
+      "start": "2026-06-21",
+      "end": "2026-07-15",
+      "status": "启用",
+      "description": "仅限酒水饮料商品使用，适合夜间酒水投放。"
+    },
+    {
+      "id": "coupon-fresh-30",
+      "name": "生鲜满39减6",
+      "type": "商品券",
+      "usableProducts": [
+        "apple-fuji",
+        "banana",
+        "orange",
+        "vegetable-green"
+      ],
+      "amount": 6,
+      "threshold": 39,
+      "stock": 220,
+      "start": "2026-06-22",
+      "end": "2026-07-10",
+      "status": "启用",
+      "description": "仅限水果生鲜商品使用，适合早市生鲜活动。"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "campaign-home-banner",
+      "name": "首页主Banner-今晚吃喝用",
+      "position": "首页主Banner",
+      "couponId": "coupon-full-79",
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "进行中",
+      "title": "今晚吃喝用，一次配齐",
+      "subtitle": "生鲜酒水员工自配送 · 缺货先确认再处理",
+      "image": "/assets/promotions/promo-full-79.svg",
+      "sort": 1
+    },
+    {
+      "id": "campaign-coupon-row-99",
+      "name": "首页券区-满99减15",
+      "position": "首页优惠券区",
+      "couponId": "coupon-full-99",
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "进行中",
+      "title": "满99减15",
+      "subtitle": "全场商品可用",
+      "image": "/assets/promotions/promo-full-99.svg",
+      "sort": 2
+    },
+    {
+      "id": "campaign-beer-night",
+      "name": "首页券区-酒水夜间特价",
+      "position": "首页优惠券区",
+      "couponId": "coupon-beer-20",
+      "start": "2026-06-21",
+      "end": "2026-07-15",
+      "status": "进行中",
+      "title": "酒水满59减8",
+      "subtitle": "酒水饮料可用",
+      "image": "/assets/promotions/promo-beer-night.svg",
+      "sort": 3
+    },
+    {
+      "id": "campaign-fresh-morning",
+      "name": "首页频道-早市生鲜",
+      "position": "首页频道入口",
+      "couponId": "coupon-fresh-30",
+      "start": "2026-06-22",
+      "end": "2026-07-10",
+      "status": "待启用",
+      "title": "早市生鲜 9 折券",
+      "subtitle": "水果生鲜可用",
+      "image": "/assets/promotions/promo-fresh-morning.svg",
+      "sort": 4
     }
   ]
 }
