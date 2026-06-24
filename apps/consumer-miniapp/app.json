@@ -9,13 +9,13 @@
   ],
   "window": {
     "navigationBarTitleText": "Zero便利超市",
-    "navigationBarBackgroundColor": "#00b96b",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#f3f7f5"
+    "navigationBarBackgroundColor": "#ffe64d",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f7fb"
   },
   "tabBar": {
-    "color": "#77827c",
-    "selectedColor": "#00b96b",
+    "color": "#4f5661",
+    "selectedColor": "#111827",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
@@ -25,7 +25,7 @@
       },
       {
         "pagePath": "pages/category/category",
-        "text": "分类"
+        "text": "酒单"
       },
       {
         "pagePath": "pages/cart/cart",

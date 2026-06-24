@@ -1,6 +1,14 @@
 <view class="page">
-  <view class="search-wrap">
+  <view class="topbar">
     <view class="search">搜索商品名称、品牌或条码</view>
+    <view class="coupon-pill" bindtap="openCoupon">{{couponCount}}张优惠券 ›</view>
+  </view>
+  <view class="promise">
+    <text>平均15分钟达 · 慢必赔</text>
+    <text>门店自营 · 100%真品</text>
+  </view>
+  <view class="sort-tabs">
+    <view wx:for="{{sortTabs}}" wx:key="*this" class="{{activeSort === index ? 'active' : ''}}" bindtap="selectSort" data-index="{{index}}">{{item}}</view>
   </view>
   <view class="layout">
     <view class="side">
@@ -9,6 +17,10 @@
       </view>
     </view>
     <view class="list">
+      <view class="list-banner">
+        <view>{{bannerTitle}}</view>
+        <text>{{bannerDesc}}</text>
+      </view>
       <view wx:for="{{products}}" wx:key="id" class="product-row" bindtap="goProduct" data-id="{{item.id}}">
         <view class="cover">
           <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill"></image>
@@ -23,8 +35,9 @@
               <view class="price">¥{{item.price}}</view>
               <view class="muted">库存 {{item.stock}} · 门店现拣</view>
             </view>
-            <view class="add" catchtap="addCart" data-id="{{item.id}}">加购</view>
+            <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>
           </view>
+          <view class="rank-tip">{{item.categoryId === 'beer' ? '酒水好评榜 · 适合小酌' : '门店常购榜 · 今日可送'}}</view>
         </view>
       </view>
     </view>

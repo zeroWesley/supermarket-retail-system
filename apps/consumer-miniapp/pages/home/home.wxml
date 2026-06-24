@@ -1,59 +1,69 @@
 <view class="page">
   <view class="top">
+    <view class="brand-row">
+      <view class="brand-mark">Z</view>
+      <view class="brand-name">Zero便利超市</view>
+    </view>
     <view class="store-row">
       <view>
         <view class="store-name">{{store.name}}</view>
-        <view class="store-meta">配送至绿洲小区 · {{store.distance}} · {{store.eta}}</view>
+        <view class="store-meta">营业时间 08:00-02:00 · 配送至绿洲小区</view>
       </view>
       <view class="switch">切换</view>
     </view>
     <view class="search-bar">
-      <view class="search">搜索鲜奶、啤酒、水果、今日特价</view>
+      <view class="search">搜索啤酒、水果、牛奶、今日特价</view>
       <view class="search-btn">搜索</view>
     </view>
   </view>
 
-  <view class="hero">
-    <view class="hero-kicker">今日鲜达</view>
-    <view class="hero-title">{{heroCampaign.title || '今晚吃喝用，一次配齐'}}</view>
-    <view class="hero-desc">{{heroCampaign.subtitle || '生鲜酒水员工自配送 · 缺货先确认再处理'}}</view>
-    <view class="hero-action">领取新人券</view>
-  </view>
-
-  <view class="service-row">
-    <view><text>约32分钟</text><text>快送到家</text></view>
-    <view><text>门店现拣</text><text>新鲜可见</text></view>
-    <view><text>缺货确认</text><text>放心退款</text></view>
-  </view>
-
-  <view class="coupon-row">
-    <view wx:for="{{promotions}}" wx:key="id" class="coupon">
-      <view>{{item.title || item.name}}</view>
-      <text>{{item.subtitle || item.target}} 可用</text>
-    </view>
-  </view>
-
-  <view class="quick-grid">
-    <view wx:for="{{quickEntries}}" wx:key="name" class="quick-item">
+  <view class="quick-panel">
+    <view wx:for="{{quickEntries}}" wx:key="name" class="quick-item" bindtap="goCategory" data-id="{{item.id}}">
       <view class="quick-icon">{{item.icon}}</view>
-      <view>{{item.name}}</view>
+      <view class="quick-name">{{item.name}}</view>
+      <view class="quick-note">{{item.note}}</view>
     </view>
   </view>
 
-  <view class="scene-row">
-    <view class="scene-card">
-      <view class="scene-title">今晚小酌</view>
-      <view class="muted">啤酒、零食、冰杯一站配齐</view>
+  <view class="promise-strip">
+    <view><text>平均 {{store.eta}}</text><text>慢必赔</text></view>
+    <view><text>门店自营</text><text>100%真品</text></view>
+  </view>
+
+  <view class="promo-stage">
+    <view class="promo-side">
+      <view class="promo-label">独家低价</view>
+      <view class="promo-title">新品尝鲜</view>
+      <view class="promo-go">去看看</view>
     </view>
-    <view class="scene-card">
-      <view class="scene-title">下班补货</view>
-      <view class="muted">牛奶水果日用品即时送</view>
+    <view class="promo-main">
+      <view class="hero-kicker">今日鲜达</view>
+      <view class="hero-title">{{heroCampaign.title || '今晚吃喝用，一次配齐'}}</view>
+      <view class="hero-desc">{{heroCampaign.subtitle || '生鲜酒水员工自配送 · 缺货先确认再处理'}}</view>
+      <view class="hero-action" bindtap="openCoupon">领百元券包</view>
     </view>
+    <view class="promo-side">
+      <view class="promo-label">低至 28.9</view>
+      <view class="promo-title">夜间特价</view>
+      <view class="promo-go">立即抢</view>
+    </view>
+  </view>
+
+  <view class="feature-row">
+    <view wx:for="{{featureTiles}}" wx:key="title" class="feature-card" bindtap="goCategory" data-id="hot">
+      <view class="feature-title">{{item.title}}</view>
+      <view class="feature-subtitle">{{item.subtitle}}</view>
+      <view class="feature-price">{{item.price}}</view>
+    </view>
+  </view>
+
+  <view class="shelf-tabs">
+    <view wx:for="{{shelfTabs}}" wx:key="*this" class="{{index === 0 ? 'active' : ''}}">{{item}}</view>
   </view>
 
   <view class="section-title">
-    <text>今日推荐</text>
-    <text class="muted">后台活动自动展示</text>
+    <text>为你推荐</text>
+    <text class="muted">后台商品与活动同步展示</text>
   </view>
 
   <view class="product-grid">
@@ -71,9 +81,15 @@
             <view class="price">¥{{item.price}}</view>
             <view class="muted">库存 {{item.stock}} · 现拣现送</view>
           </view>
-          <view class="add" catchtap="addCart" data-id="{{item.id}}">加购</view>
+          <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>
         </view>
       </view>
     </view>
+  </view>
+
+  <view class="coupon-dock">
+    <text class="dock-badge">惠</text>
+    <text>无门槛减5优惠券待使用</text>
+    <view bindtap="openCoupon">查看优惠</view>
   </view>
 </view>

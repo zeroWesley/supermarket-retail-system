@@ -1,8 +1,8 @@
 .cover {
   height: 540rpx;
   line-height: 540rpx;
-  background: linear-gradient(135deg, #e8fbf2, #ffffff);
-  color: #13b66b;
+  background: linear-gradient(135deg, #fff3cc, #f2fff8);
+  color: #00a761;
   text-align: center;
   font-size: 150rpx;
   font-weight: 900;
@@ -27,7 +27,7 @@
   padding: 6rpx 16rpx;
   border-radius: 999rpx;
   background: #fff2e8;
-  color: #e14b16;
+  color: #f24822;
   font-size: 23rpx;
   font-weight: 900;
 }
@@ -65,8 +65,8 @@
 .promise-row view {
   padding: 18rpx 8rpx;
   border-radius: 20rpx;
-  background: #f1fbf6;
-  color: #17211c;
+  background: #fff8dc;
+  color: #171717;
   text-align: center;
   font-size: 24rpx;
 }
@@ -81,7 +81,7 @@
 
 .promise-row text:last-child {
   margin-top: 4rpx;
-  color: #77827c;
+  color: #77725e;
   font-size: 21rpx;
 }
 
@@ -95,7 +95,7 @@
   justify-content: space-between;
   gap: 20rpx;
   padding: 20rpx 0;
-  border-bottom: 1rpx solid #e2ece6;
+  border-bottom: 1rpx solid #eef1f4;
   font-size: 28rpx;
 }
 
@@ -118,6 +118,6 @@
   gap: 18rpx;
   padding: 18rpx 24rpx 30rpx;
   background: #ffffff;
-  border-top: 1rpx solid #e2ece6;
-  box-shadow: 0 -12rpx 30rpx rgba(23, 33, 28, 0.08);
+  border-top: 1rpx solid #eef1f4;
+  box-shadow: 0 -12rpx 30rpx rgba(17, 24, 39, 0.08);
 }

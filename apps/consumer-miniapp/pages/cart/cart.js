@@ -7,6 +7,8 @@ function money(value) {
 Page({
   data: {
     items: [],
+    recommendations: [],
+    isEmpty: true,
     total: "0.00",
     payAmount: "0.00",
     gapAmount: "0.00",
@@ -21,17 +23,20 @@ Page({
     const items = app.globalData.cart
       .map((cartItem) => {
         const product = app.globalData.products.find((item) => item.id === cartItem.productId);
+        if (!product) return null;
         return {
           ...cartItem,
           product,
           subtotal: money(product.price * cartItem.quantity)
         };
       })
-      .filter((item) => item.product && item.quantity > 0);
+      .filter((item) => item && item.product && item.quantity > 0);
     const total = items.reduce((sum, item) => sum + Number(item.subtotal), 0);
     const discount = total >= 79 ? 10 : 0;
     this.setData({
       items,
+      isEmpty: items.length === 0,
+      recommendations: app.globalData.products.slice(0, 4),
       total: money(total),
       payAmount: money(total + 3 - discount),
       gapAmount: money(Math.max(79 - total, 0)),
@@ -66,5 +71,13 @@ Page({
         success: () => wx.switchTab({ url: "/pages/orders/orders" })
       });
     });
+  },
+
+  goBrowse() {
+    wx.switchTab({ url: "/pages/category/category" });
+  },
+
+  goProduct(event) {
+    wx.navigateTo({ url: `/pages/product/product?id=${event.currentTarget.dataset.id}` });
   }
 });

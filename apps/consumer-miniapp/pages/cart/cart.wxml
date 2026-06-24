@@ -1,38 +1,77 @@
 <view class="page">
-  <view class="notice">满79减10 · 当前还差 ¥{{gapAmount}} 可享优惠</view>
-  <view wx:for="{{items}}" wx:key="productId" class="cart-row">
-    <view class="cover">
-      <image wx:if="{{item.product.image}}" src="{{item.product.image}}" mode="aspectFill"></image>
-      <text wx:else>{{item.product.icon}}</text>
+  <view class="coupon-card">
+    <view class="coupon-line">
+      <text class="label">优惠</text>
+      <text class="coupon-tag">通用｜满79减10｜6天后到期</text>
+      <text class="right">共{{recommendations.length + 3}}张可用 ›</text>
     </view>
-    <view>
-      <view class="name">{{item.product.name}}</view>
-      <view class="muted">{{item.product.desc}}</view>
-      <view class="cart-bottom">
-        <view class="price">¥{{item.subtotal}}</view>
-        <view class="qty">
-          <text bindtap="minus" data-id="{{item.productId}}">−</text>
-          <text>{{item.quantity}}</text>
-          <text bindtap="plus" data-id="{{item.productId}}">+</text>
-        </view>
-      </view>
+    <view class="coupon-line">
+      <text class="label">省钱卡</text>
+      <text class="save-tag">省钱卡</text>
+      <text>开卡立享每月 ¥70 神券包</text>
+      <text class="right">›</text>
     </view>
   </view>
 
-  <view class="card">
+  <view wx:if="{{isEmpty}}" class="empty-card">
+    <view class="empty-title">购物车</view>
+    <view class="empty-illustration">
+      <view class="box-lid"></view>
+      <view class="box-body">Z</view>
+    </view>
+    <view class="empty-text">暂无商品，去逛逛吧</view>
+    <view class="empty-btn" bindtap="goBrowse">去逛逛</view>
+  </view>
+
+  <view wx:if="{{!isEmpty}}" class="notice">满79减10 · 当前还差 ¥{{gapAmount}} 可享优惠</view>
+  <block wx:if="{{!isEmpty}}">
+    <view wx:for="{{items}}" wx:key="productId" class="cart-row">
+      <view class="cover">
+        <image wx:if="{{item.product.image}}" src="{{item.product.image}}" mode="aspectFill"></image>
+        <text wx:else>{{item.product.icon}}</text>
+      </view>
+      <view>
+        <view class="name">{{item.product.name}}</view>
+        <view class="muted">{{item.product.desc}}</view>
+        <view class="cart-bottom">
+          <view class="price">¥{{item.subtotal}}</view>
+          <view class="qty">
+            <text bindtap="minus" data-id="{{item.productId}}">−</text>
+            <text>{{item.quantity}}</text>
+            <text bindtap="plus" data-id="{{item.productId}}">+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{!isEmpty}}" class="card address-card">
     <view class="block-title">配送到家</view>
     <view class="muted">绿洲小区 3 栋 1602 · 李先生 138****8888</view>
     <view class="muted">期望 18:00-19:00 送达 · 门店员工自配送</view>
   </view>
 
-  <view class="card info-card">
+  <view wx:if="{{!isEmpty}}" class="card info-card">
     <view class="line"><text>优惠券</text><text>{{discountText}}</text></view>
     <view class="line"><text>配送费</text><text>¥3.00，满99免配送费</text></view>
     <view class="line"><text>订单备注</text><text>啤酒要冰的，水果挑硬一点</text></view>
     <view class="line"><text>支付方式</text><text>模拟微信支付</text></view>
   </view>
 
-  <view class="checkout">
+  <view class="recommend-title">为你推荐</view>
+  <view class="recommend-grid">
+    <view wx:for="{{recommendations}}" wx:key="id" class="recommend-card" bindtap="goProduct" data-id="{{item.id}}">
+      <view class="recommend-cover">
+        <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill"></image>
+        <text wx:else>{{item.icon}}</text>
+      </view>
+      <view class="recommend-name">{{item.name}}</view>
+      <view class="muted">{{item.desc}}</view>
+      <view class="price">¥{{item.price}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{!isEmpty}}" class="checkout">
     <view>
       <view class="total">合计 ¥{{payAmount}}</view>
       <view class="muted">已含配送费，当前为模拟支付</view>

@@ -1,6 +1,6 @@
 page {
-  background: #f3f7f5;
-  color: #17211c;
+  background: #f5f7fb;
+  color: #15171c;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -12,18 +12,18 @@ page {
 .card {
   margin: 20rpx 24rpx;
   padding: 26rpx;
-  border-radius: 24rpx;
+  border-radius: 28rpx;
   background: #ffffff;
-  box-shadow: 0 10rpx 30rpx rgba(16, 36, 28, 0.08);
+  box-shadow: 0 10rpx 28rpx rgba(17, 24, 39, 0.07);
 }
 
 .muted {
-  color: #77827c;
+  color: #717784;
   font-size: 24rpx;
 }
 
 .price {
-  color: #ff4d18;
+  color: #f24822;
   font-weight: 900;
 }
 
@@ -31,34 +31,35 @@ page {
   display: inline-flex;
   padding: 6rpx 14rpx;
   border-radius: 999rpx;
-  background: #eefaf4;
-  color: #07854d;
+  background: #fff1df;
+  color: #f24822;
   font-size: 22rpx;
+  font-weight: 900;
 }
 
 .tag-warn {
-  background: #fff1e8;
-  color: #b85015;
+  background: #fff3c7;
+  color: #8a5b00;
 }
 
 .primary-btn {
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #00b96b, #00a96a);
-  color: #ffffff;
+  background: linear-gradient(135deg, #ffe95a, #ffd51f);
+  color: #121212;
   font-weight: 900;
   text-align: center;
-  box-shadow: 0 12rpx 24rpx rgba(0, 185, 107, 0.25);
+  box-shadow: 0 12rpx 24rpx rgba(255, 213, 31, 0.28);
 }
 
 .ghost-btn {
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 999rpx;
-  background: #eefaf4;
-  color: #07854d;
+  background: #fff8d8;
+  color: #161616;
   font-weight: 900;
   text-align: center;
-  border: 1rpx solid #ccebdd;
+  border: 1rpx solid #ffe27a;
 }

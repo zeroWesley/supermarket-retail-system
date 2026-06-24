@@ -3,7 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 12rpx;
   padding: 20rpx 24rpx;
-  background: linear-gradient(180deg, #ffffff, #f3fbf7);
+  background: linear-gradient(180deg, #ffffff, #fff8d8);
   text-align: center;
   color: #697386;
   font-size: 26rpx;
@@ -15,8 +15,8 @@
 }
 
 .filter-row .active {
-  background: #dcfce7;
-  color: #07854d;
+  background: #ffe23d;
+  color: #171717;
   font-weight: 900;
 }
 
@@ -25,7 +25,7 @@
   padding: 26rpx;
   border-radius: 24rpx;
   background: #ffffff;
-  box-shadow: 0 10rpx 28rpx rgba(23, 33, 28, 0.06);
+  box-shadow: 0 10rpx 28rpx rgba(17, 24, 39, 0.06);
 }
 
 .order-head {
@@ -41,14 +41,14 @@
 }
 
 .order-desc {
-  color: #52615a;
+  color: #5d6470;
   font-size: 26rpx;
   line-height: 1.45;
 }
 
 .order-amount {
   margin-top: 10rpx;
-  color: #ff4d18;
+  color: #f24822;
   font-size: 32rpx;
   font-weight: 900;
 }
@@ -62,7 +62,7 @@
   align-items: center;
   gap: 14rpx;
   margin-bottom: 12rpx;
-  color: #64736c;
+  color: #646b76;
   font-size: 24rpx;
 }
 
@@ -70,8 +70,8 @@
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;
-  background: #00c777;
-  box-shadow: 0 0 0 6rpx #e0f8ed;
+  background: #ffe23d;
+  box-shadow: 0 0 0 6rpx #fff3ba;
 }
 
 .action-row {
