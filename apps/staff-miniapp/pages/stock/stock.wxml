@@ -1,16 +1,45 @@
-<view class="page">
+<view class="page safe-bottom">
   <view class="scan-box" bindtap="scanCode">
-    <view class="scan-title">扫码区域</view>
-    <view class="muted">点击模拟识别商品条码</view>
+    <view class="scan-icon">▣</view>
+    <view class="scan-title">{{scanned ? '重新扫码' : '扫码确认商品'}}</view>
+    <view class="muted">扫描商品条码后再提交入库门店信息</view>
   </view>
-  <view class="card">
-    <view class="line"><text>商品</text><text>{{stockItem.name}}</text></view>
-    <view class="line"><text>操作类型</text><text>{{stockItem.type}}</text></view>
-    <view class="line"><text>数量</text><text>{{stockItem.quantity}}</text></view>
-    <view class="line"><text>同步结果</text><text>写入库存记录</text></view>
+
+  <view class="card" wx:if="{{scanned}}">
+    <view class="row">
+      <view>
+        <view class="strong">{{scanned.productName}}</view>
+        <view class="muted">条码：{{scanned.productCode}} · {{scanned.category}}</view>
+      </view>
+      <view class="tag">已识别</view>
+    </view>
   </view>
+
+  <view class="card form-card">
+    <picker mode="selector" range="{{stores}}" value="{{storeIndex}}" bindchange="chooseStore">
+      <view class="line"><text>入库门店</text><text>{{stores[storeIndex]}}</text></view>
+    </picker>
+    <picker mode="selector" range="{{shelves}}" value="{{shelfIndex}}" bindchange="chooseShelf">
+      <view class="line"><text>建议货架</text><text>{{shelves[shelfIndex]}}</text></view>
+    </picker>
+    <view class="line">
+      <text>入库数量</text>
+      <input class="qty-input" type="number" value="{{quantity}}" bindinput="onQuantity" />
+    </view>
+    <view class="line"><text>操作人</text><text>{{scanned ? '张师傅' : '扫码后确认'}}</text></view>
+  </view>
+
   <view class="action-row card-actions">
-    <view class="primary-btn" bindtap="confirmStock">确认入库</view>
-    <view class="ghost-btn" bindtap="toggleType">改为出库</view>
+    <view class="primary-btn {{submitEnabled ? '' : 'disabled'}}" bindtap="confirmStock">提交入库</view>
+    <view class="ghost-btn" bindtap="clearScan">清空重扫</view>
+  </view>
+
+  <view class="section-title">最近入库记录</view>
+  <view wx:for="{{records}}" wx:key="id" class="record">
+    <view class="row">
+      <view class="strong">{{item.productName}}</view>
+      <view class="tag">{{item.type}}</view>
+    </view>
+    <view class="muted">{{item.store}} · {{item.shelf}} · +{{item.quantity}} · {{item.time}}</view>
   </view>
 </view>

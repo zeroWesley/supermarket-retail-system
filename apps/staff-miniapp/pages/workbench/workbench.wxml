@@ -1,42 +1,86 @@
 <view class="page">
   <view class="hero">
-    <view class="title">{{staff.store}}</view>
-    <view class="desc">{{staff.name}}，今日任务已同步</view>
+    <view class="hero-top">
+      <view>
+        <view class="title">{{staff.store}}</view>
+        <view class="desc">{{staff.name}} · {{staff.shift}}</view>
+      </view>
+      <view class="online">在线</view>
+    </view>
+    <view class="route-card">
+      <view>
+        <view class="muted">今日工作流</view>
+        <view class="route-text">入库补货 → 接单出库 → 员工自配送 → 完成回传</view>
+      </view>
+      <view class="small-btn" bindtap="callStore">联系门店</view>
+    </view>
   </view>
 
   <view class="metric-grid">
-    <view class="metric">
+    <view class="metric" bindtap="goOrders">
       <view class="num">{{stats.pendingOrders}}</view>
       <view class="muted">待接单</view>
     </view>
-    <view class="metric">
+    <view class="metric" bindtap="goOrders">
       <view class="num">{{stats.picking}}</view>
-      <view class="muted">待拣货</view>
+      <view class="muted">待出库</view>
     </view>
-    <view class="metric">
+    <view class="metric" bindtap="goDelivery">
       <view class="num">{{stats.delivering}}</view>
       <view class="muted">配送中</view>
     </view>
   </view>
 
-  <view class="card">
-    <view class="row">
-      <view class="strong">紧急订单 #20260621003</view>
-      <view class="tag tag-danger">缺货异常</view>
+  <view class="quick-grid">
+    <view class="quick primary" bindtap="goOrders">
+      <view class="quick-title">订单接单</view>
+      <view class="quick-desc">接收新订单并进入出库</view>
     </view>
-    <view class="muted">鲜牛奶库存不足，需要确认替换或退款模拟。</view>
+    <view class="quick" bindtap="goStock">
+      <view class="quick-title">商品入库</view>
+      <view class="quick-desc">扫码确认商品和门店</view>
+    </view>
+    <view class="quick" bindtap="goDelivery">
+      <view class="quick-title">配送地图</view>
+      <view class="quick-desc">查看路线并确认送达</view>
+    </view>
+    <view class="quick" bindtap="goHistory">
+      <view class="quick-title">历史查询</view>
+      <view class="quick-desc">查已完成配送订单</view>
+    </view>
   </view>
 
-  <view class="card">
+  <view class="section-title">当前重点</view>
+  <view class="card" wx:if="{{urgentOrder}}">
     <view class="row">
-      <view class="strong">配送提醒</view>
-      <view class="tag">18:30前送达</view>
+      <view class="strong">#{{urgentOrder.id}} {{urgentOrder.user}}</view>
+      <view class="tag {{urgentOrder.status === '缺货异常' ? 'tag-danger' : 'tag-warn'}}">{{urgentOrder.status}}</view>
     </view>
-    <view class="muted">绿洲小区 3 栋 1602 · 距离 1.2km</view>
+    <view class="muted">{{urgentOrder.items}}</view>
+    <view class="muted">{{urgentOrder.address}} · {{urgentOrder.eta || '尽快送达'}}</view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="goOrders">处理订单</view>
+      <view class="ghost-btn" bindtap="goStock">扫码入库</view>
+    </view>
   </view>
 
-  <view class="action-row card-actions">
-    <view class="primary-btn" bindtap="goOrders">开始接单</view>
-    <view class="ghost-btn" bindtap="goStock">扫码入库</view>
+  <view class="card" wx:if="{{nextDelivery}}">
+    <view class="row">
+      <view class="strong">下一单配送</view>
+      <view class="tag">{{nextDelivery.distance}}</view>
+    </view>
+    <view class="muted">#{{nextDelivery.id}} · {{nextDelivery.address}}</view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="goDelivery">打开地图</view>
+      <view class="ghost-btn" bindtap="goHistory">配送历史</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{lastStock}}">
+    <view class="row">
+      <view class="strong">最近入库</view>
+      <view class="tag">{{lastStock.type}}</view>
+    </view>
+    <view class="muted">{{lastStock.productName}} · +{{lastStock.quantity}} · {{lastStock.store}}</view>
   </view>
 </view>

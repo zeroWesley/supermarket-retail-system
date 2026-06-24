@@ -1,22 +1,66 @@
-.search {
-  height: 72rpx;
-  line-height: 72rpx;
-  margin: 20rpx 24rpx;
-  padding: 0 24rpx;
-  border-radius: 999rpx;
+.map-card {
+  position: relative;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
   background: #ffffff;
-  color: #7d8794;
-  font-size: 26rpx;
+  box-shadow: 0 8rpx 24rpx rgba(24, 33, 47, 0.08);
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  gap: 16rpx;
-  margin-bottom: 14rpx;
+.map {
+  width: 100%;
+  height: 420rpx;
 }
 
-.strong {
-  font-size: 30rpx;
+.map-info {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  left: 20rpx;
+  padding: 22rpx;
+  border-radius: 18rpx;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.delivery-card {
+  border: 3rpx solid transparent;
+}
+
+.delivery-card:active {
+  border-color: #13b66b;
+}
+
+.address {
+  margin: 18rpx 0;
+  padding: 18rpx;
+  border-radius: 14rpx;
+  background: #f6f8fb;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.history-link {
+  margin: 28rpx 24rpx;
+  color: #07854d;
+  font-size: 28rpx;
   font-weight: 900;
+  text-align: center;
+}
+
+.empty {
+  margin: 80rpx 24rpx 30rpx;
+  padding: 54rpx 24rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-title {
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.history-btn {
+  margin-top: 24rpx;
 }

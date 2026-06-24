@@ -1,22 +1,80 @@
-.search {
-  height: 72rpx;
-  line-height: 72rpx;
-  margin: 20rpx 24rpx;
-  padding: 0 24rpx;
+.top-filter {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10rpx;
+  padding: 18rpx 24rpx;
+  background: #f3f6f8;
+}
+
+.tab {
+  height: 66rpx;
+  line-height: 66rpx;
   border-radius: 999rpx;
   background: #ffffff;
-  color: #7d8794;
+  color: #697386;
+  text-align: center;
+  font-weight: 800;
+}
+
+.tab .active {
+  display: block;
+  border-radius: 999rpx;
+  background: #13b66b;
+  color: #ffffff;
+}
+
+.search {
+  box-sizing: border-box;
+  width: auto;
+  margin: 0 24rpx 20rpx;
+  height: 76rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #18212f;
   font-size: 26rpx;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  gap: 16rpx;
-  margin-bottom: 14rpx;
+.order-card {
+  overflow: hidden;
 }
 
-.strong {
-  font-size: 30rpx;
+.goods {
+  margin: 22rpx 0 8rpx;
+  padding: 18rpx;
+  border-radius: 14rpx;
+  background: #f6f8fb;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.progress {
+  height: 10rpx;
+  margin: 22rpx 0 10rpx;
+  border-radius: 999rpx;
+  background: #e7ebf0;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #13b66b, #7be3aa);
+}
+
+.empty {
+  margin: 80rpx 24rpx;
+  padding: 54rpx 24rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-title {
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
   font-weight: 900;
 }

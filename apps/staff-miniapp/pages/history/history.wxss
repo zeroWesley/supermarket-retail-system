@@ -1,0 +1,42 @@
+.filter-card {
+  display: grid;
+  grid-template-columns: 1fr 160rpx;
+  gap: 14rpx;
+  margin: 20rpx 24rpx;
+}
+
+.search,
+.range {
+  box-sizing: border-box;
+  height: 76rpx;
+  line-height: 76rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #18212f;
+  font-size: 26rpx;
+}
+
+.range {
+  color: #07854d;
+  font-weight: 900;
+  text-align: center;
+}
+
+.history-card:active {
+  transform: scale(.99);
+}
+
+.empty {
+  margin: 80rpx 24rpx;
+  padding: 54rpx 24rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-title {
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  font-weight: 900;
+}

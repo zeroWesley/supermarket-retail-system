@@ -4,7 +4,8 @@
     "pages/orders/orders",
     "pages/picking/picking",
     "pages/stock/stock",
-    "pages/delivery/delivery"
+    "pages/delivery/delivery",
+    "pages/history/history"
   ],
   "window": {
     "navigationBarTitleText": "Zero员工端",
@@ -28,7 +29,7 @@
       },
       {
         "pagePath": "pages/stock/stock",
-        "text": "扫码"
+        "text": "入库"
       },
       {
         "pagePath": "pages/delivery/delivery",

@@ -1,37 +1,52 @@
 .scan-box {
   display: grid;
   place-items: center;
-  height: 340rpx;
+  min-height: 330rpx;
   margin: 24rpx;
   border: 4rpx dashed #9bd8ba;
   border-radius: 28rpx;
-  background: #eefaf4;
+  background: linear-gradient(180deg, #eefaf4, #ffffff);
   color: #07854d;
   text-align: center;
 }
 
+.scan-icon {
+  font-size: 72rpx;
+  font-weight: 900;
+}
+
 .scan-title {
+  margin-top: 8rpx;
   font-size: 40rpx;
   font-weight: 900;
 }
 
-.line {
-  display: flex;
-  justify-content: space-between;
-  gap: 20rpx;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #e7ebf0;
-  font-size: 28rpx;
+.form-card {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 
-.line:last-child {
-  border-bottom: 0;
-}
-
-.line text:last-child {
-  color: #697386;
+.qty-input {
+  width: 180rpx;
+  height: 58rpx;
+  padding: 0 18rpx;
+  border-radius: 14rpx;
+  background: #f6f8fb;
+  color: #18212f;
+  text-align: right;
 }
 
 .card-actions {
   margin: 20rpx 24rpx;
+}
+
+.disabled {
+  opacity: .48;
+}
+
+.record {
+  margin: 14rpx 24rpx;
+  padding: 22rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
 }

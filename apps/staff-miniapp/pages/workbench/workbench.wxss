@@ -1,7 +1,15 @@
 .hero {
-  padding: 38rpx 28rpx;
+  padding: 34rpx 28rpx 28rpx;
   color: #ffffff;
   background: linear-gradient(135deg, #13b66b, #07854d);
+}
+
+.hero-top,
+.route-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
 }
 
 .title {
@@ -15,6 +23,31 @@
   font-size: 26rpx;
 }
 
+.online {
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.route-card {
+  margin-top: 28rpx;
+  padding: 20rpx;
+  border-radius: 18rpx;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.route-card .muted {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.route-text {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -23,7 +56,7 @@
 }
 
 .metric {
-  padding: 28rpx 10rpx;
+  padding: 26rpx 10rpx;
   border-radius: 18rpx;
   background: #ffffff;
   text-align: center;
@@ -35,19 +68,36 @@
   font-weight: 900;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16rpx;
-  margin-bottom: 14rpx;
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18rpx;
+  margin: 24rpx;
 }
 
-.strong {
+.quick {
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(24, 33, 47, 0.05);
+}
+
+.quick.primary {
+  background: #0f9f5d;
+  color: #ffffff;
+}
+
+.quick-title {
   font-size: 30rpx;
   font-weight: 900;
 }
 
-.card-actions {
-  margin: 20rpx 24rpx;
+.quick-desc {
+  margin-top: 10rpx;
+  color: #697386;
+  font-size: 24rpx;
+}
+
+.quick.primary .quick-desc {
+  color: rgba(255, 255, 255, 0.78);
 }

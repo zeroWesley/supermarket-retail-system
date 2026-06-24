@@ -1,16 +1,55 @@
 <view class="page">
-  <view class="search">搜索订单号/手机号/地址</view>
-  <view wx:for="{{orders}}" wx:key="id" class="card">
-    <view class="row">
-      <view class="strong">#{{item.id}} {{item.user}}</view>
-      <view class="tag {{item.status === '待接单' ? 'tag-warn' : ''}}">{{item.status}}</view>
+  <view class="top-filter">
+    <view class="tab" wx:for="{{tabs}}" wx:key="*this" data-tab="{{item}}" bindtap="switchTab">
+      <text class="{{activeTab === item ? 'active' : ''}}">{{item}}</text>
     </view>
-    <view class="muted">{{item.items}} · ¥{{item.amount}}</view>
-    <view class="muted">{{item.address}} · {{item.phone}}</view>
-    <view class="muted">备注：{{item.remark}}</view>
-    <view class="action-row">
-      <view class="primary-btn" bindtap="acceptOrder" data-id="{{item.id}}">{{item.status === '待接单' ? '接单' : '去拣货'}}</view>
-      <view class="ghost-btn">查看地址</view>
+  </view>
+
+  <input class="search" placeholder="搜索订单号、手机号、地址" value="{{keyword}}" bindinput="onKeyword" />
+
+  <view wx:if="{{!orders.length}}" class="empty">
+    <view class="empty-title">暂无{{activeTab}}订单</view>
+    <view class="muted">切换上方状态或稍后刷新。</view>
+  </view>
+
+  <view wx:for="{{orders}}" wx:key="id" class="card order-card">
+    <view class="row">
+      <view>
+        <view class="strong">#{{item.id}}</view>
+        <view class="muted">{{item.user}} · {{item.phone}}</view>
+      </view>
+      <view class="tag {{item.status === '待接单' ? 'tag-warn' : item.status === '缺货异常' ? 'tag-danger' : ''}}">{{item.status}}</view>
+    </view>
+
+    <view class="goods">{{item.items}}</view>
+    <view class="line"><text>配送地址</text><text>{{item.address}}</text></view>
+    <view class="line"><text>订单金额</text><text>¥{{item.amount}}</text></view>
+    <view class="line"><text>备注</text><text>{{item.remark || '无'}}</text></view>
+
+    <view class="progress">
+      <view class="bar" style="width: {{item.status === '待接单' ? '20%' : item.status === '已接单' ? '45%' : item.status === '已拣货' ? '70%' : '90%'}}"></view>
+    </view>
+    <view class="muted">流程：接单 → 扫码出库 → 开始配送 → 确认送达</view>
+
+    <view class="action-row" wx:if="{{item.status === '待接单'}}">
+      <view class="primary-btn" bindtap="acceptOrder" data-id="{{item.id}}">接单</view>
+      <view class="ghost-btn" bindtap="callUser" data-phone="{{item.phone}}">联系用户</view>
+    </view>
+
+    <view class="action-row three" wx:elif="{{item.status === '已接单' || item.status === '待拣货'}}">
+      <view class="primary-btn" bindtap="scanOut" data-id="{{item.id}}">扫码出库</view>
+      <view class="ghost-btn" bindtap="openPicking" data-id="{{item.id}}">拣货清单</view>
+      <view class="danger-btn" bindtap="reportIssue" data-id="{{item.id}}">异常</view>
+    </view>
+
+    <view class="action-row" wx:elif="{{item.status === '已拣货'}}">
+      <view class="primary-btn" bindtap="startDelivery" data-id="{{item.id}}">开始配送</view>
+      <view class="ghost-btn" bindtap="callUser" data-phone="{{item.phone}}">联系用户</view>
+    </view>
+
+    <view class="action-row" wx:else>
+      <view class="primary-btn" bindtap="startDelivery" data-id="{{item.id}}">查看配送</view>
+      <view class="ghost-btn" bindtap="reportIssue" data-id="{{item.id}}">上报异常</view>
     </view>
   </view>
 </view>

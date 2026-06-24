@@ -1,15 +1,42 @@
-<view class="page">
-  <view class="search">按距离和承诺送达时间排序</view>
-  <view wx:for="{{deliveries}}" wx:key="id" class="card">
-    <view class="row">
-      <view class="strong">{{item.user}} · {{item.distance}}</view>
-      <view class="tag {{item.status === '待出发' ? 'tag-warn' : ''}}">{{item.status}}</view>
-    </view>
-    <view class="muted">{{item.address}} · {{item.phone}}</view>
-    <view class="muted">预计 {{item.eta}}</view>
-    <view class="action-row">
-      <view class="primary-btn" bindtap="finishDelivery" data-id="{{item.id}}">{{item.status === '配送中' ? '确认送达' : '开始配送'}}</view>
-      <view class="ghost-btn">联系用户</view>
+<view class="page safe-bottom">
+  <view class="map-card" wx:if="{{activeDelivery}}">
+    <map
+      class="map"
+      latitude="{{markers[1].latitude}}"
+      longitude="{{markers[1].longitude}}"
+      markers="{{markers}}"
+      polyline="{{polyline}}"
+      scale="15"
+    />
+    <view class="map-info">
+      <view class="strong">#{{activeDelivery.id}} {{activeDelivery.user}}</view>
+      <view class="muted">{{activeDelivery.address}} · {{activeDelivery.distance}}</view>
+      <view class="tag {{activeDelivery.status === '待出发' ? 'tag-warn' : ''}}">{{activeDelivery.status}}</view>
     </view>
   </view>
+
+  <view class="empty" wx:if="{{!activeDelivery}}">
+    <view class="empty-title">暂无配送任务</view>
+    <view class="muted">完成的订单可在历史中查询。</view>
+    <view class="primary-btn history-btn" bindtap="openHistory">查看历史配送</view>
+  </view>
+
+  <view class="section-title">配送任务</view>
+  <view wx:for="{{deliveries}}" wx:key="id" class="card delivery-card" bindtap="selectDelivery" data-id="{{item.id}}">
+    <view class="row">
+      <view>
+        <view class="strong">#{{item.id}} {{item.user}}</view>
+        <view class="muted">{{item.eta}} · {{item.distance}}</view>
+      </view>
+      <view class="tag {{item.status === '待出发' ? 'tag-warn' : ''}}">{{item.status}}</view>
+    </view>
+    <view class="address">{{item.address}}</view>
+    <view class="action-row three">
+      <view class="primary-btn" catchtap="startDelivery" data-id="{{item.id}}">{{item.status === '配送中' ? '导航中' : '开始配送'}}</view>
+      <view class="ghost-btn" catchtap="callUser" data-phone="{{item.phone}}">联系用户</view>
+      <view class="ghost-btn" catchtap="finishDelivery" data-id="{{item.id}}">送达</view>
+    </view>
+  </view>
+
+  <view class="history-link" bindtap="openHistory">查看历史配送订单 →</view>
 </view>
