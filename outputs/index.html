@@ -2,10 +2,325 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=share/index.html">
-  <title>超市零售系统原型入口</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Zero便利超市零售系统</title>
+  <style>
+    :root {
+      --brand: #13b66b;
+      --brand-dark: #07854d;
+      --yellow: #ffe45c;
+      --ink: #111827;
+      --muted: #667085;
+      --line: #e7ebf0;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 228, 92, .42), transparent 28%),
+        radial-gradient(circle at 88% 8%, rgba(19, 182, 107, .16), transparent 30%),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 34px 22px 56px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--brand);
+      color: #fff;
+      font-size: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav-links a,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .btn.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      max-width: 720px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .summary-card {
+      padding: 18px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 34px rgba(17, 24, 39, .07);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .summary-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .panel {
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 44px rgba(17, 24, 39, .08);
+      overflow: hidden;
+      margin-top: 22px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .architecture {
+      padding: 18px;
+      background: #f8fafc;
+      overflow: auto;
+    }
+
+    .architecture img {
+      display: block;
+      width: 100%;
+      min-width: 980px;
+      height: auto;
+      border-radius: 18px;
+    }
+
+    .capability-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      padding: 22px 24px 24px;
+    }
+
+    .capability {
+      padding: 18px;
+      border-radius: 14px;
+      background: #fffdf1;
+      border: 1px solid #ffeaa3;
+    }
+
+    .capability strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .capability p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .summary { grid-template-columns: repeat(4, 1fr); }
+      .capability-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      h1 { font-size: 34px; }
+      .summary,
+      .capability-grid { grid-template-columns: 1fr; }
+      .panel-head { display: block; }
+    }
+  </style>
 </head>
 <body>
-  <a href="share/index.html">进入超市零售系统原型入口</a>
+  <main class="page">
+    <nav class="nav">
+      <a class="brand" href="./index.html">
+        <span class="mark">Z</span>
+        <span>Zero便利超市</span>
+      </a>
+      <div class="nav-links">
+        <a href="./share/index.html">原型入口</a>
+        <a href="./admin-web/index.html">后台演示</a>
+        <a href="./prototype/index.html">完整原型</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">超市零售双小程序 + 网页后台</span>
+        <h1>面向单超市多门店的零售履约 MVP</h1>
+        <p class="lead">
+          当前版本围绕 C端购物、员工自配送、运营配置和管理权限四个核心场景搭建。
+          后台配置的商品、库存、优惠券和活动会同步到 C端小程序；C端订单进入员工端完成接单、拣货、出库和配送。
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="./share/index.html">查看原型入口</a>
+          <a class="btn" href="./admin-web/index.html">进入后台演示</a>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="summary-card"><strong>2</strong><span>微信小程序：C端用户端、员工履约端</span></div>
+        <div class="summary-card"><strong>2</strong><span>网页后台：运营端、管理端</span></div>
+        <div class="summary-card"><strong>1</strong><span>本地 API：统一数据同步和模拟下单</span></div>
+        <div class="summary-card"><strong>MVP</strong><span>财务、支付、线上发布后续扩展</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>能力全景</h2>
+          <p>从应用入口到核心业务，再到底层 API 与数据同步，展示当前版本已覆盖的主要能力。</p>
+        </div>
+        <a class="btn" href="./architecture/system-capability-framework.svg" target="_blank" rel="noreferrer">打开框架图</a>
+      </div>
+      <div class="architecture">
+        <img src="./architecture/system-capability-framework.svg" alt="Zero便利超市系统核心能力框架">
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>核心说明</h2>
+          <p>当前版本优先保证演示闭环和跨端联动，适合线下验证流程、页面结构和业务边界。</p>
+        </div>
+      </div>
+      <div class="capability-grid">
+        <div class="capability">
+          <strong>用户端购物</strong>
+          <p>首页活动、酒单分类、商品详情、购物车、模拟下单和订单查看。</p>
+        </div>
+        <div class="capability">
+          <strong>员工端履约</strong>
+          <p>扫码入库、接单拣货、商品出库、配送地图和历史配送查询。</p>
+        </div>
+        <div class="capability">
+          <strong>运营端配置</strong>
+          <p>商品库存、优惠券、活动投放、订单管理和门店配置。</p>
+        </div>
+        <div class="capability">
+          <strong>管理端权限</strong>
+          <p>管理员入口选择、运营账号管理、菜单权限分配和操作日志。</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
