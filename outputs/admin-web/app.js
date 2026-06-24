@@ -1,4 +1,4 @@
-const STORAGE_KEY = "zero-admin-web-v3";
+const STORAGE_KEY = "zero-admin-web-v4";
 const API_BASE = localStorage.getItem("ZERO_API_BASE") || "http://127.0.0.1:8787";
 
 const operatePages = ["dashboard", "products", "coupons", "campaigns", "orders", "stores"];
@@ -439,7 +439,7 @@ function renderDashboard() {
       </section>
     </div>
     <section class="panel">
-      <div class="panel-head"><h2>业务流程</h2><span class="tag">演示版</span></div>
+      <div class="panel-head"><h2>业务流程</h2><span class="tag">演示版 v4</span></div>
       <div class="flow">
         <div>后台配置商品/优惠券</div>
         <div>活动投放到 C端</div>
