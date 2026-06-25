@@ -1,5 +1,5 @@
 .page {
-  background: #ffffff;
+  background: #f3f8f5;
   padding-bottom: 24rpx;
 }
 
@@ -25,8 +25,8 @@
   height: 72rpx;
   line-height: 72rpx;
   border-radius: 999rpx;
-  background: #fff0f0;
-  color: #c9342c;
+  background: #eafaf2;
+  color: #07834c;
   text-align: center;
   font-size: 25rpx;
   font-weight: 900;
@@ -37,10 +37,10 @@
   justify-content: space-between;
   margin: 0 24rpx 12rpx;
   padding: 14rpx 18rpx;
-  border: 2rpx solid #ffe368;
+  border: 2rpx solid #bfead5;
   border-radius: 18rpx;
-  background: #fffef4;
-  color: #171717;
+  background: #ffffff;
+  color: #07834c;
   font-size: 25rpx;
   font-weight: 900;
 }
@@ -68,7 +68,7 @@
 }
 
 .sort-tabs .active {
-  color: #171717;
+  color: #07834c;
   font-weight: 900;
 }
 
@@ -79,7 +79,7 @@
   width: 8rpx;
   height: 28rpx;
   border-radius: 999rpx;
-  background: #ffe046;
+  background: #13b66b;
   content: "";
 }
 
@@ -104,7 +104,7 @@
 .cat.active {
   background: #ffffff;
   color: #111827;
-  border-left-color: #ffe046;
+  border-left-color: #13b66b;
   font-weight: 900;
 }
 
@@ -117,8 +117,8 @@
   margin-bottom: 16rpx;
   padding: 24rpx;
   border-radius: 22rpx;
-  background: linear-gradient(135deg, #ffe959, #fff8c7);
-  color: #151515;
+  background: linear-gradient(135deg, #0aa35e, #79efb7);
+  color: #ffffff;
 }
 
 .list-banner view {
@@ -129,7 +129,7 @@
 .list-banner text {
   display: block;
   margin-top: 6rpx;
-  color: #6f5d18;
+  color: rgba(255, 255, 255, 0.84);
   font-size: 22rpx;
 }
 
@@ -149,8 +149,8 @@
   height: 172rpx;
   line-height: 172rpx;
   border-radius: 22rpx;
-  background: linear-gradient(135deg, #fff0d8, #eefaff);
-  color: #ff7130;
+  background: linear-gradient(135deg, #e7fff2, #f6fffb);
+  color: #13b66b;
   text-align: center;
   font-size: 58rpx;
   font-weight: 900;
@@ -201,12 +201,12 @@
   height: 58rpx;
   line-height: 54rpx;
   border-radius: 50%;
-  background: #ffe23d;
-  color: #171717;
+  background: linear-gradient(135deg, #13c978, #079858);
+  color: #ffffff;
   text-align: center;
   font-size: 42rpx;
   font-weight: 900;
-  box-shadow: 0 8rpx 16rpx rgba(255, 213, 31, 0.35);
+  box-shadow: 0 8rpx 16rpx rgba(0, 185, 107, 0.25);
 }
 
 .rank-tip {
@@ -214,8 +214,8 @@
   margin-top: 14rpx;
   padding: 7rpx 13rpx;
   border-radius: 999rpx;
-  background: #f7eed9;
-  color: #9a6a19;
+  background: #eafaf2;
+  color: #07834c;
   font-size: 21rpx;
   font-weight: 900;
 }

@@ -3,9 +3,9 @@
   place-items: center;
   min-height: 330rpx;
   margin: 24rpx;
-  border: 4rpx dashed #9bd8ba;
-  border-radius: 28rpx;
-  background: linear-gradient(180deg, #eefaf4, #ffffff);
+  border: 4rpx dashed #8ae0b6;
+  border-radius: 32rpx;
+  background: linear-gradient(180deg, #e7fff2, #ffffff);
   color: #07854d;
   text-align: center;
 }
@@ -30,8 +30,8 @@
   width: 180rpx;
   height: 58rpx;
   padding: 0 18rpx;
-  border-radius: 14rpx;
-  background: #f6f8fb;
+  border-radius: 18rpx;
+  background: #f3f8f5;
   color: #18212f;
   text-align: right;
 }
@@ -47,6 +47,6 @@
 .record {
   margin: 14rpx 24rpx;
   padding: 22rpx;
-  border-radius: 16rpx;
+  border-radius: 22rpx;
   background: #ffffff;
 }

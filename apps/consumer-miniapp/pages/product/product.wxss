@@ -1,7 +1,7 @@
 .cover {
   height: 540rpx;
   line-height: 540rpx;
-  background: linear-gradient(135deg, #fff3cc, #f2fff8);
+  background: linear-gradient(135deg, #eafff3, #f7fffb);
   color: #00a761;
   text-align: center;
   font-size: 150rpx;
@@ -26,8 +26,8 @@
   margin-bottom: 14rpx;
   padding: 6rpx 16rpx;
   border-radius: 999rpx;
-  background: #fff2e8;
-  color: #f24822;
+  background: #eafaf2;
+  color: #07834c;
   font-size: 23rpx;
   font-weight: 900;
 }
@@ -65,8 +65,8 @@
 .promise-row view {
   padding: 18rpx 8rpx;
   border-radius: 20rpx;
-  background: #fff8dc;
-  color: #171717;
+  background: #eafaf2;
+  color: #07834c;
   text-align: center;
   font-size: 24rpx;
 }
@@ -81,7 +81,7 @@
 
 .promise-row text:last-child {
   margin-top: 4rpx;
-  color: #77725e;
+  color: #617066;
   font-size: 21rpx;
 }
 

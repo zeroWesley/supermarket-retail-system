@@ -1,12 +1,12 @@
 .page {
   min-height: 100vh;
-  background: #f4f7fb;
+  background: #f3f8f5;
   padding-bottom: 34rpx;
 }
 
 .profile-hero {
   padding: 44rpx 24rpx 30rpx;
-  background: linear-gradient(180deg, #fff2b8, #fff9df 78%, #f4f7fb 100%);
+  background: linear-gradient(180deg, #dffff0, #f3fff9 78%, #f3f8f5 100%);
 }
 
 .title-row {
@@ -21,8 +21,8 @@
   height: 108rpx;
   line-height: 108rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #111827, #27303e);
-  color: #ffe94f;
+  background: linear-gradient(135deg, #08aa62, #064b32);
+  color: #ffffff;
   text-align: center;
   font-size: 60rpx;
   font-weight: 900;
@@ -37,16 +37,16 @@
 
 .desc {
   margin-top: 8rpx;
-  color: #5f5b46;
+  color: #617066;
   font-size: 24rpx;
 }
 
 .member-card {
   padding: 28rpx 26rpx;
   border-radius: 26rpx;
-  background: linear-gradient(135deg, #fff1a1, #ffe8a3 52%, #fff6cc);
-  color: #3c310c;
-  box-shadow: 0 16rpx 36rpx rgba(166, 126, 18, 0.16);
+  background: linear-gradient(135deg, #083d2c, #13b66b 58%, #a9f5ce);
+  color: #ffffff;
+  box-shadow: 0 16rpx 36rpx rgba(0, 185, 107, 0.16);
 }
 
 .member-top {
@@ -62,7 +62,7 @@
 
 .member-meta {
   margin-top: 8rpx;
-  color: #6f5d18;
+  color: rgba(255, 255, 255, 0.76);
   font-size: 25rpx;
 }
 
@@ -70,7 +70,7 @@
   padding: 12rpx 18rpx;
   border-radius: 18rpx;
   background: #ffffff;
-  color: #4c3b0b;
+  color: #07834c;
   font-size: 24rpx;
   font-weight: 900;
 }
@@ -89,13 +89,13 @@
   line-height: 68rpx;
   margin: 0 auto 8rpx;
   border-radius: 18rpx;
-  background: #141414;
-  color: #ffe94f;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
   font-weight: 900;
 }
 
 .benefit text {
-  color: #4c3b0b;
+  color: #ffffff;
   font-size: 22rpx;
 }
 
@@ -114,7 +114,7 @@
   grid-template-columns: 1fr 1fr 160rpx;
   align-items: center;
   padding: 22rpx 24rpx;
-  background: linear-gradient(90deg, #ff5d3d, #ff8a45);
+  background: linear-gradient(90deg, #0aa35e, #13c978);
   color: #ffffff;
   font-size: 26rpx;
   font-weight: 900;
@@ -125,7 +125,7 @@
   line-height: 58rpx;
   border-radius: 999rpx;
   background: #ffffff;
-  color: #c9342c;
+  color: #07834c;
   text-align: center;
 }
 
@@ -142,8 +142,8 @@
   height: 44rpx;
   line-height: 44rpx;
   border-radius: 10rpx;
-  background: #fff1df;
-  color: #f24822;
+  background: #eafaf2;
+  color: #07834c;
   text-align: center;
   font-weight: 900;
 }
@@ -236,7 +236,7 @@
   margin: 0 auto 10rpx;
   padding: 4rpx 0;
   border-radius: 8rpx;
-  background: #ff5d3d;
+  background: #13b66b;
   color: #ffffff;
   font-size: 20rpx;
   font-weight: 900;

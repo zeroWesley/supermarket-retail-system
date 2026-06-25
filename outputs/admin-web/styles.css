@@ -48,7 +48,7 @@ button {
   width: min(820px, 100%);
   padding: 34px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 18px;
   background: #fff;
   box-shadow: 0 24px 70px rgba(20, 28, 39, .13);
 }
@@ -111,9 +111,9 @@ button {
 
 .demo-accounts button {
   height: 38px;
-  border-radius: 8px;
-  background: #eef2f6;
-  color: var(--ink);
+  border-radius: 999px;
+  background: #eafaf2;
+  color: var(--brand-dark);
   text-align: left;
   padding: 0 12px;
 }
@@ -128,7 +128,7 @@ button {
   min-height: 142px;
   padding: 22px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 16px;
   background: #fff;
   color: var(--ink);
   text-align: left;
@@ -204,19 +204,19 @@ button {
   gap: 8px;
   padding: 6px;
   margin-bottom: 18px;
-  border-radius: 10px;
+  border-radius: 14px;
   background: #1d2738;
 }
 
 .role-btn {
   height: 36px;
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
   color: #aeb8c8;
 }
 
 .role-btn.active {
-  background: var(--brand);
+  background: linear-gradient(135deg, #13c978, #079858);
   color: #fff;
   font-weight: 800;
 }
@@ -229,14 +229,14 @@ button {
 .nav-btn {
   height: 42px;
   padding: 0 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
   color: #dbe4f0;
   text-align: left;
 }
 
 .nav-btn.active {
-  background: #263246;
+  background: rgba(19, 182, 107, .18);
   color: #fff;
   font-weight: 800;
 }
@@ -307,7 +307,8 @@ h1 {
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(20, 28, 39, .05);
 }
 
 .metric {
@@ -360,7 +361,7 @@ h1 {
 .textarea {
   min-height: 38px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fff;
   color: var(--ink);
   padding: 0 12px;
@@ -378,18 +379,19 @@ h1 {
 .danger-btn {
   height: 38px;
   padding: 0 14px;
-  border-radius: 8px;
+  border-radius: 999px;
   font-weight: 800;
 }
 
 .primary {
-  background: var(--brand);
+  background: linear-gradient(135deg, #13c978, #079858);
   color: #fff;
+  box-shadow: 0 10px 18px rgba(19, 182, 107, .18);
 }
 
 .secondary {
-  background: #eef2f6;
-  color: var(--ink);
+  background: #eafaf2;
+  color: var(--brand-dark);
 }
 
 .danger-btn {
@@ -421,7 +423,7 @@ h1 {
   display: block;
   width: 52px;
   height: 52px;
-  border-radius: 8px;
+  border-radius: 12px;
   object-fit: cover;
   background: #eefaf4;
 }
@@ -474,7 +476,7 @@ th {
 .flow div {
   padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 12px;
   background: #fff;
   color: #4c5565;
   font-size: 13px;
@@ -514,7 +516,7 @@ th {
   min-height: 38px;
   padding: 0 10px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fff;
   color: var(--ink) !important;
   font-weight: 600 !important;
@@ -559,9 +561,9 @@ th {
 .icon-btn {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
-  background: #eef2f6;
-  color: var(--ink);
+  border-radius: 10px;
+  background: #eafaf2;
+  color: var(--brand-dark);
   font-size: 24px;
   line-height: 1;
 }
@@ -572,7 +574,7 @@ th {
   bottom: 24px;
   transform: translateX(-50%);
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: #18212f;
   color: #fff;
   opacity: 0;

@@ -9,7 +9,7 @@
       --brand: #13b66b;
       --brand-dark: #07854d;
       --accent: #f24822;
-      --yellow: #ffe45c;
+      --green-soft: #eafaf2;
       --ink: #18212f;
       --muted: #697386;
       --line: #e7ebf0;
@@ -170,12 +170,13 @@
     .mini-page.active { display: block; }
 
     .mini-head {
-      background: linear-gradient(180deg, #ffe94f, #fff49c);
+      background: linear-gradient(180deg, #0aa35e, #13c978);
       padding: 12px 16px 14px;
       position: sticky;
       top: 0;
       z-index: 3;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(255, 255, 255, .2);
+      color: #fff;
     }
 
     .store-line {
@@ -187,7 +188,7 @@
     }
 
     .search {
-      background: #f0f2f5;
+      background: rgba(255, 255, 255, .94);
       color: #7d8794;
       border-radius: 18px;
       padding: 10px 13px;
@@ -217,8 +218,8 @@
     }
 
     .coupon {
-      background: #fff2ba;
-      color: #7a5600;
+      background: var(--green-soft);
+      color: var(--brand-dark);
       border-radius: 8px;
       padding: 8px;
       font-size: 12px;
@@ -242,8 +243,8 @@
       place-items: center;
       margin: 0 auto 6px;
       border-radius: 14px;
-      background: linear-gradient(135deg, #fff4ac, #ffffff 62%);
-      color: #111827;
+      background: linear-gradient(135deg, #e7fff2, #ffffff 62%);
+      color: var(--brand-dark);
       font-weight: 800;
       box-shadow: 0 4px 12px rgba(28, 39, 57, .06);
     }
@@ -276,10 +277,10 @@
       min-height: 82px;
       border-radius: 12px;
       padding: 12px;
-      background: linear-gradient(135deg, #fff9df, #ffffff);
-      border: 1px solid #ffe27a;
+      background: linear-gradient(135deg, #eafff3, #ffffff);
+      border: 1px solid #bfead5;
       font-size: 13px;
-      color: #8a6500;
+      color: var(--brand-dark);
     }
 
     .scene-card b {
@@ -350,8 +351,8 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: var(--yellow);
-      color: #111827;
+      background: linear-gradient(135deg, #13c978, #079858);
+      color: #fff;
       font-size: 20px;
       line-height: 1;
       font-weight: 900;
@@ -401,8 +402,8 @@
 
     .cat-menu button.active {
       background: #fff;
-      color: #111827;
-      border-left-color: var(--yellow);
+      color: var(--brand-dark);
+      border-left-color: var(--brand);
       font-weight: 800;
     }
 
@@ -481,8 +482,8 @@
       font-weight: 800;
     }
 
-    .ghost-btn { background: #eef2f6; color: var(--ink); }
-    .primary-btn { background: var(--yellow); color: #111827; }
+    .ghost-btn { background: var(--green-soft); color: var(--brand-dark); }
+    .primary-btn { background: linear-gradient(135deg, #13c978, #079858); color: #fff; }
 
     .cart-item, .order-card, .profile-card {
       background: #fff;
@@ -855,7 +856,7 @@
       <div class="nav-group app-only">
         <div class="nav-title">C端页面</div>
         <button class="nav-btn active mini-nav" data-page="home">首页</button>
-        <button class="nav-btn mini-nav" data-page="category">酒单/搜索</button>
+        <button class="nav-btn mini-nav" data-page="category">分类/搜索</button>
         <button class="nav-btn mini-nav" data-page="detail">商品详情</button>
         <button class="nav-btn mini-nav" data-page="cart">购物车/结算</button>
         <button class="nav-btn mini-nav" data-page="orders">订单</button>
@@ -894,7 +895,7 @@
       <div class="topbar">
         <div>
           <h2 id="title">C端用户小程序</h2>
-          <p id="subtitle">面向消费者，采用黄黑促销零售风格：门店、搜索、优惠券、酒单分类、商品加购、购物车和会员中心。</p>
+          <p id="subtitle">面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和权益入口。</p>
         </div>
         <div class="pill">MVP 演示版 · 单超市多门店 · 自配送</div>
       </div>
@@ -973,7 +974,7 @@
 
             <div class="mini-page" id="category">
               <div class="mini-head">
-                <div class="store-line"><span>酒单</span><span>7张优惠券 ›</span></div>
+                <div class="store-line"><span>分类</span><span>7张优惠券 ›</span></div>
                 <div class="search">搜索商品名称/条码</div>
               </div>
               <div class="service-strip">
@@ -1377,7 +1378,7 @@
                   <tr><th>活动ID</th><th>活动名称</th><th>投放位置</th><th>绑定券ID</th><th>时间</th><th>状态</th></tr>
                   <tr><td>200001</td><td>首页主Banner</td><td>首页主Banner</td><td>100001</td><td>06/21-07/31</td><td><span class="tag">进行中</span></td></tr>
                   <tr><td>200002</td><td>首页券区</td><td>首页优惠券区</td><td>100002</td><td>06/21-07/31</td><td><span class="tag">进行中</span></td></tr>
-                  <tr><td>200003</td><td>酒水夜间特价</td><td>酒单推荐位</td><td>100003</td><td>18:00-23:00</td><td><span class="tag orange">待启用</span></td></tr>
+                  <tr><td>200003</td><td>酒水夜间特价</td><td>分类推荐位</td><td>100003</td><td>18:00-23:00</td><td><span class="tag orange">待启用</span></td></tr>
                 </table>
               </div>
             </div>
@@ -1468,7 +1469,7 @@
       body.classList.toggle('mode-operate', mode === 'operate');
       document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item.dataset.mode === mode));
       const copy = {
-        app: ['C端用户小程序', '面向消费者，采用黄黑促销零售风格：门店、搜索、优惠券、酒单分类、商品加购、购物车和会员中心。'],
+        app: ['C端用户小程序', '面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和权益入口。'],
         staff: ['员工端小程序', '面向门店员工，覆盖商品入库、接单、拣货出库、配送地图、确认送达和历史配送查询。'],
         manage: ['网页管理端', '面向系统管理员，聚焦账号添加删除、角色配置、菜单权限分配和操作日志。'],
         operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、优惠券配置、活动投放、订单和门店配置。']

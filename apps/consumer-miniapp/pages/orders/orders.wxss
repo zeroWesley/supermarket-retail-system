@@ -3,7 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 12rpx;
   padding: 20rpx 24rpx;
-  background: linear-gradient(180deg, #ffffff, #fff8d8);
+  background: linear-gradient(180deg, #ffffff, #eefbf5);
   text-align: center;
   color: #697386;
   font-size: 26rpx;
@@ -15,8 +15,8 @@
 }
 
 .filter-row .active {
-  background: #ffe23d;
-  color: #171717;
+  background: #13b66b;
+  color: #ffffff;
   font-weight: 900;
 }
 
@@ -70,8 +70,8 @@
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;
-  background: #ffe23d;
-  box-shadow: 0 0 0 6rpx #fff3ba;
+  background: #13b66b;
+  box-shadow: 0 0 0 6rpx #dff8ec;
 }
 
 .action-row {

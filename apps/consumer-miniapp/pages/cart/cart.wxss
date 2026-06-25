@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
   padding-bottom: 170rpx;
-  background: #f4f7fb;
+  background: #f3f8f5;
 }
 
 .coupon-card {
@@ -33,16 +33,16 @@
 .coupon-tag,
 .save-tag {
   padding: 4rpx 10rpx;
-  border: 1rpx solid #ffd4cf;
+  border: 1rpx solid #bfead5;
   border-radius: 8rpx;
-  color: #c9342c;
+  color: #07834c;
   font-size: 22rpx;
 }
 
 .save-tag {
-  border-color: #ffdf6e;
-  background: #fff3c4;
-  color: #9a6a19;
+  border-color: #bfead5;
+  background: #eafaf2;
+  color: #07834c;
   font-weight: 900;
 }
 
@@ -82,7 +82,7 @@
   width: 154rpx;
   height: 54rpx;
   border-radius: 12rpx;
-  background: #ffe766;
+  background: #b9f5d6;
   transform: rotate(-8deg);
   box-shadow: 16rpx 18rpx 24rpx rgba(17, 24, 39, 0.08);
 }
@@ -95,8 +95,8 @@
   height: 104rpx;
   line-height: 104rpx;
   border-radius: 18rpx;
-  background: #ffd93a;
-  color: #171717;
+  background: #13b66b;
+  color: #ffffff;
   font-size: 54rpx;
   font-weight: 900;
 }
@@ -112,8 +112,8 @@
   line-height: 84rpx;
   margin: 34rpx auto 0;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #ffe95a, #ffd51f);
-  color: #121212;
+  background: linear-gradient(135deg, #13c978, #079858);
+  color: #ffffff;
   font-size: 32rpx;
   font-weight: 900;
 }
@@ -122,11 +122,11 @@
   margin: 20rpx 24rpx;
   padding: 20rpx 26rpx;
   border-radius: 22rpx;
-  background: #fff7e0;
-  color: #9a6a19;
+  background: #eafaf2;
+  color: #07834c;
   font-size: 26rpx;
   font-weight: 900;
-  border: 1rpx solid #ffdf6e;
+  border: 1rpx solid #bfead5;
 }
 
 .cart-row {
@@ -145,8 +145,8 @@
   height: 150rpx;
   line-height: 150rpx;
   border-radius: 20rpx;
-  background: linear-gradient(135deg, #fff0d8, #eefaff);
-  color: #ff7130;
+  background: linear-gradient(135deg, #e7fff2, #f6fffb);
+  color: #13b66b;
   text-align: center;
   font-size: 58rpx;
   font-weight: 900;
@@ -185,7 +185,7 @@
   height: 44rpx;
   line-height: 44rpx;
   border-radius: 999rpx;
-  background: #fff2ba;
+  background: #eafaf2;
   text-align: center;
 }
 
@@ -241,7 +241,7 @@
 .recommend-cover {
   height: 220rpx;
   line-height: 220rpx;
-  background: linear-gradient(135deg, #fff3cc, #f2fff8);
+  background: linear-gradient(135deg, #eafff3, #f7fffb);
   color: #00a761;
   text-align: center;
   font-size: 72rpx;
