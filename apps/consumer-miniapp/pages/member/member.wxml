@@ -1,0 +1,53 @@
+<view class="page">
+  <view class="member-hero">
+    <view class="hero-top">
+      <view>
+        <view class="eyebrow">Zero 注册会员</view>
+        <view class="level-name">{{currentLevel.name}}</view>
+        <view class="meta">{{user.name}} · 成长值 {{user.growth}}</view>
+      </view>
+      <view class="level-badge">Z</view>
+    </view>
+    <view class="progress-box">
+      <view class="progress-title">
+        <text wx:if="{{nextLevel}}">距 {{nextLevel.name}} 还差 {{gap}} 成长值</text>
+        <text wx:else>已达当前最高等级</text>
+      </view>
+      <view class="progress-track"><view class="progress-bar" style="width: {{progress}}%;"></view></view>
+      <view class="rule">{{currentLevel.growthRule}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">会员权益</view>
+    <view wx:for="{{benefits}}" wx:key="id" class="benefit-card">
+      <view class="benefit-icon">{{item.type === '会员券' ? '券' : item.type === '会员价' ? '价' : '配'}}</view>
+      <view>
+        <view class="benefit-name">{{item.name}}</view>
+        <view class="muted">{{item.content}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">会员券</view>
+    <view wx:for="{{memberCoupons}}" wx:key="id" class="coupon-card">
+      <view>
+        <view class="coupon-name">{{item.name}}</view>
+        <view class="muted">券ID {{item.coupon_id}} · {{item.description}}</view>
+      </view>
+      <view class="coupon-amount">¥{{item.amount}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">会员价商品</view>
+    <view wx:for="{{memberPrices}}" wx:key="id" class="price-card">
+      <view>
+        <view class="benefit-name">{{item.product.name}}</view>
+        <view class="muted">{{currentLevel.name}} 专享 · 原价 ¥{{item.product.price}}</view>
+      </view>
+      <view class="member-price">¥{{item.memberPrice}}</view>
+    </view>
+  </view>
+</view>

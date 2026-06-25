@@ -802,6 +802,13 @@
   ],
   "logs": [
     {
+      "time": "15:30",
+      "actor": "系统管理员",
+      "action": "新增会员体系配置",
+      "target": "等级/权益/会员价",
+      "result": "成功"
+    },
+    {
       "time": "14:55",
       "actor": "系统管理员",
       "action": "批量导入测试商品",
@@ -924,6 +931,21 @@
       "end": "2026-07-10",
       "status": "启用",
       "description": "仅限水果生鲜商品使用，适合早市生鲜活动。"
+    },
+    {
+      "id": "coupon-member-49",
+      "coupon_id": "100101",
+      "name": "会员专享满49减5",
+      "type": "通用券",
+      "usableProducts": [],
+      "amount": 5,
+      "threshold": 49,
+      "stock": 300,
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "status": "启用",
+      "forMember": true,
+      "description": "注册会员每月可领取，用于C端会员页展示。"
     }
   ],
   "campaigns": [
@@ -986,6 +1008,88 @@
       "subtitle": "水果生鲜可用",
       "image": "/assets/promotions/promo-fresh-morning.svg",
       "sort": 4
+    }
+  ],
+  "memberLevels": [
+    {
+      "id": "level-silver",
+      "name": "银卡会员",
+      "threshold": 0,
+      "growthRule": "每消费1元累计1成长值",
+      "status": "启用"
+    },
+    {
+      "id": "level-gold",
+      "name": "金卡会员",
+      "threshold": 1000,
+      "growthRule": "每消费1元累计1成长值，酒水订单额外+20%",
+      "status": "启用"
+    },
+    {
+      "id": "level-black",
+      "name": "黑金会员",
+      "threshold": 3000,
+      "growthRule": "每消费1元累计1.2成长值，生鲜酒水加速成长",
+      "status": "启用"
+    }
+  ],
+  "memberBenefits": [
+    {
+      "id": "benefit-member-coupon",
+      "name": "每月会员券",
+      "type": "会员券",
+      "levelId": "level-silver",
+      "content": "每月发放满49减5会员券",
+      "status": "启用"
+    },
+    {
+      "id": "benefit-member-price",
+      "name": "会员专享价",
+      "type": "会员价",
+      "levelId": "level-gold",
+      "content": "指定商品展示会员价",
+      "status": "启用"
+    },
+    {
+      "id": "benefit-priority-delivery",
+      "name": "缺货优先确认",
+      "type": "履约权益",
+      "levelId": "level-black",
+      "content": "缺货订单优先人工确认处理",
+      "status": "启用"
+    }
+  ],
+  "memberPrices": [
+    {
+      "id": "member-price-beer",
+      "productId": "beer-qingdao",
+      "levelId": "level-gold",
+      "memberPrice": 4.9,
+      "status": "启用"
+    },
+    {
+      "id": "member-price-milk",
+      "productId": "milk-fresh",
+      "levelId": "level-gold",
+      "memberPrice": 12.8,
+      "status": "启用"
+    },
+    {
+      "id": "member-price-apple",
+      "productId": "apple-fuji",
+      "levelId": "level-black",
+      "memberPrice": 5.9,
+      "status": "启用"
+    }
+  ],
+  "memberUsers": [
+    {
+      "id": "member-zero",
+      "name": "ZeroWesley",
+      "levelId": "level-gold",
+      "growth": 1680,
+      "registeredAt": "2026-06-21",
+      "status": "有效"
     }
   ]
 }

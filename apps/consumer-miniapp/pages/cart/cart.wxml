@@ -27,6 +27,7 @@
       <view>
         <view class="name">{{item.product.name}}</view>
         <view class="muted">{{item.product.desc}}</view>
+        <view wx:if="{{item.product.memberPrice}}" class="member-line">会员价已生效：¥{{item.product.memberPrice}}</view>
         <view class="cart-bottom">
           <view class="price">¥{{item.subtotal}}</view>
           <view class="qty">

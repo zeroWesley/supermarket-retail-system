@@ -48,6 +48,15 @@
   text-decoration: line-through;
 }
 
+.member-badge {
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  background: #111827;
+  color: #d9f7ad;
+  font-size: 23rpx;
+  font-weight: 900;
+}
+
 .title {
   margin: 14rpx 0 10rpx;
   font-size: 44rpx;

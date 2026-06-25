@@ -27,7 +27,7 @@ Page({
         return {
           ...cartItem,
           product,
-          subtotal: money(product.price * cartItem.quantity)
+          subtotal: money((product.displayPrice || product.price) * cartItem.quantity)
         };
       })
       .filter((item) => item && item.product && item.quantity > 0);

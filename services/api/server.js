@@ -24,6 +24,10 @@ function writeDb(db) {
 function normalizeDb(db) {
   db.coupons = (db.coupons || []).map((item) => normalizeResource("coupons", item));
   db.campaigns = (db.campaigns || []).map((item) => normalizeResource("campaigns", item));
+  db.memberLevels = db.memberLevels || [];
+  db.memberBenefits = db.memberBenefits || [];
+  db.memberPrices = db.memberPrices || [];
+  db.memberUsers = db.memberUsers || [];
   return db;
 }
 
@@ -77,7 +81,11 @@ const resourceLabels = {
   campaigns: "活动投放",
   orders: "订单",
   stores: "门店",
-  accounts: "账号"
+  accounts: "账号",
+  memberLevels: "会员等级",
+  memberBenefits: "会员权益",
+  memberPrices: "会员价",
+  memberUsers: "会员用户"
 };
 
 function publicCampaigns(db) {
@@ -189,6 +197,10 @@ async function handler(req, res) {
         promotions: db.promotions,
         coupons: db.coupons || [],
         campaigns: db.campaigns || [],
+        memberLevels: db.memberLevels || [],
+        memberBenefits: db.memberBenefits || [],
+        memberPrices: db.memberPrices || [],
+        memberUsers: db.memberUsers || [],
         orders: db.orders,
         accounts: db.accounts,
         logs: db.logs
@@ -209,6 +221,15 @@ async function handler(req, res) {
     }
     if (url.pathname === "/api/public/campaigns") return send(res, 200, publicCampaigns(db));
     if (url.pathname === "/api/public/coupons") return send(res, 200, (db.coupons || []).filter((item) => item.status === "启用"));
+    if (url.pathname === "/api/public/membership") {
+      return send(res, 200, {
+        levels: db.memberLevels || [],
+        benefits: (db.memberBenefits || []).filter((item) => item.status !== "停用"),
+        prices: (db.memberPrices || []).filter((item) => item.status !== "停用"),
+        coupons: (db.coupons || []).filter((item) => item.status === "启用" && item.forMember),
+        user: (db.memberUsers || [])[0] || null
+      });
+    }
     if (url.pathname === "/api/public/categories") return send(res, 200, db.categories);
     if (url.pathname === "/api/public/orders" && req.method === "POST") {
       const body = await readBody(req);
@@ -249,6 +270,10 @@ async function handler(req, res) {
     if (parts[0] === "api" && parts[1] === "orders") return routeResource(db, "orders", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "stores") return routeResource(db, "stores", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "accounts") return routeResource(db, "accounts", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "member-levels") return routeResource(db, "memberLevels", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "member-benefits") return routeResource(db, "memberBenefits", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "member-prices") return routeResource(db, "memberPrices", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "member-users") return routeResource(db, "memberUsers", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "logs") return send(res, 200, db.logs);
     return send(res, 404, { message: "Not found" });
   } catch (error) {

@@ -107,7 +107,8 @@ App({
     ],
     coupons: [
       { id: "coupon-full-79", coupon_id: "100001", name: "满79减10", type: "通用券", amount: 10, threshold: 79, status: "启用" },
-      { id: "coupon-full-99", coupon_id: "100002", name: "满99减15", type: "通用券", amount: 15, threshold: 99, status: "启用" }
+      { id: "coupon-full-99", coupon_id: "100002", name: "满99减15", type: "通用券", amount: 15, threshold: 99, status: "启用" },
+      { id: "coupon-member-49", coupon_id: "100101", name: "会员专享满49减5", type: "通用券", amount: 5, threshold: 49, status: "启用", forMember: true }
     ],
     campaigns: [
       { id: "campaign-home-banner", activity_id: "200001", name: "首页主Banner", position: "首页主Banner", coupon_id: "100001", couponId: "100001", status: "进行中", title: "今晚吃喝用，一次配齐", subtitle: "生鲜酒水员工自配送 · 缺货先确认再处理", sort: 1 },
@@ -133,7 +134,49 @@ App({
         items: "上海青、鸡蛋、调味料等 5 件",
         timeline: ["模拟支付成功", "等待员工接单"]
       }
-    ]
+    ],
+    memberLevels: [
+      { id: "level-silver", name: "银卡会员", threshold: 0, growthRule: "每消费1元累计1成长值", status: "启用" },
+      { id: "level-gold", name: "金卡会员", threshold: 1000, growthRule: "每消费1元累计1成长值，酒水订单额外+20%", status: "启用" },
+      { id: "level-black", name: "黑金会员", threshold: 3000, growthRule: "每消费1元累计1.2成长值，生鲜酒水加速成长", status: "启用" }
+    ],
+    memberBenefits: [
+      { id: "benefit-member-coupon", name: "每月会员券", type: "会员券", levelId: "level-silver", content: "每月发放满49减5会员券", status: "启用" },
+      { id: "benefit-member-price", name: "会员专享价", type: "会员价", levelId: "level-gold", content: "指定商品展示会员价", status: "启用" },
+      { id: "benefit-priority-delivery", name: "缺货优先确认", type: "履约权益", levelId: "level-black", content: "缺货订单优先人工确认处理", status: "启用" }
+    ],
+    memberPrices: [
+      { id: "member-price-beer", productId: "beer-qingdao", levelId: "level-gold", memberPrice: 4.9, status: "启用" },
+      { id: "member-price-milk", productId: "milk-fresh", levelId: "level-gold", memberPrice: 12.8, status: "启用" }
+    ],
+    memberUser: { id: "member-zero", name: "ZeroWesley", levelId: "level-gold", growth: 1680, registeredAt: "2026-06-21", status: "有效" }
+  },
+
+  activeMemberLevel() {
+    return this.globalData.memberLevels.find((item) => item.id === this.globalData.memberUser.levelId) || this.globalData.memberLevels[0];
+  },
+
+  canUseMemberPrice(priceRule) {
+    const level = this.activeMemberLevel();
+    const ruleLevel = this.globalData.memberLevels.find((item) => item.id === priceRule.levelId);
+    return Number(level?.threshold || 0) >= Number(ruleLevel?.threshold || 0);
+  },
+
+  applyMembershipPrices() {
+    const prices = this.globalData.memberPrices || [];
+    this.globalData.products = this.globalData.products.map((product) => {
+      const rule = prices.find((item) => item.productId === product.id && item.status !== "停用" && this.canUseMemberPrice(item));
+      return {
+        ...product,
+        displayPrice: rule ? rule.memberPrice : product.price,
+        memberPrice: rule ? rule.memberPrice : null,
+        memberLevelName: rule ? this.activeMemberLevel().name : ""
+      };
+    });
+  },
+
+  onLaunch() {
+    this.applyMembershipPrices();
   },
 
   loadRemoteData() {
@@ -145,6 +188,11 @@ App({
         this.globalData.coupons = data.coupons || this.globalData.coupons;
         this.globalData.campaigns = data.campaigns || this.globalData.campaigns;
         this.globalData.orders = data.orders || this.globalData.orders;
+        this.globalData.memberLevels = data.memberLevels || this.globalData.memberLevels;
+        this.globalData.memberBenefits = data.memberBenefits || this.globalData.memberBenefits;
+        this.globalData.memberPrices = data.memberPrices || this.globalData.memberPrices;
+        this.globalData.memberUser = (data.memberUsers && data.memberUsers[0]) || this.globalData.memberUser;
+        this.applyMembershipPrices();
         return data;
       })
       .catch(() => null);

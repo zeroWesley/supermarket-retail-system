@@ -6,13 +6,15 @@
   <view class="detail">
     <view class="detail-tag">{{product.tag}}</view>
     <view class="price-row">
-      <text class="price">¥{{product.price}}</text>
+      <text class="price">¥{{product.displayPrice || product.price}}</text>
+      <text wx:if="{{product.memberPrice}}" class="member-badge">会员价</text>
       <text wx:if="{{product.oldPrice}}" class="old-price">¥{{product.oldPrice}}</text>
     </view>
     <view class="title">{{product.name}}</view>
     <view class="muted">{{product.desc}}</view>
     <view class="promise-row">
       <view><text>活动可用</text><text>{{product.tag}}</text></view>
+      <view wx:if="{{product.memberPrice}}"><text>会员权益</text><text>{{product.memberLevelName}}专享</text></view>
       <view><text>预计送达</text><text>{{store.eta}}</text></view>
       <view><text>售后保障</text><text>缺货可退</text></view>
     </view>

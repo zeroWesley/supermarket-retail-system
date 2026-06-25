@@ -41,6 +41,48 @@
   font-size: 24rpx;
 }
 
+.member-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  align-items: flex-end;
+  padding: 28rpx 26rpx;
+  border-radius: 28rpx;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(217, 247, 173, .22), transparent 32%),
+    linear-gradient(135deg, #080c10, #111827 58%, #0b3a2b);
+  color: #ffffff;
+  box-shadow: 0 16rpx 38rpx rgba(17, 24, 39, .18);
+}
+
+.member-kicker {
+  color: #d9f7ad;
+  font-size: 23rpx;
+  font-weight: 900;
+}
+
+.member-level {
+  margin-top: 8rpx;
+  font-size: 40rpx;
+  font-weight: 900;
+}
+
+.member-meta {
+  margin-top: 8rpx;
+  color: rgba(255, 255, 255, .72);
+  font-size: 23rpx;
+}
+
+.member-entry {
+  padding: 11rpx 18rpx;
+  border-radius: 999rpx;
+  background: #d9f7ad;
+  color: #111827;
+  font-size: 23rpx;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .coupon-row,
 .section-card {
   margin: 20rpx 24rpx;

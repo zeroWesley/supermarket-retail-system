@@ -828,6 +828,7 @@
         <button class="nav-btn mini-nav" data-page="detail">商品详情</button>
         <button class="nav-btn mini-nav" data-page="cart">购物车/结算</button>
         <button class="nav-btn mini-nav" data-page="orders">订单</button>
+        <button class="nav-btn mini-nav" data-page="member">会员中心</button>
         <button class="nav-btn mini-nav" data-page="profile">我的</button>
       </div>
 
@@ -854,6 +855,7 @@
         <button class="nav-btn admin-nav" data-admin="goods">商品管理</button>
         <button class="nav-btn admin-nav" data-admin="coupons">优惠券配置</button>
         <button class="nav-btn admin-nav" data-admin="campaigns">活动配置</button>
+        <button class="nav-btn admin-nav" data-admin="membership">会员体系</button>
         <button class="nav-btn admin-nav" data-admin="admin-orders">订单管理</button>
         <button class="nav-btn admin-nav" data-admin="stores">门店配置</button>
       </div>
@@ -1051,9 +1053,24 @@
                 <h2 style="margin:0 0 6px;">ZeroWesley ›</h2>
                 <div>Zero便利超市 · 城南店常购用户</div>
               </div>
+              <div class="profile-card" style="background:linear-gradient(135deg,#080c10,#111827 58%,#0b3a2b);color:#fff;">
+                <b>金卡会员</b><div class="meta" style="color:rgba(255,255,255,.72);">成长值 1680 · 距黑金会员还差1320</div>
+              </div>
               <div class="profile-card"><b>我的优惠券</b><div class="meta">7张券可用 · 满减、商品券、新人券</div></div>
               <div class="profile-card"><b>我的订单</b><div class="meta">待支付、待收货、评价、售后/退款</div></div>
               <div class="profile-card"><b>常用服务</b><div class="meta">地址管理、客服帮助、发票说明、商品鉴别、合作咨询</div></div>
+            </div>
+
+            <div class="mini-page" id="member">
+              <div class="profile-hero" style="background:linear-gradient(135deg,#080c10,#111827 58%,#0b3a2b);">
+                <h2 style="margin:0 0 6px;color:#d9f7ad;">金卡会员</h2>
+                <div>ZeroWesley · 成长值 1680</div>
+                <div class="progress" style="margin-top:14px;"><div class="bar" style="width:56%;background:linear-gradient(90deg,#d9f7ad,#13c978);"></div></div>
+                <div style="margin-top:8px;color:rgba(255,255,255,.72);">每消费1元累计1成长值，酒水订单额外+20%</div>
+              </div>
+              <div class="profile-card"><b>会员权益</b><div class="meta">每月会员券、会员专享价、缺货优先确认</div></div>
+              <div class="profile-card"><b>会员券</b><div class="meta">100101 ｜ 会员专享满49减5</div></div>
+              <div class="profile-card"><b>会员价商品</b><div class="meta">青岛啤酒 ¥4.90、鲜牛奶 ¥12.80</div></div>
             </div>
 
             <div class="mini-page staff-only" id="staff-home">
@@ -1221,6 +1238,7 @@
             <button class="admin-menu operate-only" data-admin="goods">商品管理</button>
             <button class="admin-menu operate-only" data-admin="coupons">优惠券配置</button>
             <button class="admin-menu operate-only" data-admin="campaigns">活动配置</button>
+            <button class="admin-menu operate-only" data-admin="membership">会员体系</button>
             <button class="admin-menu operate-only" data-admin="admin-orders">订单管理</button>
             <button class="admin-menu operate-only" data-admin="stores">门店配置</button>
           </aside>
@@ -1342,6 +1360,27 @@
               </div>
             </div>
 
+            <div class="admin-page" id="membership">
+              <div class="panel">
+                <div class="panel-head"><h3>会员等级配置</h3><button class="small-primary">新增等级</button></div>
+                <table>
+                  <tr><th>等级</th><th>成长值门槛</th><th>累计规则</th><th>状态</th></tr>
+                  <tr><td>银卡会员</td><td>0</td><td>每消费1元累计1成长值</td><td><span class="tag">启用</span></td></tr>
+                  <tr><td>金卡会员</td><td>1000</td><td>酒水订单额外+20%</td><td><span class="tag">启用</span></td></tr>
+                  <tr><td>黑金会员</td><td>3000</td><td>每消费1元累计1.2成长值</td><td><span class="tag">启用</span></td></tr>
+                </table>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>权益与会员价</h3><button class="small-primary">新增权益</button></div>
+                <table>
+                  <tr><th>类型</th><th>配置</th><th>适用等级</th><th>说明</th></tr>
+                  <tr><td>会员券</td><td>100101｜满49减5</td><td>银卡及以上</td><td>每月可领</td></tr>
+                  <tr><td>会员价</td><td>青岛啤酒 ¥4.90</td><td>金卡及以上</td><td>C端商品卡展示</td></tr>
+                  <tr><td>履约权益</td><td>缺货优先确认</td><td>黑金会员</td><td>人工处理优先</td></tr>
+                </table>
+              </div>
+            </div>
+
             <div class="admin-page" id="admin-orders">
               <div class="panel">
                 <div class="panel-head"><h3>订单管理</h3><button class="small-primary">导出模拟数据</button></div>
@@ -1416,6 +1455,7 @@
         goods: '商品管理',
         coupons: '优惠券配置',
         campaigns: '活动配置',
+        membership: '会员体系',
         'admin-orders': '订单管理',
         stores: '门店配置'
       };
@@ -1431,7 +1471,7 @@
         app: ['C端用户小程序', '面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和优惠券入口。'],
         staff: ['员工端小程序', '面向门店员工，覆盖商品入库、接单、拣货出库、配送地图、确认送达和历史配送查询。'],
         manage: ['网页管理端', '面向系统管理员，聚焦账号添加删除、角色配置、菜单权限分配和操作日志。'],
-        operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、优惠券配置、活动投放、订单和门店配置。']
+        operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、优惠券配置、活动投放、会员体系、订单和门店配置。']
       };
       title.textContent = copy[mode][0];
       subtitle.textContent = copy[mode][1];

@@ -66,7 +66,8 @@
         <view class="muted">{{item.desc}}</view>
         <view class="product-bottom">
           <view>
-            <view class="price">¥{{item.price}}</view>
+            <view wx:if="{{item.memberPrice}}" class="member-price">会员价 ¥{{item.memberPrice}}</view>
+            <view class="{{item.memberPrice ? 'old-product-price' : 'price'}}">¥{{item.price}}</view>
             <view class="muted">库存 {{item.stock}} · 现拣现送</view>
           </view>
           <view class="add" catchtap="addCart" data-id="{{item.id}}">+</view>

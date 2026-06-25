@@ -7,6 +7,14 @@
         <view class="desc">Zero便利超市 · 城南店常购用户</view>
       </view>
     </view>
+    <view class="member-card" bindtap="goMember">
+      <view>
+        <view class="member-kicker">注册会员</view>
+        <view class="member-level">{{member.current.name}}</view>
+        <view class="member-meta">成长值 {{member.user.growth}} · {{member.progressText}}</view>
+      </view>
+      <view class="member-entry">查看权益 ›</view>
+    </view>
   </view>
 
   <view class="coupon-row">

@@ -23,6 +23,7 @@ http://127.0.0.1:8787
 - `GET /api/public/categories`
 - `GET /api/public/coupons`
 - `GET /api/public/campaigns`
+- `GET /api/public/membership`
 - `GET /api/public/orders`
 - `POST /api/public/orders`
 - `GET/POST/PATCH/DELETE /api/products`
@@ -31,6 +32,10 @@ http://127.0.0.1:8787
 - `GET/POST/PATCH/DELETE /api/orders`
 - `GET/POST/PATCH/DELETE /api/stores`
 - `GET/POST/PATCH/DELETE /api/accounts`
+- `GET/POST/PATCH/DELETE /api/member-levels`
+- `GET/POST/PATCH/DELETE /api/member-benefits`
+- `GET/POST/PATCH/DELETE /api/member-prices`
+- `GET/POST/PATCH/DELETE /api/member-users`
 
 `/api/promotions` 仍保留为旧原型兼容接口，新版本营销后台以 `coupons` 和 `campaigns` 为主。
 
@@ -46,7 +51,7 @@ http://127.0.0.1:8787
 curl -X POST http://127.0.0.1:8787/api/reset
 ```
 
-当前 `seed.json` 包含多门店、商品、生鲜酒水、库存预警、优惠券配置、活动投放、订单状态和权限账号等验证数据。
+当前 `seed.json` 包含多门店、商品、生鲜酒水、库存预警、优惠券配置、活动投放、会员等级权益、会员价、订单状态和权限账号等验证数据。
 
 ## 测试账号
 

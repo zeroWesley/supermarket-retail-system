@@ -327,3 +327,20 @@
   font-weight: 900;
   box-shadow: 0 8rpx 16rpx rgba(0, 185, 107, 0.28);
 }
+
+.member-price {
+  display: inline-flex;
+  margin-bottom: 4rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 999rpx;
+  background: #111827;
+  color: #d9f7ad;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.old-product-price {
+  color: #9aa3af;
+  font-size: 24rpx;
+  text-decoration: line-through;
+}
