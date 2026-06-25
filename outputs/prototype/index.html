@@ -8,7 +8,8 @@
     :root {
       --brand: #13b66b;
       --brand-dark: #07854d;
-      --accent: #ff5a1f;
+      --accent: #f24822;
+      --yellow: #ffe45c;
       --ink: #18212f;
       --muted: #697386;
       --line: #e7ebf0;
@@ -169,7 +170,7 @@
     .mini-page.active { display: block; }
 
     .mini-head {
-      background: #fff;
+      background: linear-gradient(180deg, #ffe94f, #fff49c);
       padding: 12px 16px 14px;
       position: sticky;
       top: 0;
@@ -199,9 +200,7 @@
       min-height: 104px;
       border-radius: 12px;
       color: #fff;
-      background:
-        linear-gradient(135deg, rgba(10, 92, 52, .94), rgba(19, 182, 107, .88)),
-        url("assets/banner.png") center/cover;
+      background: linear-gradient(135deg, #063f30, #00b96b 58%, #9df8cc);
     }
 
     .hero strong {
@@ -218,8 +217,8 @@
     }
 
     .coupon {
-      background: var(--warn);
-      color: #a84812;
+      background: #fff2ba;
+      color: #7a5600;
       border-radius: 8px;
       padding: 8px;
       font-size: 12px;
@@ -243,8 +242,8 @@
       place-items: center;
       margin: 0 auto 6px;
       border-radius: 14px;
-      background: #fff;
-      color: var(--brand);
+      background: linear-gradient(135deg, #fff4ac, #ffffff 62%);
+      color: #111827;
       font-weight: 800;
       box-shadow: 0 4px 12px rgba(28, 39, 57, .06);
     }
@@ -277,10 +276,10 @@
       min-height: 82px;
       border-radius: 12px;
       padding: 12px;
-      background: linear-gradient(135deg, #fff7eb, #ffffff);
-      border: 1px solid #ffe1bd;
+      background: linear-gradient(135deg, #fff9df, #ffffff);
+      border: 1px solid #ffe27a;
       font-size: 13px;
-      color: #8a3c13;
+      color: #8a6500;
     }
 
     .scene-card b {
@@ -351,10 +350,11 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: var(--brand);
-      color: #fff;
+      background: var(--yellow);
+      color: #111827;
       font-size: 20px;
       line-height: 1;
+      font-weight: 900;
     }
 
     .tabbar {
@@ -366,7 +366,7 @@
       background: #fff;
       border-top: 1px solid var(--line);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       align-items: center;
       text-align: center;
       font-size: 12px;
@@ -378,7 +378,7 @@
       color: #6b7280;
     }
 
-    .tabbar button.active { color: var(--brand); font-weight: 800; }
+    .tabbar button.active { color: #111827; font-weight: 900; }
 
     .category-layout {
       display: grid;
@@ -400,9 +400,9 @@
     }
 
     .cat-menu button.active {
-      background: #f2fbf6;
-      color: var(--brand-dark);
-      border-left-color: var(--brand);
+      background: #fff;
+      color: #111827;
+      border-left-color: var(--yellow);
       font-weight: 800;
     }
 
@@ -482,7 +482,7 @@
     }
 
     .ghost-btn { background: #eef2f6; color: var(--ink); }
-    .primary-btn { background: var(--brand); color: #fff; }
+    .primary-btn { background: var(--yellow); color: #111827; }
 
     .cart-item, .order-card, .profile-card {
       background: #fff;
@@ -842,7 +842,7 @@
   <div class="shell">
     <aside class="side">
       <h1>超市零售系统<br>交互原型</h1>
-      <p>参考需求 PDF，先聚焦 C端小程序与网页后台。支付、财务与上线审核均按演示版处理。</p>
+      <p>当前版本覆盖 C端购物、员工履约、运营配置、管理权限和数据同步。支付、财务与上线审核均按演示版处理。</p>
 
       <div class="nav-group">
         <div class="nav-title">原型模块</div>
@@ -855,7 +855,7 @@
       <div class="nav-group app-only">
         <div class="nav-title">C端页面</div>
         <button class="nav-btn active mini-nav" data-page="home">首页</button>
-        <button class="nav-btn mini-nav" data-page="category">分类/搜索</button>
+        <button class="nav-btn mini-nav" data-page="category">酒单/搜索</button>
         <button class="nav-btn mini-nav" data-page="detail">商品详情</button>
         <button class="nav-btn mini-nav" data-page="cart">购物车/结算</button>
         <button class="nav-btn mini-nav" data-page="orders">订单</button>
@@ -869,6 +869,7 @@
         <button class="nav-btn mini-nav" data-page="staff-pick">拣货核验</button>
         <button class="nav-btn mini-nav" data-page="staff-stock">扫码出入库</button>
         <button class="nav-btn mini-nav" data-page="staff-delivery">配送任务</button>
+        <button class="nav-btn mini-nav" data-page="staff-history">历史配送</button>
       </div>
 
       <div class="nav-group manage-only">
@@ -882,8 +883,8 @@
         <div class="nav-title">运营端页面</div>
         <button class="nav-btn active admin-nav" data-admin="dash">经营概览</button>
         <button class="nav-btn admin-nav" data-admin="goods">商品管理</button>
-        <button class="nav-btn admin-nav" data-admin="stock">库存管理</button>
-        <button class="nav-btn admin-nav" data-admin="promo">营销活动</button>
+        <button class="nav-btn admin-nav" data-admin="coupons">优惠券配置</button>
+        <button class="nav-btn admin-nav" data-admin="campaigns">活动配置</button>
         <button class="nav-btn admin-nav" data-admin="admin-orders">订单管理</button>
         <button class="nav-btn admin-nav" data-admin="stores">门店配置</button>
       </div>
@@ -893,7 +894,7 @@
       <div class="topbar">
         <div>
           <h2 id="title">C端用户小程序</h2>
-          <p id="subtitle">面向消费者，采用类似即时零售小程序的信息层级：门店、搜索、优惠、分类、商品卡片、悬浮结算。</p>
+          <p id="subtitle">面向消费者，采用黄黑促销零售风格：门店、搜索、优惠券、酒单分类、商品加购、购物车和会员中心。</p>
         </div>
         <div class="pill">MVP 演示版 · 单超市多门店 · 自配送</div>
       </div>
@@ -905,35 +906,35 @@
 
             <div class="mini-page active" id="home">
               <div class="mini-head">
-                <div class="store-line"><span>绿洲超市 · 城南店 ▾</span><span>约 32 分钟达</span></div>
-                <div class="search">搜索 酒水、生鲜、牛奶、零食</div>
+                <div class="store-line"><span>Zero便利超市 · 城南店 ▾</span><span>约 32 分钟达</span></div>
+                <div class="search">搜索啤酒、水果、牛奶、今日特价</div>
               </div>
-              <div class="hero"><strong>今晚聚餐不用等</strong>满 79 减 10 · 生鲜酒水员工自配送</div>
+              <div class="hero"><strong>今晚吃喝用，一次配齐</strong>生鲜酒水员工自配送 · 缺货先确认再处理</div>
               <div class="service-strip">
-                <div>约32分钟达</div>
-                <div>门店现拣现送</div>
-                <div>缺货极速处理</div>
+                <div>平均32分钟达</div>
+                <div>门店自营</div>
+                <div>缺货确认</div>
               </div>
               <div class="coupon-row">
-                <div class="coupon">新人券 ¥12</div>
+                <div class="coupon">满79减10</div>
                 <div class="coupon">满99减15</div>
-                <div class="coupon">酒水特价</div>
+                <div class="coupon">酒水夜间特价</div>
               </div>
               <div class="scene-row">
-                <div class="scene-card"><b>今晚小酌</b>啤酒、卤味、冰杯一站配齐</div>
-                <div class="scene-card"><b>下班补货</b>牛奶水果日用品即时送</div>
+                <div class="scene-card"><b>限时抢购</b>整箱酒水、零食组合限时省</div>
+                <div class="scene-card"><b>买手推荐</b>常购好物和生鲜冷藏即时送</div>
               </div>
               <div class="quick-grid">
+                <div><div class="quick-icon">啤</div>畅饮啤酒</div>
+                <div><div class="quick-icon">酿</div>精酿啤酒</div>
+                <div><div class="quick-icon">白</div>经典白酒</div>
+                <div><div class="quick-icon">洋</div>洋酒烈酒</div>
                 <div><div class="quick-icon">鲜</div>水果生鲜</div>
-                <div><div class="quick-icon">酒</div>酒水饮料</div>
                 <div><div class="quick-icon">乳</div>牛奶冷藏</div>
-                <div><div class="quick-icon">折</div>今日特价</div>
-                <div><div class="quick-icon">菜</div>粮油调味</div>
-                <div><div class="quick-icon">零</div>休闲零食</div>
-                <div><div class="quick-icon">家</div>日用百货</div>
+                <div><div class="quick-icon">零</div>下酒零食</div>
                 <div><div class="quick-icon">券</div>领券中心</div>
               </div>
-              <div class="section-title">今日推荐 <span>后台活动自动展示</span></div>
+              <div class="section-title">为你推荐 <span>后台商品与活动同步展示</span></div>
               <div class="product-grid">
                 <article class="product-card">
                   <img src="assets/apple.png" alt="苹果">
@@ -972,12 +973,17 @@
 
             <div class="mini-page" id="category">
               <div class="mini-head">
-                <div class="store-line"><span>商品分类</span><span>城南店</span></div>
+                <div class="store-line"><span>酒单</span><span>7张优惠券 ›</span></div>
                 <div class="search">搜索商品名称/条码</div>
+              </div>
+              <div class="service-strip">
+                <div>平均15分钟达</div>
+                <div>门店自营</div>
+                <div>100%真品</div>
               </div>
               <div class="category-layout">
                 <div class="cat-menu">
-                  <button class="active">热销</button><button>生鲜</button><button>酒水</button><button>乳品</button><button>零食</button><button>日百</button>
+                  <button class="active">热销</button><button>水果生鲜</button><button>酒水饮料</button><button>牛奶冷藏</button><button>休闲零食</button><button>日用百货</button>
                 </div>
                 <div>
                   <div class="list-card">
@@ -1021,8 +1027,8 @@
 
             <div class="mini-page" id="cart">
               <div class="mini-head">
-                <div class="store-line"><span>购物车</span><span>已选 3 件</span></div>
-                <div class="search">满 79 减 10，当前还差 ¥18.80</div>
+                <div class="store-line"><span>购物车</span><span>共7张券可用 ›</span></div>
+                <div class="search">通用｜满79减10｜6天后到期</div>
               </div>
               <div class="cart-item">
                 <img src="assets/beer.png" alt="啤酒">
@@ -1043,6 +1049,7 @@
               </div>
               <div class="form-block">
                 <div class="form-row"><b>优惠券</b><span>满79减10，暂未满足</span></div>
+                <div class="form-row"><b>省钱卡</b><span>开卡立享每月 ¥70 神券包</span></div>
                 <div class="form-row"><b>配送费</b><span>¥3.00，满99免配送费</span></div>
                 <div class="form-row"><b>订单备注</b><span>啤酒要冰的，水果挑硬一点</span></div>
                 <div class="form-row"><b>支付方式</b><span>模拟微信支付</span></div>
@@ -1077,16 +1084,16 @@
 
             <div class="mini-page" id="profile">
               <div class="profile-hero">
-                <h2 style="margin:0 0 6px;">李先生</h2>
-                <div>会员等级 普通会员 · 城南店常购用户</div>
+                <h2 style="margin:0 0 6px;">ZeroWesley ›</h2>
+                <div>金牌会员 · 便利值 620/40000</div>
               </div>
               <div class="profile-card profile-grid">
-                <div><b>2</b><br>待收货</div><div><b>1</b><br>售后</div><div><b>3</b><br>优惠券</div><div><b>5</b><br>地址</div>
+                <div><b>券</b><br>会员券</div><div><b>礼</b><br>升级礼</div><div><b>抢</b><br>限时抢券</div><div><b>客</b><br>专属客服</div>
               </div>
-              <div class="profile-card"><b>地址管理</b><div class="meta">绿洲小区、万达公寓、公司地址</div></div>
-              <div class="profile-card"><b>售后入口</b><div class="meta">缺货退款、商品破损、配送异常</div></div>
-              <div class="profile-card"><b>常购清单</b><div class="meta">青岛啤酒、鲜牛奶、红富士苹果，可一键加购</div></div>
-              <div class="profile-card"><b>个人信息</b><div class="meta">昵称、手机号、授权状态</div></div>
+              <div class="profile-card"><b>我的优惠券</b><div class="meta">7张券可用 · 满减、商品券、新人券</div></div>
+              <div class="profile-card"><b>我的订单</b><div class="meta">待支付、待收货、评价、售后/退款</div></div>
+              <div class="profile-card"><b>Zero省钱卡</b><div class="meta">每月约省 ¥70，后续可接会员体系</div></div>
+              <div class="profile-card"><b>常用服务</b><div class="meta">选购指南、邀请有礼、商品鉴别、商务合作</div></div>
             </div>
 
             <div class="mini-page staff-only" id="staff-home">
@@ -1187,6 +1194,27 @@
               </div>
             </div>
 
+            <div class="mini-page staff-only" id="staff-history">
+              <div class="mini-head">
+                <div class="store-line"><span>历史配送</span><span>本周 42 单</span></div>
+                <div class="search">搜索订单号、用户、地址</div>
+              </div>
+              <div class="order-card">
+                <div class="price-line"><b>#20260620018 周女士</b><span class="tag">已完成</span></div>
+                <div class="meta">云桥花园 6 栋 · 商品 5 件 · 32分钟送达</div>
+                <div class="form-block" style="margin:12px 0 0;">
+                  <div class="form-row"><b>接单</b><span>14:02 张师傅</span></div>
+                  <div class="form-row"><b>出库</b><span>14:18 商品核验完成</span></div>
+                  <div class="form-row"><b>送达</b><span>14:34 用户确认收货</span></div>
+                </div>
+              </div>
+              <div class="order-card">
+                <div class="price-line"><b>#20260619027 李先生</b><span class="tag">已完成</span></div>
+                <div class="meta">绿洲小区 3 栋 · 酒水 2 件 · 无异常</div>
+                <div class="staff-action-row"><button class="ghost-btn">查看轨迹</button><button class="primary-btn">复制订单号</button></div>
+              </div>
+            </div>
+
             <div class="tabbar app-tabs">
               <button class="active tab-nav" data-page="home">首页</button>
               <button class="tab-nav" data-page="category">分类</button>
@@ -1198,6 +1226,7 @@
               <button class="tab-nav" data-page="staff-orders">订单</button>
               <button class="tab-nav" data-page="staff-stock">扫码</button>
               <button class="tab-nav" data-page="staff-delivery">配送</button>
+              <button class="tab-nav" data-page="staff-history">历史</button>
             </div>
           </div>
         </section>
@@ -1218,20 +1247,20 @@
             <li>工作台聚合待接单、待拣货、配送中和异常订单，适合门店员工打开后直接处理任务。</li>
             <li>订单处理支持接单/拒单，拣货页逐项核验，完成后再人工确认扣减库存。</li>
             <li>扫码出入库用于手机扫描商品条码，第一版不接扫码枪、电子秤、小票机等线下硬件。</li>
-            <li>配送任务按距离和承诺送达时间排序，员工自配送后手动确认送达。</li>
+            <li>配送任务按距离和承诺送达时间排序，员工自配送后手动确认送达，并沉淀历史配送记录。</li>
           </ul>
         </aside>
 
         <section class="admin active">
           <aside class="admin-side">
-            <div class="admin-logo">绿洲超市工作台</div>
+            <div class="admin-logo">Zero便利超市后台</div>
             <button class="active admin-menu manage-only" data-admin="accounts">账号管理</button>
             <button class="admin-menu manage-only" data-admin="permissions">菜单权限</button>
             <button class="admin-menu manage-only" data-admin="audit">操作日志</button>
             <button class="admin-menu operate-only" data-admin="dash">经营概览</button>
             <button class="admin-menu operate-only" data-admin="goods">商品管理</button>
-            <button class="admin-menu operate-only" data-admin="stock">库存管理</button>
-            <button class="admin-menu operate-only" data-admin="promo">营销活动</button>
+            <button class="admin-menu operate-only" data-admin="coupons">优惠券配置</button>
+            <button class="admin-menu operate-only" data-admin="campaigns">活动配置</button>
             <button class="admin-menu operate-only" data-admin="admin-orders">订单管理</button>
             <button class="admin-menu operate-only" data-admin="stores">门店配置</button>
           </aside>
@@ -1271,7 +1300,7 @@
               <div class="panel">
                 <div class="panel-head"><h3>权限树示意</h3></div>
                 <div class="flow">
-                  <div>系统设置</div><div>账号管理</div><div>商品库存</div><div>营销活动</div><div>订单履约</div>
+                  <div>系统设置</div><div>账号管理</div><div>商品库存</div><div>优惠券活动</div><div>订单履约</div>
                 </div>
               </div>
             </div>
@@ -1297,9 +1326,9 @@
                 <div class="metric"><small>库存预警</small><strong>18</strong></div>
               </div>
               <div class="panel">
-                <div class="panel-head"><h3>三端联动流程</h3><span class="tag">演示版</span></div>
+                <div class="panel-head"><h3>多端联动流程</h3><span class="tag">演示版</span></div>
                 <div class="flow">
-                  <div>后台配置商品/活动</div><div>C端展示并下单</div><div>员工接单拣货</div><div>人工确认扣库存</div><div>员工自配送完成</div>
+                  <div>后台配置商品/券</div><div>活动投放到C端</div><div>C端展示并下单</div><div>员工接单拣货</div><div>自配送完成</div>
                 </div>
               </div>
               <div class="panel">
@@ -1310,38 +1339,45 @@
 
             <div class="admin-page" id="goods">
               <div class="panel">
-                <div class="panel-head"><h3>商品管理</h3><button class="small-primary">新增商品</button></div>
-                <div class="tool-row"><span class="input">商品名称/条码</span><span class="input">全部分类</span><span class="input">上下架状态</span><button class="small-primary">查询</button></div>
+                <div class="panel-head"><h3>商品管理（含库存）</h3><button class="small-primary">新增商品</button></div>
+                <div class="tool-row"><span class="input">商品名称/条码</span><span class="input">全部分类</span><span class="input">库存预警</span><span class="input">上下架状态</span><button class="small-primary">查询</button></div>
                 <table>
-                  <tr><th>商品</th><th>分类</th><th>售价</th><th>门店状态</th><th>操作</th></tr>
-                  <tr><td>青岛啤酒 500ml</td><td>酒水饮料</td><td>¥5.50</td><td><span class="tag">已上架</span></td><td>编辑 · 下架 · 配活动</td></tr>
-                  <tr><td>红富士苹果 500g</td><td>水果生鲜</td><td>¥6.90</td><td><span class="tag">已上架</span></td><td>编辑 · 下架 · 配活动</td></tr>
-                  <tr><td>鲜牛奶 950ml</td><td>冷藏乳品</td><td>¥13.80</td><td><span class="tag orange">部分门店缺货</span></td><td>编辑 · 补图 · 库存</td></tr>
+                  <tr><th>商品</th><th>分类</th><th>售价</th><th>库存</th><th>状态</th><th>操作</th></tr>
+                  <tr><td>青岛啤酒 500ml</td><td>酒水饮料</td><td>¥5.50</td><td>126</td><td><span class="tag">已上架</span></td><td>编辑 · 下架 · 调库存</td></tr>
+                  <tr><td>红富士苹果 500g</td><td>水果生鲜</td><td>¥6.90</td><td>42</td><td><span class="tag">已上架</span></td><td>编辑 · 下架 · 调库存</td></tr>
+                  <tr><td>鲜牛奶 950ml</td><td>冷藏乳品</td><td>¥13.80</td><td>8</td><td><span class="tag red">库存预警</span></td><td>编辑 · 补图 · 入库</td></tr>
+                </table>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>库存变动</h3><button class="small-primary">人工修正</button></div>
+                <div class="flow">
+                  <div>员工扫码入库</div><div>订单拣货出库</div><div>人工库存修正</div><div>低库存预警</div><div>同步C端可售</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-page" id="coupons">
+              <div class="panel">
+                <div class="panel-head"><h3>优惠券配置</h3><button class="small-primary">新增优惠券</button></div>
+                <div class="tool-row"><span class="input">券ID/名称</span><span class="input">通用券/商品券</span><span class="input">启用状态</span></div>
+                <table>
+                  <tr><th>券ID</th><th>名称</th><th>类型</th><th>面额/门槛</th><th>库存</th><th>状态</th></tr>
+                  <tr><td>100001</td><td>满79减10</td><td>通用券</td><td>¥10 / ¥79</td><td>1200</td><td><span class="tag">启用</span></td></tr>
+                  <tr><td>100002</td><td>满99减15</td><td>通用券</td><td>¥15 / ¥99</td><td>860</td><td><span class="tag">启用</span></td></tr>
+                  <tr><td>100003</td><td>酒水满59减8</td><td>商品券</td><td>¥8 / ¥59</td><td>500</td><td><span class="tag orange">待启用</span></td></tr>
                 </table>
               </div>
             </div>
 
-            <div class="admin-page" id="stock">
+            <div class="admin-page" id="campaigns">
               <div class="panel">
-                <div class="panel-head"><h3>库存管理</h3><button class="small-primary">人工修正</button></div>
-                <div class="tool-row"><span class="input">选择门店：城南店</span><span class="input">库存预警</span><span class="input">出入库记录</span></div>
+                <div class="panel-head"><h3>活动配置</h3><button class="small-primary">新增投放</button></div>
+                <div class="tool-row"><span class="input">活动ID/名称</span><span class="input">投放位置</span><span class="input">绑定券ID</span><span class="input">活动状态</span></div>
                 <table>
-                  <tr><th>商品</th><th>可售库存</th><th>预警阈值</th><th>最近变动</th><th>状态</th></tr>
-                  <tr><td>青岛啤酒 500ml</td><td>126</td><td>24</td><td>员工入库 +36</td><td><span class="tag">正常</span></td></tr>
-                  <tr><td>鲜牛奶 950ml</td><td>8</td><td>12</td><td>订单扣减 -4</td><td><span class="tag red">预警</span></td></tr>
-                  <tr><td>上海青 400g</td><td>32</td><td>10</td><td>盘点修正 -2</td><td><span class="tag">正常</span></td></tr>
-                </table>
-              </div>
-            </div>
-
-            <div class="admin-page" id="promo">
-              <div class="panel">
-                <div class="panel-head"><h3>营销活动</h3><button class="small-primary">新建活动</button></div>
-                <table>
-                  <tr><th>活动</th><th>类型</th><th>时间</th><th>适用范围</th><th>状态</th></tr>
-                  <tr><td>满79减10</td><td>满减</td><td>06/21-06/30</td><td>全场可用</td><td><span class="tag">进行中</span></td></tr>
-                  <tr><td>酒水夜间特价</td><td>限时特价</td><td>18:00-23:00</td><td>酒水饮料</td><td><span class="tag">进行中</span></td></tr>
-                  <tr><td>新人优惠券</td><td>优惠券</td><td>长期</td><td>新用户</td><td><span class="tag orange">待启用</span></td></tr>
+                  <tr><th>活动ID</th><th>活动名称</th><th>投放位置</th><th>绑定券ID</th><th>时间</th><th>状态</th></tr>
+                  <tr><td>200001</td><td>首页主Banner</td><td>首页主Banner</td><td>100001</td><td>06/21-07/31</td><td><span class="tag">进行中</span></td></tr>
+                  <tr><td>200002</td><td>首页券区</td><td>首页优惠券区</td><td>100002</td><td>06/21-07/31</td><td><span class="tag">进行中</span></td></tr>
+                  <tr><td>200003</td><td>酒水夜间特价</td><td>酒单推荐位</td><td>100003</td><td>18:00-23:00</td><td><span class="tag orange">待启用</span></td></tr>
                 </table>
               </div>
             </div>
@@ -1389,7 +1425,7 @@
         <aside class="notes admin-only operate-only">
           <h3>运营端交互说明</h3>
           <ul>
-            <li>运营端作为业务数据源头，商品、库存、营销活动配置后同步到 C端和员工端。</li>
+            <li>运营端作为业务数据源头，商品库存、优惠券和活动投放配置后同步到 C端和员工端。</li>
             <li>库存允许人工确认，演示版重点展示可售库存、预警、出入库记录和人工修正。</li>
             <li>财务先弱化为订单金额与模拟退款字段，后续再补微信支付、退款、对账。</li>
             <li>多门店按单个超市自营处理，保留门店维度，暂不做多商户 SaaS。</li>
@@ -1418,8 +1454,8 @@
         audit: '操作日志',
         dash: '经营概览',
         goods: '商品管理',
-        stock: '库存管理',
-        promo: '营销活动',
+        coupons: '优惠券配置',
+        campaigns: '活动配置',
         'admin-orders': '订单管理',
         stores: '门店配置'
       };
@@ -1432,10 +1468,10 @@
       body.classList.toggle('mode-operate', mode === 'operate');
       document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item.dataset.mode === mode));
       const copy = {
-        app: ['C端用户小程序', '面向消费者，采用类似即时零售小程序的信息层级：门店、搜索、优惠、分类、商品卡片、悬浮结算。'],
-        staff: ['员工端小程序', '面向门店员工，覆盖接单、拣货核验、手机扫码出入库、员工自配送和异常上报。'],
+        app: ['C端用户小程序', '面向消费者，采用黄黑促销零售风格：门店、搜索、优惠券、酒单分类、商品加购、购物车和会员中心。'],
+        staff: ['员工端小程序', '面向门店员工，覆盖商品入库、接单、拣货出库、配送地图、确认送达和历史配送查询。'],
         manage: ['网页管理端', '面向系统管理员，聚焦账号添加删除、角色配置、菜单权限分配和操作日志。'],
-        operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、营销活动、订单和门店配置。']
+        operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、优惠券配置、活动投放、订单和门店配置。']
       };
       title.textContent = copy[mode][0];
       subtitle.textContent = copy[mode][1];
