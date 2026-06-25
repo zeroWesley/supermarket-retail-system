@@ -7,28 +7,6 @@
         <view class="desc">Zero便利超市 · 城南店常购用户</view>
       </view>
     </view>
-
-    <view class="member-card">
-      <view class="member-top">
-        <view>
-          <view class="member-title">金牌会员</view>
-          <view class="member-meta">便利值 620/40000</view>
-        </view>
-        <view class="member-center">会员中心 ›</view>
-      </view>
-      <view class="benefit-grid">
-        <view wx:for="{{memberBenefits}}" wx:key="name" class="benefit">
-          <view>{{item.icon}}</view>
-          <text>{{item.name}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <view class="save-card">
-    <text>Zero省钱卡</text>
-    <text>每月约省 ¥70</text>
-    <view>立即开卡</view>
   </view>
 
   <view class="coupon-row">
@@ -47,24 +25,6 @@
         <view>{{item.icon}}</view>
         <text>{{item.name}}</text>
       </view>
-    </view>
-  </view>
-
-  <view class="promo-grid">
-    <view>
-      <text class="promo-badge">免费领</text>
-      <text class="promo-title">免费领饮品</text>
-      <text class="promo-desc">超高中奖率</text>
-    </view>
-    <view>
-      <text class="promo-badge">省</text>
-      <text class="promo-title">省钱卡说明</text>
-      <text class="promo-desc">原付费会员焕新</text>
-    </view>
-    <view>
-      <text class="promo-badge">65</text>
-      <text class="promo-title">社群福利中心</text>
-      <text class="promo-desc">免费领65元券包</text>
     </view>
   </view>
 

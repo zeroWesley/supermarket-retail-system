@@ -266,30 +266,6 @@
       box-shadow: 0 4px 12px rgba(28, 39, 57, .05);
     }
 
-    .scene-row {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 10px;
-      margin: 0 14px 12px;
-    }
-
-    .scene-card {
-      min-height: 82px;
-      border-radius: 12px;
-      padding: 12px;
-      background: linear-gradient(135deg, #eafff3, #ffffff);
-      border: 1px solid #bfead5;
-      font-size: 13px;
-      color: var(--brand-dark);
-    }
-
-    .scene-card b {
-      display: block;
-      color: #1e293b;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
     .section-title {
       margin: 18px 14px 10px;
       display: flex;
@@ -606,14 +582,6 @@
       border-radius: 0 0 20px 20px;
     }
 
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      text-align: center;
-      font-size: 12px;
-    }
-
     .admin {
       display: none;
       background: var(--panel);
@@ -895,7 +863,7 @@
       <div class="topbar">
         <div>
           <h2 id="title">C端用户小程序</h2>
-          <p id="subtitle">面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和权益入口。</p>
+          <p id="subtitle">面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和优惠券入口。</p>
         </div>
         <div class="pill">MVP 演示版 · 单超市多门店 · 自配送</div>
       </div>
@@ -921,10 +889,6 @@
                 <div class="coupon">满99减15</div>
                 <div class="coupon">酒水夜间特价</div>
               </div>
-              <div class="scene-row">
-                <div class="scene-card"><b>限时抢购</b>整箱酒水、零食组合限时省</div>
-                <div class="scene-card"><b>买手推荐</b>常购好物和生鲜冷藏即时送</div>
-              </div>
               <div class="quick-grid">
                 <div><div class="quick-icon">啤</div>畅饮啤酒</div>
                 <div><div class="quick-icon">酿</div>精酿啤酒</div>
@@ -933,7 +897,7 @@
                 <div><div class="quick-icon">鲜</div>水果生鲜</div>
                 <div><div class="quick-icon">乳</div>牛奶冷藏</div>
                 <div><div class="quick-icon">零</div>下酒零食</div>
-                <div><div class="quick-icon">券</div>领券中心</div>
+                <div><div class="quick-icon">日</div>日用百货</div>
               </div>
               <div class="section-title">为你推荐 <span>后台商品与活动同步展示</span></div>
               <div class="product-grid">
@@ -1050,7 +1014,6 @@
               </div>
               <div class="form-block">
                 <div class="form-row"><b>优惠券</b><span>满79减10，暂未满足</span></div>
-                <div class="form-row"><b>省钱卡</b><span>开卡立享每月 ¥70 神券包</span></div>
                 <div class="form-row"><b>配送费</b><span>¥3.00，满99免配送费</span></div>
                 <div class="form-row"><b>订单备注</b><span>啤酒要冰的，水果挑硬一点</span></div>
                 <div class="form-row"><b>支付方式</b><span>模拟微信支付</span></div>
@@ -1086,15 +1049,11 @@
             <div class="mini-page" id="profile">
               <div class="profile-hero">
                 <h2 style="margin:0 0 6px;">ZeroWesley ›</h2>
-                <div>金牌会员 · 便利值 620/40000</div>
-              </div>
-              <div class="profile-card profile-grid">
-                <div><b>券</b><br>会员券</div><div><b>礼</b><br>升级礼</div><div><b>抢</b><br>限时抢券</div><div><b>客</b><br>专属客服</div>
+                <div>Zero便利超市 · 城南店常购用户</div>
               </div>
               <div class="profile-card"><b>我的优惠券</b><div class="meta">7张券可用 · 满减、商品券、新人券</div></div>
               <div class="profile-card"><b>我的订单</b><div class="meta">待支付、待收货、评价、售后/退款</div></div>
-              <div class="profile-card"><b>Zero省钱卡</b><div class="meta">每月约省 ¥70，后续可接会员体系</div></div>
-              <div class="profile-card"><b>常用服务</b><div class="meta">选购指南、邀请有礼、商品鉴别、商务合作</div></div>
+              <div class="profile-card"><b>常用服务</b><div class="meta">地址管理、客服帮助、发票说明、商品鉴别、合作咨询</div></div>
             </div>
 
             <div class="mini-page staff-only" id="staff-home">
@@ -1469,7 +1428,7 @@
       body.classList.toggle('mode-operate', mode === 'operate');
       document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item.dataset.mode === mode));
       const copy = {
-        app: ['C端用户小程序', '面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和权益入口。'],
+        app: ['C端用户小程序', '面向消费者，保持绿色品牌基调，参考送酒类小程序的紧凑卡片、胶囊按钮、分类导航和优惠券入口。'],
         staff: ['员工端小程序', '面向门店员工，覆盖商品入库、接单、拣货出库、配送地图、确认送达和历史配送查询。'],
         manage: ['网页管理端', '面向系统管理员，聚焦账号添加删除、角色配置、菜单权限分配和操作日志。'],
         operate: ['网页运营端', '面向运营/店长，聚焦经营数据、商品库存、优惠券配置、活动投放、订单和门店配置。']

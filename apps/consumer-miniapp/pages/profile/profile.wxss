@@ -41,92 +41,12 @@
   font-size: 24rpx;
 }
 
-.member-card {
-  padding: 28rpx 26rpx;
-  border-radius: 26rpx;
-  background: linear-gradient(135deg, #083d2c, #13b66b 58%, #a9f5ce);
-  color: #ffffff;
-  box-shadow: 0 16rpx 36rpx rgba(0, 185, 107, 0.16);
-}
-
-.member-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.member-title {
-  font-size: 38rpx;
-  font-weight: 900;
-}
-
-.member-meta {
-  margin-top: 8rpx;
-  color: rgba(255, 255, 255, 0.76);
-  font-size: 25rpx;
-}
-
-.member-center {
-  padding: 12rpx 18rpx;
-  border-radius: 18rpx;
-  background: #ffffff;
-  color: #07834c;
-  font-size: 24rpx;
-  font-weight: 900;
-}
-
-.benefit-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10rpx;
-  margin-top: 28rpx;
-  text-align: center;
-}
-
-.benefit view {
-  width: 68rpx;
-  height: 68rpx;
-  line-height: 68rpx;
-  margin: 0 auto 8rpx;
-  border-radius: 18rpx;
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-  font-weight: 900;
-}
-
-.benefit text {
-  color: #ffffff;
-  font-size: 22rpx;
-}
-
-.save-card,
 .coupon-row,
-.section-card,
-.promo-grid {
+.section-card {
   margin: 20rpx 24rpx;
   border-radius: 24rpx;
   background: #ffffff;
   box-shadow: 0 10rpx 28rpx rgba(17, 24, 39, 0.06);
-}
-
-.save-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr 160rpx;
-  align-items: center;
-  padding: 22rpx 24rpx;
-  background: linear-gradient(90deg, #0aa35e, #13c978);
-  color: #ffffff;
-  font-size: 26rpx;
-  font-weight: 900;
-}
-
-.save-card view {
-  height: 58rpx;
-  line-height: 58rpx;
-  border-radius: 999rpx;
-  background: #ffffff;
-  color: #07834c;
-  text-align: center;
 }
 
 .coupon-row {
@@ -207,51 +127,6 @@
 .service-item text {
   color: #171717;
   font-size: 24rpx;
-}
-
-.promo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  overflow: hidden;
-}
-
-.promo-grid view {
-  padding: 22rpx 12rpx;
-  text-align: center;
-  border-right: 1rpx solid #eef1f4;
-}
-
-.promo-grid view:last-child {
-  border-right: 0;
-}
-
-.promo-badge,
-.promo-title,
-.promo-desc {
-  display: block;
-}
-
-.promo-badge {
-  width: 72rpx;
-  margin: 0 auto 10rpx;
-  padding: 4rpx 0;
-  border-radius: 8rpx;
-  background: #13b66b;
-  color: #ffffff;
-  font-size: 20rpx;
-  font-weight: 900;
-}
-
-.promo-title {
-  color: #171717;
-  font-size: 29rpx;
-  font-weight: 900;
-}
-
-.promo-desc {
-  margin-top: 7rpx;
-  color: #8b8f98;
-  font-size: 22rpx;
 }
 
 .service-grid {

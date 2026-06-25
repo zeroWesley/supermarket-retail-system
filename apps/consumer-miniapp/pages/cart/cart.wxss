@@ -30,20 +30,12 @@
   font-weight: 900;
 }
 
-.coupon-tag,
-.save-tag {
+.coupon-tag {
   padding: 4rpx 10rpx;
   border: 1rpx solid #bfead5;
   border-radius: 8rpx;
   color: #07834c;
   font-size: 22rpx;
-}
-
-.save-tag {
-  border-color: #bfead5;
-  background: #eafaf2;
-  color: #07834c;
-  font-weight: 900;
 }
 
 .right {

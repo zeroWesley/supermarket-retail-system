@@ -17,14 +17,7 @@ Page({
       { id: "daily", icon: "急", name: "餐厅急送", note: "缺啥补啥" },
       { id: "fresh", icon: "鲜", name: "水果生鲜", note: "门店现拣" },
       { id: "milk", icon: "乳", name: "牛奶冷藏", note: "低温配送" }
-    ],
-    featureTiles: [
-      { title: "限时抢购", subtitle: "02:33:43 截止", price: "¥19.9" },
-      { title: "Zero上新", subtitle: "喝点不一样的", price: "¥3.9" },
-      { title: "买手推荐", subtitle: "甄选常购好物", price: "¥49" },
-      { title: "Zero榜单", subtitle: "万人订单推荐", price: "TOP1" }
-    ],
-    shelfTabs: ["猜你喜欢", "整箱更省", "名酒真品", "微醺酒馆"]
+    ]
   },
 
   refreshFromGlobal() {

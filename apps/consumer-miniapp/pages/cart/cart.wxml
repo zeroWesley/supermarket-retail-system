@@ -5,12 +5,6 @@
       <text class="coupon-tag">通用｜满79减10｜6天后到期</text>
       <text class="right">共{{recommendations.length + 3}}张可用 ›</text>
     </view>
-    <view class="coupon-line">
-      <text class="label">省钱卡</text>
-      <text class="save-tag">省钱卡</text>
-      <text>开卡立享每月 ¥70 神券包</text>
-      <text class="right">›</text>
-    </view>
   </view>
 
   <view wx:if="{{isEmpty}}" class="empty-card">

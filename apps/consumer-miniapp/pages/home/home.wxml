@@ -49,18 +49,6 @@
     </view>
   </view>
 
-  <view class="feature-row">
-    <view wx:for="{{featureTiles}}" wx:key="title" class="feature-card" bindtap="goCategory" data-id="hot">
-      <view class="feature-title">{{item.title}}</view>
-      <view class="feature-subtitle">{{item.subtitle}}</view>
-      <view class="feature-price">{{item.price}}</view>
-    </view>
-  </view>
-
-  <view class="shelf-tabs">
-    <view wx:for="{{shelfTabs}}" wx:key="*this" class="{{index === 0 ? 'active' : ''}}">{{item}}</view>
-  </view>
-
   <view class="section-title">
     <text>为你推荐</text>
     <text class="muted">后台商品与活动同步展示</text>
@@ -85,11 +73,5 @@
         </view>
       </view>
     </view>
-  </view>
-
-  <view class="coupon-dock">
-    <text class="dock-badge">惠</text>
-    <text>无门槛减5优惠券待使用</text>
-    <view bindtap="openCoupon">查看优惠</view>
   </view>
 </view>
