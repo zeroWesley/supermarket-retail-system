@@ -34,6 +34,7 @@ http://127.0.0.1:8787
 - `GET/POST/PATCH/DELETE /api/accounts`
 - `GET/POST/PATCH/DELETE /api/member-levels`
 - `GET/POST/PATCH/DELETE /api/member-benefits`
+- `GET/POST/PATCH/DELETE /api/member-coupon-placements`
 - `GET/POST/PATCH/DELETE /api/member-prices`
 - `GET/POST/PATCH/DELETE /api/member-users`
 
@@ -51,7 +52,7 @@ http://127.0.0.1:8787
 curl -X POST http://127.0.0.1:8787/api/reset
 ```
 
-当前 `seed.json` 包含多门店、商品、生鲜酒水、库存预警、优惠券配置、活动投放、会员等级权益、会员价、订单状态和权限账号等验证数据。
+当前 `seed.json` 包含多门店、商品、生鲜酒水、库存预警、优惠券配置、活动投放、会员等级权益、会员券投放、会员价、订单状态和权限账号等验证数据。
 
 ## 测试账号
 

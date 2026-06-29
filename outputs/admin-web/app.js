@@ -31,6 +31,9 @@ const seedData = {
     { id: "benefit-member-price", name: "会员专享价", type: "会员价", levelId: "level-gold", content: "指定商品展示会员价", status: "启用" },
     { id: "benefit-priority-delivery", name: "缺货优先确认", type: "履约权益", levelId: "level-black", content: "缺货订单优先人工确认处理", status: "启用" }
   ],
+  memberCouponPlacements: [
+    { id: "member-coupon-placement-100101", name: "金卡月度会员券", coupon_id: "100101", levelId: "level-silver", start: "2026-06-21", end: "2026-07-31", cycle: "每月可领1次", status: "启用" }
+  ],
   memberPrices: [
     { id: "member-price-beer", productId: "beer-qingdao", levelId: "level-gold", memberPrice: 4.9, status: "启用" },
     { id: "member-price-milk", productId: "milk-fresh", levelId: "level-gold", memberPrice: 12.8, status: "启用" },
@@ -273,6 +276,15 @@ function productOptions(selected = []) {
 function couponOptions(selected = "") {
   const selectedId = normalizeCouponBusinessId(selected);
   return (state.coupons || []).map((item) => {
+    const couponId = couponBusinessId(item);
+    const isSelected = selected === item.id || selected === item.coupon_id || selectedId === couponId;
+    return `<option value="${couponId}" ${isSelected ? "selected" : ""}>${couponId} ｜ ${item.name}</option>`;
+  }).join("");
+}
+
+function memberCouponOptions(selected = "") {
+  const selectedId = normalizeCouponBusinessId(selected);
+  return (state.coupons || []).filter((item) => item.forMember).map((item) => {
     const couponId = couponBusinessId(item);
     const isSelected = selected === item.id || selected === item.coupon_id || selectedId === couponId;
     return `<option value="${couponId}" ${isSelected ? "selected" : ""}>${couponId} ｜ ${item.name}</option>`;
@@ -573,13 +585,13 @@ function renderCampaigns() {
 }
 
 function renderMembership() {
-  const memberCoupons = (state.coupons || []).filter((item) => item.forMember);
+  const memberCouponPlacements = state.memberCouponPlacements || [];
   return `
     <div class="metric-grid">
       <div class="metric"><span>会员等级</span><strong>${(state.memberLevels || []).length}</strong><small>注册制分级</small></div>
       <div class="metric"><span>会员权益</span><strong>${(state.memberBenefits || []).length}</strong><small>券/会员价/履约</small></div>
+      <div class="metric"><span>会员券投放</span><strong>${memberCouponPlacements.length}</strong><small>绑定会员券ID</small></div>
       <div class="metric"><span>会员价商品</span><strong>${(state.memberPrices || []).length}</strong><small>同步 C端展示</small></div>
-      <div class="metric"><span>演示会员</span><strong>${(state.memberUsers || []).length}</strong><small>成长值可视化</small></div>
     </div>
     <section class="panel">
       <div class="panel-head"><h2>会员等级配置</h2><button class="primary" data-open="memberLevel">新增等级</button></div>
@@ -600,13 +612,15 @@ function renderMembership() {
       </table>
     </section>
     <section class="panel">
-      <div class="panel-head"><h2>会员券配置</h2><button class="secondary" data-open="coupon">新增会员券</button></div>
+      <div class="panel-head"><h2>会员券投放</h2><button class="primary" data-open="memberCouponPlacement">新增投放</button></div>
       <table>
-        <thead><tr><th>券ID</th><th>券名称</th><th>面额/门槛</th><th>库存</th><th>状态</th><th>说明</th></tr></thead>
-        <tbody>${memberCoupons.map((item) => `
-          <tr><td><code class="code-id">${couponBusinessId(item)}</code></td><td>${item.name}</td><td>${money(item.amount)} / 满${item.threshold}</td><td>${item.stock}</td><td>${tag(item.status)}</td><td>${item.description || "-"}</td></tr>
-        `).join("") || `<tr><td colspan="6">暂无会员券，可通过优惠券配置新增并标记为会员券。</td></tr>`}</tbody>
+        <thead><tr><th>投放名称</th><th>绑定券ID</th><th>券名称</th><th>适用等级</th><th>投放周期</th><th>时间区间</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>${memberCouponPlacements.map((item) => {
+          const coupon = (state.coupons || []).find((entry) => couponBusinessId(entry) === normalizeCouponBusinessId(item.coupon_id));
+          return `<tr><td>${item.name}</td><td><code class="code-id">${normalizeCouponBusinessId(item.coupon_id)}</code></td><td>${coupon?.name || "-"}</td><td>${memberLevelName(item.levelId)}</td><td>${item.cycle || "-"}</td><td>${item.start} 至 ${item.end}</td><td>${tag(item.status)}</td><td class="table-actions"><button class="link-btn" data-edit-member-coupon-placement="${item.id}">编辑</button><button class="link-btn" data-toggle-member-coupon-placement="${item.id}">${item.status === "启用" ? "停用" : "启用"}</button></td></tr>`;
+        }).join("") || `<tr><td colspan="8">暂无投放，请先在优惠券配置中创建会员券，再在这里绑定券ID投放。</td></tr>`}</tbody>
       </table>
+      <p class="muted panel-note">会员券本身在“优惠券配置”创建，并将券归属设置为会员券；本页只做会员券投放和展示规则。</p>
     </section>
     <section class="panel">
       <div class="panel-head"><h2>会员价配置</h2><button class="primary" data-open="memberPrice">新增会员价</button></div>
@@ -814,6 +828,8 @@ function bindPageActions() {
   document.querySelectorAll("[data-toggle-member-level]").forEach((btn) => btn.addEventListener("click", () => toggleMemberResource("memberLevels", "member-levels", btn.dataset.toggleMemberLevel)));
   document.querySelectorAll("[data-edit-member-benefit]").forEach((btn) => btn.addEventListener("click", () => openMemberBenefitForm(btn.dataset.editMemberBenefit)));
   document.querySelectorAll("[data-toggle-member-benefit]").forEach((btn) => btn.addEventListener("click", () => toggleMemberResource("memberBenefits", "member-benefits", btn.dataset.toggleMemberBenefit)));
+  document.querySelectorAll("[data-edit-member-coupon-placement]").forEach((btn) => btn.addEventListener("click", () => openMemberCouponPlacementForm(btn.dataset.editMemberCouponPlacement)));
+  document.querySelectorAll("[data-toggle-member-coupon-placement]").forEach((btn) => btn.addEventListener("click", () => toggleMemberResource("memberCouponPlacements", "member-coupon-placements", btn.dataset.toggleMemberCouponPlacement)));
   document.querySelectorAll("[data-edit-member-price]").forEach((btn) => btn.addEventListener("click", () => openMemberPriceForm(btn.dataset.editMemberPrice)));
   document.querySelectorAll("[data-toggle-member-price]").forEach((btn) => btn.addEventListener("click", () => toggleMemberResource("memberPrices", "member-prices", btn.dataset.toggleMemberPrice)));
   document.querySelectorAll("[data-next-order]").forEach((btn) => btn.addEventListener("click", () => nextOrder(btn.dataset.nextOrder)));
@@ -834,6 +850,7 @@ function openForm(type) {
     campaign: ["新增活动投放", campaignForm()],
     memberLevel: ["新增会员等级", memberLevelForm()],
     memberBenefit: ["新增会员权益", memberBenefitForm()],
+    memberCouponPlacement: ["新增会员券投放", memberCouponPlacementForm()],
     memberPrice: ["新增会员价", memberPriceForm()],
     stock: ["人工库存修正", stockForm()],
     store: ["新增门店", storeForm()],
@@ -898,6 +915,15 @@ function openMemberBenefitForm(id) {
   modal.classList.remove("hidden");
 }
 
+function openMemberCouponPlacementForm(id) {
+  const item = (state.memberCouponPlacements || []).find((entry) => entry.id === id);
+  if (!item) return;
+  modalTitle.textContent = `编辑会员券投放：${item.name}`;
+  modalForm.innerHTML = memberCouponPlacementForm(item);
+  modalForm.dataset.type = "memberCouponPlacement";
+  modal.classList.remove("hidden");
+}
+
 function openMemberPriceForm(id) {
   const item = (state.memberPrices || []).find((entry) => entry.id === id);
   if (!item) return;
@@ -949,9 +975,9 @@ function couponForm(coupon = {}) {
       <div class="form-field"><label>使用门槛</label><input class="input" name="threshold" type="number" step="0.01" value="${coupon.threshold ?? 79}" required></div>
       <div class="form-field"><label>券库存</label><input class="input" name="stock" type="number" value="${coupon.stock ?? 100}" required></div>
       <div class="form-field"><label>状态</label><select class="select" name="status"><option ${coupon.status === "启用" ? "selected" : ""}>启用</option><option ${coupon.status === "停用" ? "selected" : ""}>停用</option></select></div>
+      <div class="form-field"><label>券归属</label><select class="select" name="couponScope"><option value="normal" ${coupon.forMember ? "" : "selected"}>普通券</option><option value="member" ${coupon.forMember ? "selected" : ""}>会员券</option></select></div>
       <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${coupon.start || "2026-06-23"}"></div>
       <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="${coupon.end || "2026-07-31"}"></div>
-      <label class="check-item form-field full"><input type="checkbox" name="forMember" ${coupon.forMember ? "checked" : ""}> 标记为会员券，用于会员中心展示和会员权益配置</label>
       <div class="form-field full"><label>券可用商品（仅商品券需要，可多选）</label><select class="select" name="usableProducts" multiple>${productOptions(coupon.usableProducts)}</select></div>
       <div class="form-field full"><label>用途说明</label><textarea class="textarea" name="description">${coupon.description || "用于C端活动投放，用户领取后可在模拟结算中展示。"}</textarea></div>
     </div>
@@ -1005,6 +1031,23 @@ function memberBenefitForm(benefit = {}) {
       <div class="form-field full"><label>权益说明</label><textarea class="textarea" name="content">${benefit.content || ""}</textarea></div>
     </div>
     <div class="panel-head" style="margin-top:18px"><button class="primary">保存权益</button></div>
+  `;
+}
+
+function memberCouponPlacementForm(placement = {}) {
+  const couponOptionsHtml = memberCouponOptions(placement.coupon_id);
+  return `
+    <div class="form-grid">
+      <input type="hidden" name="id" value="${placement.id || ""}">
+      <div class="form-field"><label>投放名称</label><input class="input" name="name" value="${placement.name || ""}" required></div>
+      <div class="form-field"><label>绑定会员券 coupon_id</label><select class="select" name="coupon_id" required>${couponOptionsHtml || "<option value=''>请先创建会员券</option>"}</select></div>
+      <div class="form-field"><label>适用会员等级</label><select class="select" name="levelId">${memberLevelOptions(placement.levelId)}</select></div>
+      <div class="form-field"><label>投放周期</label><input class="input" name="cycle" value="${placement.cycle || "每月可领1次"}" required></div>
+      <div class="form-field"><label>开始日期</label><input class="input" name="start" type="date" value="${placement.start || "2026-06-23"}"></div>
+      <div class="form-field"><label>结束日期</label><input class="input" name="end" type="date" value="${placement.end || "2026-07-31"}"></div>
+      <div class="form-field"><label>状态</label><select class="select" name="status"><option ${placement.status === "启用" ? "selected" : ""}>启用</option><option ${placement.status === "停用" ? "selected" : ""}>停用</option></select></div>
+    </div>
+    <div class="panel-head" style="margin-top:18px"><button class="primary">保存投放</button></div>
   `;
 }
 
@@ -1134,7 +1177,7 @@ async function handleSubmit(event) {
       end: data.end,
       status: data.status || "启用",
       description: data.description || "",
-      forMember: data.forMember === "on"
+      forMember: data.couponScope === "member"
     };
     if (coupon.type === "通用券") coupon.usableProducts = [];
     const index = (state.coupons || []).findIndex((item) => item.id === coupon.id);
@@ -1214,6 +1257,29 @@ async function handleSubmit(event) {
       state.memberBenefits = [benefit, ...(state.memberBenefits || [])];
       log("新增会员权益", benefit.name);
       await syncResource("member-benefits", benefit);
+    }
+  }
+  if (type === "memberCouponPlacement") {
+    const couponId = normalizeCouponBusinessId(data.coupon_id);
+    const placement = {
+      id: data.id || `member-coupon-placement-${couponId || Date.now()}`,
+      name: data.name,
+      coupon_id: couponId,
+      levelId: data.levelId,
+      cycle: data.cycle || "每月可领1次",
+      start: data.start,
+      end: data.end,
+      status: data.status || "启用"
+    };
+    const index = (state.memberCouponPlacements || []).findIndex((item) => item.id === placement.id);
+    if (index >= 0) {
+      state.memberCouponPlacements[index] = { ...state.memberCouponPlacements[index], ...placement };
+      log("编辑会员券投放", placement.name);
+      await syncResource("member-coupon-placements", state.memberCouponPlacements[index], "PATCH");
+    } else {
+      state.memberCouponPlacements = [placement, ...(state.memberCouponPlacements || [])];
+      log("新增会员券投放", placement.name);
+      await syncResource("member-coupon-placements", placement);
     }
   }
   if (type === "memberPrice") {

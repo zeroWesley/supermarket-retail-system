@@ -41,6 +41,17 @@ Page({
         product: app.globalData.products.find((product) => product.id === item.productId)
       }))
       .filter((item) => item.product);
+    const memberCoupons = (app.globalData.memberCouponPlacements || [])
+      .filter((item) => item.status !== "停用")
+      .filter((item) => {
+        const level = info.levels.find((entry) => entry.id === item.levelId);
+        return Number(level?.threshold || 0) <= levelThreshold;
+      })
+      .map((item) => ({
+        ...item,
+        coupon: (app.globalData.coupons || []).find((coupon) => String(coupon.coupon_id) === String(item.coupon_id))
+      }))
+      .filter((item) => item.coupon && item.coupon.status === "启用");
     this.setData({
       user: info.user,
       currentLevel: info.current,
@@ -48,7 +59,7 @@ Page({
       gap: info.gap,
       progress: info.progress,
       benefits,
-      memberCoupons: (app.globalData.coupons || []).filter((item) => item.forMember && item.status === "启用"),
+      memberCoupons,
       memberPrices
     });
   }

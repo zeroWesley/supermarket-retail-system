@@ -802,6 +802,12 @@
   ],
   "logs": [
     {
+      "time": "2026-06-25 20:30",
+      "account": "系统管理员",
+      "action": "新增会员券投放",
+      "detail": "金卡月度会员券绑定券ID 100101"
+    },
+    {
       "time": "15:30",
       "actor": "系统管理员",
       "action": "新增会员体系配置",
@@ -1090,6 +1096,18 @@
       "growth": 1680,
       "registeredAt": "2026-06-21",
       "status": "有效"
+    }
+  ],
+  "memberCouponPlacements": [
+    {
+      "id": "member-coupon-placement-100101",
+      "name": "金卡月度会员券",
+      "coupon_id": "100101",
+      "levelId": "level-silver",
+      "start": "2026-06-21",
+      "end": "2026-07-31",
+      "cycle": "每月可领1次",
+      "status": "启用"
     }
   ]
 }

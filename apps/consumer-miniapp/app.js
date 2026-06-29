@@ -145,6 +145,9 @@ App({
       { id: "benefit-member-price", name: "会员专享价", type: "会员价", levelId: "level-gold", content: "指定商品展示会员价", status: "启用" },
       { id: "benefit-priority-delivery", name: "缺货优先确认", type: "履约权益", levelId: "level-black", content: "缺货订单优先人工确认处理", status: "启用" }
     ],
+    memberCouponPlacements: [
+      { id: "member-coupon-placement-100101", name: "金卡月度会员券", coupon_id: "100101", levelId: "level-silver", start: "2026-06-21", end: "2026-07-31", cycle: "每月可领1次", status: "启用" }
+    ],
     memberPrices: [
       { id: "member-price-beer", productId: "beer-qingdao", levelId: "level-gold", memberPrice: 4.9, status: "启用" },
       { id: "member-price-milk", productId: "milk-fresh", levelId: "level-gold", memberPrice: 12.8, status: "启用" }
@@ -190,6 +193,7 @@ App({
         this.globalData.orders = data.orders || this.globalData.orders;
         this.globalData.memberLevels = data.memberLevels || this.globalData.memberLevels;
         this.globalData.memberBenefits = data.memberBenefits || this.globalData.memberBenefits;
+        this.globalData.memberCouponPlacements = data.memberCouponPlacements || this.globalData.memberCouponPlacements;
         this.globalData.memberPrices = data.memberPrices || this.globalData.memberPrices;
         this.globalData.memberUser = (data.memberUsers && data.memberUsers[0]) || this.globalData.memberUser;
         this.applyMembershipPrices();

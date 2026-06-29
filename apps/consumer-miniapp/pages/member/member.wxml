@@ -33,10 +33,10 @@
     <view class="section-head">会员券</view>
     <view wx:for="{{memberCoupons}}" wx:key="id" class="coupon-card">
       <view>
-        <view class="coupon-name">{{item.name}}</view>
-        <view class="muted">券ID {{item.coupon_id}} · {{item.description}}</view>
+        <view class="coupon-name">{{item.coupon.name}}</view>
+        <view class="muted">券ID {{item.coupon_id}} · {{item.cycle}} · {{item.start}} 至 {{item.end}}</view>
       </view>
-      <view class="coupon-amount">¥{{item.amount}}</view>
+      <view class="coupon-amount">¥{{item.coupon.amount}}</view>
     </view>
   </view>
 

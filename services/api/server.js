@@ -26,6 +26,7 @@ function normalizeDb(db) {
   db.campaigns = (db.campaigns || []).map((item) => normalizeResource("campaigns", item));
   db.memberLevels = db.memberLevels || [];
   db.memberBenefits = db.memberBenefits || [];
+  db.memberCouponPlacements = db.memberCouponPlacements || [];
   db.memberPrices = db.memberPrices || [];
   db.memberUsers = db.memberUsers || [];
   return db;
@@ -84,6 +85,7 @@ const resourceLabels = {
   accounts: "账号",
   memberLevels: "会员等级",
   memberBenefits: "会员权益",
+  memberCouponPlacements: "会员券投放",
   memberPrices: "会员价",
   memberUsers: "会员用户"
 };
@@ -199,6 +201,7 @@ async function handler(req, res) {
         campaigns: db.campaigns || [],
         memberLevels: db.memberLevels || [],
         memberBenefits: db.memberBenefits || [],
+        memberCouponPlacements: db.memberCouponPlacements || [],
         memberPrices: db.memberPrices || [],
         memberUsers: db.memberUsers || [],
         orders: db.orders,
@@ -225,6 +228,7 @@ async function handler(req, res) {
       return send(res, 200, {
         levels: db.memberLevels || [],
         benefits: (db.memberBenefits || []).filter((item) => item.status !== "停用"),
+        couponPlacements: (db.memberCouponPlacements || []).filter((item) => item.status !== "停用"),
         prices: (db.memberPrices || []).filter((item) => item.status !== "停用"),
         coupons: (db.coupons || []).filter((item) => item.status === "启用" && item.forMember),
         user: (db.memberUsers || [])[0] || null
@@ -272,6 +276,7 @@ async function handler(req, res) {
     if (parts[0] === "api" && parts[1] === "accounts") return routeResource(db, "accounts", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "member-levels") return routeResource(db, "memberLevels", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "member-benefits") return routeResource(db, "memberBenefits", req, res, parts[2]);
+    if (parts[0] === "api" && parts[1] === "member-coupon-placements") return routeResource(db, "memberCouponPlacements", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "member-prices") return routeResource(db, "memberPrices", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "member-users") return routeResource(db, "memberUsers", req, res, parts[2]);
     if (parts[0] === "api" && parts[1] === "logs") return send(res, 200, db.logs);
